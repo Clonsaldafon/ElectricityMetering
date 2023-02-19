@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ElectricityMetering.BL\ElectricityMetering.BL.csproj" />
+  </ItemGroup>
+
 </Project>
