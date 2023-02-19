@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ElectricityMetering.BL;
 using ElectricityMetering.BL.Model;
+using ElectricityMetering.BL.Controller;
 
 namespace ElectricityMetering.WPF
 {
@@ -27,17 +28,24 @@ namespace ElectricityMetering.WPF
             InitializeComponent();
         }
 
-        public void TestClick(object sender, RoutedEventArgs e)
+        public void ApplicationInput(object sender, RoutedEventArgs e)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            /*using(ApplicationContext db = new ApplicationContext())
             {
-                Garage testGarage1 = new Garage { Number = "1", SealNumber = "12345", SealingDate = DateOnly.Parse("18.02.2023"), CounterNumber = "54321" };
-                Garage testGarage2 = new Garage { Number = "39", SealNumber = "6789", SealingDate = DateOnly.Parse("11.04.2020"), CounterNumber = "123789" };
-                Owner testOwner = new Owner { FullName = "Anton", Balance = 0, Garages = new List<Garage> { testGarage1, testGarage2 } };
+                Role owner = new Role { Name = "Owner", Password = "0000" };
+                Role electrician = new Role { Name = "Electrician", Password = "qwerty" };
 
-                db.Garages.AddRange(testGarage1, testGarage2);
-                db.Owners.Add(testOwner);
+                db.Roles.AddRange(owner, electrician);
                 db.SaveChanges();
+            }*/
+
+            string role = RoleInput.Text;
+            string password = PasswordInput.Password;
+
+            if (ApplicationInputHandler.PasswordIsCorrect(role, password))
+            {
+                PresidentWindow presidentWindow = new PresidentWindow();
+                //Close();
             }
         }
     }
