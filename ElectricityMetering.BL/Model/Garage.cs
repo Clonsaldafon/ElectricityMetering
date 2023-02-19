@@ -13,5 +13,6 @@ namespace ElectricityMetering.BL.Model
         public string? SealNumber { get; set; }
         public string? CounterNumber { get; set; }
         public DateOnly SealingDate { get; set; }
+        public Indication? Indication { get; set; }
     }
 }
