@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ElectricityMetering.BL.Model
 {
-    public class Owner
+    public class Indication
     {
         public int Id { get; set; }
-        public string FullName { get; set; } = null!;
-        public List<Garage>? Garages { get; set; }
-        public int Balance { get; set; }
+        public int[] Indications { get; set; } = new int[36];
     }
 }
