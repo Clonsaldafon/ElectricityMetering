@@ -30,22 +30,28 @@ namespace ElectricityMetering.WPF
 
         public void ApplicationInput(object sender, RoutedEventArgs e)
         {
-            /*using(ApplicationContext db = new ApplicationContext())
+            using (ApplicationContext db = new ApplicationContext())
             {
-                Role owner = new Role { Name = "Owner", Password = "0000" };
-                Role electrician = new Role { Name = "Electrician", Password = "qwerty" };
+                Role role = new Role { Name = "President", Password = "0000"};
+            }
 
-                db.Roles.AddRange(owner, electrician);
-                db.SaveChanges();
-            }*/
-
-            string role = RoleInput.Text;
+            string roleName = RoleInput.Text;
             string password = PasswordInput.Password;
 
-            if (ApplicationInputHandler.PasswordIsCorrect(role, password))
+            if (ApplicationInputHandler.PasswordIsCorrect(roleName, password))
             {
-                PresidentWindow presidentWindow = new PresidentWindow();
-                //Close();
+                if (roleName == "President")
+                {
+                    PresidentWindow presidentWindow = new PresidentWindow();
+                    presidentWindow.Show();
+                    Close();
+                }
+                else if (roleName == "Electrician")
+                {
+                    ElectricianWindow electricianWindow = new ElectricianWindow();
+                    electricianWindow.Show();
+                    Close();
+                }
             }
         }
     }
