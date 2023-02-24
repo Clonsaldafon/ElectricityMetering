@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="PresidentWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="PresidentWindow" Height="900" Width="1680">
+    <DockPanel>
+        <TabControl Height="784" Width="1460" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0F0F0F" BorderThickness="0,0,0,0">
+            <TabItem Header="Main" BorderBrush="#FF344FB1" Background="{x:Null}"/>
+            <TabItem Header="Indications">
+
+            </TabItem>
+            <TabItem Header="Consumption">
+
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
