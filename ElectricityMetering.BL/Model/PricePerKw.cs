@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace ElectricityMetering.BL.Model
 {
-    public class BalanceRate
+    public class PricePerKw
     {
         public int Id { get; set; }
-        public double Debt { get; set; }
-        public double Advance { get; set; }
-        public double Balance { get; set; }
+        public double Price { get; set; }
+        public DateOnly Date { get; set; }
     }
 }
