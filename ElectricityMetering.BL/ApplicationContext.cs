@@ -9,6 +9,7 @@ namespace ElectricityMetering.BL
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Indication> Indications { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         public DbSet<BalanceRate> BalanceRates { get; set; }
         public DbSet<PricePerKw> PricesPerKw { get; set; }
 

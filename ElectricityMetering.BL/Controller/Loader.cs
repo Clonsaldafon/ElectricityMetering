@@ -9,16 +9,17 @@ namespace ElectricityMetering.BL.Controller
 {
     public class Loader
     {
-        public void LoadInfo(int garageId)
+        public void LoadInfo(out Garage garage, out Owner owner, out Payment payment, out PricePerKw pricePerKw, int garageId)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Garage? garage = db.Garages.FirstOrDefault(g => g.Id == garageId);
+                garage = db.Garages.FirstOrDefault(g => g.Id == garageId);
                 if (garage is not null)
                 {
-                    Owner? owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
+                    owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
+                    payment = db.Payments.FirstOrDefault(p => p.Owner == owner);
+                    pricePerKw = db.PricesPerKw.Last();
                 }
-                
             }
         }
     }
