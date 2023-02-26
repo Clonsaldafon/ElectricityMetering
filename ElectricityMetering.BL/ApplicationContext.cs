@@ -13,6 +13,7 @@ namespace ElectricityMetering.BL
 
         public ApplicationContext()
         {
+            /*Database.EnsureDeleted();*/
             Database.EnsureCreated();
         }
 
