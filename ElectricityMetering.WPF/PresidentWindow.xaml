@@ -5,8 +5,365 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="PresidentWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="PresidentWindow" Height="900" Width="1680">
+    <DockPanel>
+        <TabControl Height="784" Width="1460" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0F0F0F" BorderThickness="0,0,0,0">
+            <TabItem Header="Main" BorderBrush="#FF344FB1" Background="{x:Null}">
+                <StackPanel Orientation="Vertical" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0" Y="40"/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel Name="Header" Orientation="Horizontal">
+                        <TextBox Name="TextBoxGarageNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="GarageNumber" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
+                        <Button Name="ButtonLoadInfo" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                            <Button.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="46"/>
+                                </TransformGroup>
+                            </Button.RenderTransform> Load
+                        </Button>
+                        <Button Name="ButtonSaveInfo" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                            <Button.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="1096"/>
+                                </TransformGroup>
+                            </Button.RenderTransform> Save
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="722">
+                        <StackPanel Name="Info" Orientation="Vertical" Width="618">
+                            <StackPanel Name="Summary" RenderTransformOrigin="0.5,0.5" Height="106">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="46"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label Background="{x:Null}" Foreground="#FF0F0F0F" FontSize="36" FontWeight="Bold" FontFamily="Calibri" Padding="0,0,0,0" VerticalContentAlignment="Center">Summary</Label>
+                                <StackPanel Name="TextBoxesSummary" Orientation="Horizontal" Width="618" RenderTransformOrigin="0.5,0.5">
+                                    <StackPanel.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="26"/>
+                                        </TransformGroup>
+                                    </StackPanel.RenderTransform>
+                                    <TextBox Name="TextBoxInPresidentWindowGarageNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="GarageNumber" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
+                                    <TextBox Name="TextBoxInPresidentWindowBlockOfGarages" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="BlockOfGarages" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="46"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <TextBox Name="TextBoxInPresidentWindowOwnerFullName" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="OwnerFullName" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="92"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <TextBox Name="TextBoxInPresidentWindowBalance" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Balance" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="138"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Name="Payment" Height="106">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="92"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label Foreground="#FF0F0F0F" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" VerticalContentAlignment="Center" Padding="0,0,0,0">Payment</Label>
+                                <StackPanel Name="TextBoxesPayment" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
+                                    <StackPanel.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="26"/>
+                                        </TransformGroup>
+                                    </StackPanel.RenderTransform>
+                                    <TextBox Name="TextBoxInPresidentWindowPaymentDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="PaymentDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
+                                    <TextBox Name="TextBoxInPresidentWindowCash" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Cash" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="46"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <TextBox Name="TextBoxInPresidentWindowNonCash" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="NonCash" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="92"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <TextBox Name="TextBoxInPresidentWindowPaymentTotal" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="PaymentTotal" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="138"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Name="Remainder" RenderTransformOrigin="0.5,0.5" Height="168">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="138"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0F0F0F" VerticalContentAlignment="Center" Padding="0,0,0,0">Remainder</Label>
+                                <StackPanel Name="TextBoxesPricePerKw" Orientation="Vertical" Height="124">
+                                    <StackPanel Name="TextBoxesRemainder" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
+                                        <StackPanel.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform Y="26"/>
+                                            </TransformGroup>
+                                        </StackPanel.RenderTransform>
+                                        <Label FontFamily="Calibri" Background="{x:Null}" Foreground="#FF0F0F0F" FontWeight="Bold" Width="150" FontSize="18" VerticalContentAlignment="Center" Padding="0,0,0,0">Price per kw from</Label>
+                                        <TextBox Name="TextBoxInPresidentWindowRemainderDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="RemainderDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                            <TextBox.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform X="16"/>
+                                                </TransformGroup>
+                                            </TextBox.RenderTransform>
+                                        </TextBox>
+                                        <TextBox Name="TextBoxInPresidentWindowPricePerKw"  Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="PricePerKw" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                            <TextBox.RenderTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform/>
+                                                    <SkewTransform/>
+                                                    <RotateTransform/>
+                                                    <TranslateTransform X="62"/>
+                                                </TransformGroup>
+                                            </TextBox.RenderTransform>
+                                        </TextBox>
+                                    </StackPanel>
+                                    <TextBox Name="TextBoxInPresidentWindowRemainder" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Remainder" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform Y="52"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Name="Indications" RenderTransformOrigin="0.5,0.5" Height="106">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="184"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Padding="0,0,0,0" VerticalContentAlignment="Center">Indications</Label>
+                                <StackPanel Name="TextBoxesIndications" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
+                                    <StackPanel.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="26"/>
+                                        </TransformGroup>
+                                    </StackPanel.RenderTransform>
+                                    <TextBox Name="TextBoxInPresidentWindowCounterNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="CounterNumber" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"></TextBox>
+                                    <TextBox Name="TextBoxInPresidentWindowSealNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="SealNumber" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="46"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                    <TextBox Name="TextBoxInPresidentWindowSealDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="SealDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform X="104"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Name="Tables" Width="838">
+                            <StackPanel Name="MainTableThisYear" RenderTransformOrigin="0.5,0.5" Height="170">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="46"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="#FF344FB1" Padding="0,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right">2023</Label>
+                                <DataGrid Height="100" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                    <DataGrid.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="26"/>
+                                        </TransformGroup>
+                                    </DataGrid.RenderTransform>
+                                    <DataGrid.Columns>
+                                        <DataGridComboBoxColumn/>
+                                        <DataGridCheckBoxColumn Header="January"/>
+                                        <DataGridCheckBoxColumn Header="February"/>
+                                        <DataGridCheckBoxColumn Header="March"/>
+                                        <DataGridCheckBoxColumn Header="April"/>
+                                        <DataGridCheckBoxColumn Header="May"/>
+                                        <DataGridCheckBoxColumn Header="June"/>
+                                        <DataGridCheckBoxColumn Header="July"/>
+                                        <DataGridCheckBoxColumn Header="August"/>
+                                        <DataGridCheckBoxColumn Header="September"/>
+                                        <DataGridComboBoxColumn Header="October"/>
+                                        <DataGridComboBoxColumn Header="November"/>
+                                        <DataGridComboBoxColumn Header="December"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <StackPanel Name="MainTableOneYearAgo" RenderTransformOrigin="0.5,0.5" Height="170">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="92"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="0,0,0,0">2022</Label>
+                                <DataGrid Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
+                                    <DataGrid.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="26"/>
+                                        </TransformGroup>
+                                    </DataGrid.RenderTransform>
+                                    <DataGrid.Columns>
+                                        <DataGridComboBoxColumn/>
+                                        <DataGridCheckBoxColumn Header="January"/>
+                                        <DataGridCheckBoxColumn Header="February"/>
+                                        <DataGridCheckBoxColumn Header="March"/>
+                                        <DataGridCheckBoxColumn Header="April"/>
+                                        <DataGridCheckBoxColumn Header="May"/>
+                                        <DataGridCheckBoxColumn Header="June"/>
+                                        <DataGridCheckBoxColumn Header="July"/>
+                                        <DataGridCheckBoxColumn Header="August"/>
+                                        <DataGridCheckBoxColumn Header="September"/>
+                                        <DataGridComboBoxColumn Header="October"/>
+                                        <DataGridComboBoxColumn Header="November"/>
+                                        <DataGridComboBoxColumn Header="December"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                            <StackPanel Name="MainTableTwoYearsAgo" Height="180" RenderTransformOrigin="0.5,0.5">
+                                <StackPanel.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="138"/>
+                                    </TransformGroup>
+                                </StackPanel.RenderTransform>
+                                <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,0,10">2021</Label>
+                                <DataGrid Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
+                                    <DataGrid.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform/>
+                                            <TranslateTransform Y="26"/>
+                                        </TransformGroup>
+                                    </DataGrid.RenderTransform>
+                                    <DataGrid.Columns>
+                                        <DataGridComboBoxColumn/>
+                                        <DataGridCheckBoxColumn Header="January"/>
+                                        <DataGridCheckBoxColumn Header="February"/>
+                                        <DataGridCheckBoxColumn Header="March"/>
+                                        <DataGridCheckBoxColumn Header="April"/>
+                                        <DataGridCheckBoxColumn Header="May"/>
+                                        <DataGridCheckBoxColumn Header="June"/>
+                                        <DataGridCheckBoxColumn Header="July"/>
+                                        <DataGridCheckBoxColumn Header="August"/>
+                                        <DataGridCheckBoxColumn Header="September"/>
+                                        <DataGridComboBoxColumn Header="October"/>
+                                        <DataGridComboBoxColumn Header="November"/>
+                                        <DataGridComboBoxColumn Header="December"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Indications">
+
+            </TabItem>
+            <TabItem Header="Consumption">
+
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
 </Window>

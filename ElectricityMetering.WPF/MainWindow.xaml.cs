@@ -30,10 +30,14 @@ namespace ElectricityMetering.WPF
 
         public void ApplicationInput(object sender, RoutedEventArgs e)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            /*using (ApplicationContext db = new ApplicationContext())
             {
-                Role role = new Role { Name = "President", Password = "0000"};
-            }
+                Role president = new Role { Name = "President", Password = "0000" };
+                Role electrician = new Role { Name = "Electrician", Password = "qwerty" };
+
+                db.AddRange(president, electrician);
+                db.SaveChanges();
+            }*/
 
             string roleName = RoleInput.Text;
             string password = PasswordInput.Password;
@@ -52,6 +56,10 @@ namespace ElectricityMetering.WPF
                     electricianWindow.Show();
                     Close();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Invalid password!");
             }
         }
     }
