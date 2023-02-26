@@ -9,6 +9,7 @@ namespace ElectricityMetering.BL.Model
     public class Payment
     {
         public int Id { get; set; }
+        public DateOnly Date { get; set; }
         public double Cash { get; set; }
         public double NonCash { get; set; }
         public double Total { get; set; }

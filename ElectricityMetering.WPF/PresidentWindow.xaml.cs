@@ -46,5 +46,26 @@ namespace ElectricityMetering.WPF
                 MessageBox.Show("Invalid GarageNumber!");
             }
         }
+
+        private void FillTextBoxes()
+        {
+            TextBoxInPresidentWindowGarageNumber.Text = _garage.Number;
+            TextBoxInPresidentWindowBlockOfGarages.Text = string.Join(", ", _owner.Garages);
+            TextBoxInPresidentWindowOwnerFullName.Text = _owner.FullName;
+            TextBoxInPresidentWindowBalance.Text = _owner.Balance.ToString();
+
+            TextBoxInPresidentWindowPaymentDate.Text = _payment.Date.ToString();
+            TextBoxInPresidentWindowCash.Text = _payment.Cash.ToString();
+            TextBoxInPresidentWindowNonCash.Text = _payment.NonCash.ToString();
+            TextBoxInPresidentWindowPaymentTotal.Text = _payment.Total.ToString();
+
+            TextBoxInPresidentWindowRemainderDate.Text = _pricePerKw.Date.ToString();
+            TextBoxInPresidentWindowPricePerKw.Text = _pricePerKw.Price.ToString();
+            //TextBoxInPresidentWindowRemainder.Text = 
+
+            TextBoxInPresidentWindowCounterNumber.Text = _garage.CounterNumber;
+            TextBoxInPresidentWindowSealNumber.Text = _garage.SealNumber;
+            TextBoxInPresidentWindowSealDate.Text = _garage.SealingDate.ToString();
+        }
     }
 }
