@@ -20,7 +20,7 @@
                     </StackPanel.RenderTransform>
                     <StackPanel Name="Header" Orientation="Horizontal">
                         <TextBox Name="TextBoxGarageNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="GarageNumber" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
-                        <Button Name="ButtonLoadInfo" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                        <Button Name="ButtonLoadInfo" Click="LoadInfoByGarageNumber" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
