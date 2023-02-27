@@ -10,7 +10,7 @@ namespace ElectricityMetering.BL.Model
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;
-        public List<Garage>? Garages { get; set; }
+        public List<Garage> Garages { get; set; } = null!;
         public int Balance { get; set; }
     }
 }
