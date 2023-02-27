@@ -37,7 +37,7 @@ namespace ElectricityMetering.WPF
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
-            if(!string.IsNullOrEmpty(TgarageNumber))
+            if (_loader.CanLoadInfo(garageNumber))
             {
                 _loader.LoadInfo(_garage, _owner, _payment, _pricePerKw, garageNumber);
             }
