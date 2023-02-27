@@ -9,24 +9,22 @@ namespace ElectricityMetering.BL.Controller
 {
     public class Loader
     {
+        public bool CanLoadInfo(string garageNumber)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return !string.IsNullOrEmpty(garageNumber) && db.Garages.FirstOrDefault(g => g.Number == garageNumber) is not null;
+            }
+        }
+
         public void LoadInfo(Garage garage, Owner owner, Payment payment, PricePerKw pricePerKw, string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                if (string.IsNullOrEmpty(garageNumber))
-                {
-                    garage = db.Garages.FirstOrDefault(g => g.Number == garageNumber);
-                    if (garage is not null)
-                    {
-                        owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
-                        payment = db.Payments.FirstOrDefault(p => p.Owner == owner);
-                        pricePerKw = db.PricesPerKw.Last();
-                    }
-                }
-                else
-                {
-                    throw new ArgumentNullException("GarageNumber is null!");
-                }
+                garage = db.Garages.FirstOrDefault(g => g.Number == garageNumber);
+                owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
+                payment = db.Payments.FirstOrDefault(p => p.Owner == owner);
+                pricePerKw = db.PricesPerKw.Last();
             }
         }
     }
