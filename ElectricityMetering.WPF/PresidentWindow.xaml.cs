@@ -32,11 +32,6 @@ namespace ElectricityMetering.WPF
         public PresidentWindow()
         {
             InitializeComponent();
-
-            /*FillDataGridsColumnScheme();
-            FillDataGridRowScheme(DataGridThisYear);
-            FillDataGridRowScheme(DataGridOneYearAgo);
-            FillDataGridRowScheme(DataGridTwoYearsAgo);*/
         }
 
         private void LoadInfoByGarageNumber(object sender, RoutedEventArgs e)
@@ -97,31 +92,5 @@ namespace ElectricityMetering.WPF
 
             return string.Join(", ", garageNumbers);
         }
-
-        /*private void FillDataGridsColumnScheme()
-        {
-            string[] labels = new[] { "Table", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-
-            foreach (string label in labels)
-            {
-                DataGridTextColumn column = new DataGridTextColumn();
-                column.Header = label;
-
-                DataGridThisYear.Columns.Add(column);
-                *//*DataGridOneYearAgo.Columns.Add(column);
-                DataGridTwoYearsAgo.Columns.Add(column);*//*
-            }
-        }*/
-
-        /*private void FillDataGridRowScheme(DataGrid dataGrid)
-        {
-            dataGrid.Items.Add(new DataGridItem { Columns = new[] { "Indications", "", "", "", "", "", "", "", "", "", "", "", "" } });
-            dataGrid.Items.Add(new DataGridItem { Columns = new[] { "Consumption", "", "", "", "", "", "", "", "", "", "", "", "" } });
-        }*/
     }
-
-    /*public class DataGridItem
-    {
-        public string[] Columns { get; set; }
-    }*/
 }
