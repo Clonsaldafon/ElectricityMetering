@@ -44,17 +44,17 @@ namespace ElectricityMetering.WPF
 
                 Garage g1 = new Garage { Number = "1", CounterNumber = "596443", SealNumber = "14812939-41", SealingDate = DateOnly.Parse("15.04.2019"), Indication = i1 };
                 Garage g2 = new Garage { Number = "2", CounterNumber = "129304", SealNumber = "14812959-60", SealingDate = DateOnly.Parse("24.04.2019"), Indication = i2 };
-                Garage g3 = new Garage { Number = "3", CounterNumber = "ОО7791047013237", SealNumber = "14812039;40", SealingDate = DateOnly.Parse("18.05.2019"), Indication = i3 };
-                Garage g89 = new Garage { Number = "89", CounterNumber = "О108016679", SealNumber = "14812001-03", SealingDate = DateOnly.Parse("07.05.2019"), Indication = i89 };
-                Garage g90 = new Garage { Number = "90", CounterNumber = "О108016679", SealNumber = "14812001-03", SealingDate = DateOnly.Parse("07.05.2019"), Indication = i90 };
-                Garage g111 = new Garage { Number = "111", CounterNumber = "О36978", SealNumber = "14812772,73", SealingDate = DateOnly.Parse("14.03.2017"), Indication = i111 };
+                Garage g3 = new Garage { Number = "3", CounterNumber = "РћРћ7791047013237", SealNumber = "14812039;40", SealingDate = DateOnly.Parse("18.05.2019"), Indication = i3 };
+                Garage g89 = new Garage { Number = "89", CounterNumber = "Рћ108016679", SealNumber = "14812001-03", SealingDate = DateOnly.Parse("07.05.2019"), Indication = i89 };
+                Garage g90 = new Garage { Number = "90", CounterNumber = "Рћ108016679", SealNumber = "14812001-03", SealingDate = DateOnly.Parse("07.05.2019"), Indication = i90 };
+                Garage g111 = new Garage { Number = "111", CounterNumber = "Рћ36978", SealNumber = "14812772,73", SealingDate = DateOnly.Parse("14.03.2017"), Indication = i111 };
                 db.Garages.AddRange(g1, g2, g3, g89, g90, g111);
 
-                Owner o1 = new Owner { FullName = "Петухова Н.И.", Garages = new List<Garage> { g1 }, Balance = 249.29 };
-                Owner o2 = new Owner { FullName = "Торбиев С.А.", Garages = new List<Garage> { g2 }, Balance = 198.49 };
-                Owner o3 = new Owner { FullName = "Меркушев А.В.", Garages = new List<Garage> { g3 }, Balance = 322.50 };
-                Owner o8990 = new Owner { FullName = "Мосягин С.А.", Garages = new List<Garage> { g89, g90 }, Balance = 466.09 };
-                Owner o111 = new Owner { FullName = "Мухамадеева Н.В.", Garages = new List<Garage> { g111 }, Balance = 1197.06 };
+                Owner o1 = new Owner { FullName = "РџРµС‚СѓС…РѕРІР° Рќ.Р.", Garages = new List<Garage> { g1 }, Balance = 249.29 };
+                Owner o2 = new Owner { FullName = "РўРѕСЂР±РёРµРІ РЎ.Рђ.", Garages = new List<Garage> { g2 }, Balance = 198.49 };
+                Owner o3 = new Owner { FullName = "РњРµСЂРєСѓС€РµРІ Рђ.Р’.", Garages = new List<Garage> { g3 }, Balance = 322.50 };
+                Owner o8990 = new Owner { FullName = "РњРѕСЃСЏРіРёРЅ РЎ.Рђ.", Garages = new List<Garage> { g89, g90 }, Balance = 466.09 };
+                Owner o111 = new Owner { FullName = "РњСѓС…Р°РјР°РґРµРµРІР° Рќ.Р’.", Garages = new List<Garage> { g111 }, Balance = 1197.06 };
                 db.Owners.AddRange(o1, o2, o3, o8990, o111);
 
                 List<Payment> payments = new List<Payment>
