@@ -13,18 +13,53 @@ namespace ElectricityMetering.BL.Controller
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                return !string.IsNullOrEmpty(garageNumber) && db.Garages.FirstOrDefault(g => g.Number == garageNumber) is not null;
+                return db.Garages.FirstOrDefault(g => g.Number == garageNumber) is not null;
             }
         }
 
-        public void LoadInfo(Garage garage, Owner owner, Payment payment, PricePerKw pricePerKw, string garageNumber)
+        public Garage LoadInfo(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                garage = db.Garages.FirstOrDefault(g => g.Number == garageNumber);
-                owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
-                payment = db.Payments.FirstOrDefault(p => p.Owner == owner);
-                pricePerKw = db.PricesPerKw.OrderBy(p => p.Id).LastOrDefault();
+                return db.Garages.FirstOrDefault(g => g.Number == garageNumber);
+            }
+        }
+
+        public Owner LoadInfo(Garage garage)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Owner owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
+
+                if (owner.Garages is null)
+                {
+                    owner.Garages = new List<Garage> { garage };
+                }
+
+                return owner;
+            }
+        }
+
+        public Payment LoadInfo(Owner owner)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                Payment payment = db.Payments.OrderBy(p => p.Id).LastOrDefault(p => p.Owner == owner);
+
+                if (payment is null)
+                {
+                    payment = new Payment { Date = new DateOnly(), Cash = 0, NonCash = 0, Total = 0 };
+                }
+
+                return payment;
+            }
+        }
+
+        public PricePerKw LoadInfo()
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.PricesPerKw.OrderBy(p => p.Id).LastOrDefault();
             }
         }
     }
