@@ -255,7 +255,7 @@
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
                                 <Label Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="#FF344FB1" Padding="0,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right">2023</Label>
-                                <DataGrid Height="100" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <DataGrid Name="DataGridThisYear"  Height="100" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right">
                                     <DataGrid.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -264,21 +264,6 @@
                                             <TranslateTransform Y="26"/>
                                         </TransformGroup>
                                     </DataGrid.RenderTransform>
-                                    <DataGrid.Columns>
-                                        <DataGridComboBoxColumn/>
-                                        <DataGridCheckBoxColumn Header="January"/>
-                                        <DataGridCheckBoxColumn Header="February"/>
-                                        <DataGridCheckBoxColumn Header="March"/>
-                                        <DataGridCheckBoxColumn Header="April"/>
-                                        <DataGridCheckBoxColumn Header="May"/>
-                                        <DataGridCheckBoxColumn Header="June"/>
-                                        <DataGridCheckBoxColumn Header="July"/>
-                                        <DataGridCheckBoxColumn Header="August"/>
-                                        <DataGridCheckBoxColumn Header="September"/>
-                                        <DataGridComboBoxColumn Header="October"/>
-                                        <DataGridComboBoxColumn Header="November"/>
-                                        <DataGridComboBoxColumn Header="December"/>
-                                    </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>
                             <StackPanel Name="MainTableOneYearAgo" RenderTransformOrigin="0.5,0.5" Height="170">
@@ -291,7 +276,7 @@
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
                                 <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="0,0,0,0">2022</Label>
-                                <DataGrid Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
+                                <DataGrid Name="DataGridOneYearAgo" Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
                                     <DataGrid.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -300,21 +285,6 @@
                                             <TranslateTransform Y="26"/>
                                         </TransformGroup>
                                     </DataGrid.RenderTransform>
-                                    <DataGrid.Columns>
-                                        <DataGridComboBoxColumn/>
-                                        <DataGridCheckBoxColumn Header="January"/>
-                                        <DataGridCheckBoxColumn Header="February"/>
-                                        <DataGridCheckBoxColumn Header="March"/>
-                                        <DataGridCheckBoxColumn Header="April"/>
-                                        <DataGridCheckBoxColumn Header="May"/>
-                                        <DataGridCheckBoxColumn Header="June"/>
-                                        <DataGridCheckBoxColumn Header="July"/>
-                                        <DataGridCheckBoxColumn Header="August"/>
-                                        <DataGridCheckBoxColumn Header="September"/>
-                                        <DataGridComboBoxColumn Header="October"/>
-                                        <DataGridComboBoxColumn Header="November"/>
-                                        <DataGridComboBoxColumn Header="December"/>
-                                    </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>
                             <StackPanel Name="MainTableTwoYearsAgo" Height="180" RenderTransformOrigin="0.5,0.5">
@@ -327,7 +297,7 @@
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
                                 <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,0,10">2021</Label>
-                                <DataGrid Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
+                                <DataGrid Name="DataGridTwoYearsAgo" Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
                                     <DataGrid.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -336,21 +306,6 @@
                                             <TranslateTransform Y="26"/>
                                         </TransformGroup>
                                     </DataGrid.RenderTransform>
-                                    <DataGrid.Columns>
-                                        <DataGridComboBoxColumn/>
-                                        <DataGridCheckBoxColumn Header="January"/>
-                                        <DataGridCheckBoxColumn Header="February"/>
-                                        <DataGridCheckBoxColumn Header="March"/>
-                                        <DataGridCheckBoxColumn Header="April"/>
-                                        <DataGridCheckBoxColumn Header="May"/>
-                                        <DataGridCheckBoxColumn Header="June"/>
-                                        <DataGridCheckBoxColumn Header="July"/>
-                                        <DataGridCheckBoxColumn Header="August"/>
-                                        <DataGridCheckBoxColumn Header="September"/>
-                                        <DataGridComboBoxColumn Header="October"/>
-                                        <DataGridComboBoxColumn Header="November"/>
-                                        <DataGridComboBoxColumn Header="December"/>
-                                    </DataGrid.Columns>
                                 </DataGrid>
                             </StackPanel>
                         </StackPanel>

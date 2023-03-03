@@ -23,14 +23,19 @@ namespace ElectricityMetering.WPF
     {
         private Loader _loader = new Loader();
 
-        private Garage _garage;
-        private Owner _owner;
-        private Payment _payment;
-        private PricePerKw _pricePerKw;
+        private Garage? _garage;
+        private Owner? _owner;
+        private Payment? _payment;
+        private PricePerKw? _pricePerKw;
 
         public PresidentWindow()
         {
             InitializeComponent();
+
+            FillDataGridsColumnScheme();
+            FillDataGridRowScheme(DataGridThisYear);
+            FillDataGridRowScheme(DataGridOneYearAgo);
+            FillDataGridRowScheme(DataGridTwoYearsAgo);
         }
 
         private void LoadInfoByGarageNumber(object sender, RoutedEventArgs e)
@@ -40,6 +45,8 @@ namespace ElectricityMetering.WPF
             if (_loader.CanLoadInfo(garageNumber))
             {
                 _loader.LoadInfo(_garage, _owner, _payment, _pricePerKw, garageNumber);
+
+                FillTextBoxes();
             }
             else
             {
@@ -67,5 +74,31 @@ namespace ElectricityMetering.WPF
             TextBoxInPresidentWindowSealNumber.Text = _garage.SealNumber;
             TextBoxInPresidentWindowSealDate.Text = _garage.SealingDate.ToString();
         }
+
+        private void FillDataGridsColumnScheme()
+        {
+            string[] labels = new[] { "Table", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+
+            foreach (string label in labels)
+            {
+                DataGridTextColumn column = new DataGridTextColumn();
+                column.Header = label;
+
+                DataGridThisYear.Columns.Add(column);
+                /*DataGridOneYearAgo.Columns.Add(column);
+                DataGridTwoYearsAgo.Columns.Add(column);*/
+            }
+        }
+
+        private void FillDataGridRowScheme(DataGrid dataGrid)
+        {
+            dataGrid.Items.Add(new DataGridItem { Columns = new[] { "Indications", "", "", "", "", "", "", "", "", "", "", "", "" } });
+            dataGrid.Items.Add(new DataGridItem { Columns = new[] { "Consumption", "", "", "", "", "", "", "", "", "", "", "", "" } });
+        }
+    }
+
+    public class DataGridItem
+    {
+        public string[] Columns { get; set; }
     }
 }
