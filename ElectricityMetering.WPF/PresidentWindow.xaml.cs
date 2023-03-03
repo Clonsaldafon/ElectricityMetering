@@ -1,4 +1,5 @@
-﻿using ElectricityMetering.BL.Controller;
+﻿using ElectricityMetering.BL;
+using ElectricityMetering.BL.Controller;
 using ElectricityMetering.BL.Model;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,10 @@ namespace ElectricityMetering.WPF
     {
         private Loader _loader = new Loader();
 
-        private Garage? _garage;
-        private Owner? _owner;
-        private Payment? _payment;
-        private PricePerKw? _pricePerKw;
+        private Garage _garage;
+        private Owner _owner;
+        private Payment _payment;
+        private PricePerKw _pricePerKw;
 
         public PresidentWindow()
         {
@@ -42,15 +43,25 @@ namespace ElectricityMetering.WPF
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
-            if (_loader.CanLoadInfo(garageNumber))
+            if (!string.IsNullOrEmpty(garageNumber))
             {
-                _loader.LoadInfo(_garage, _owner, _payment, _pricePerKw, garageNumber);
+                if (_loader.CanLoadInfo(garageNumber))
+                {
+                    _garage = _loader.LoadInfo(garageNumber);
+                    _owner = _loader.LoadInfo(_garage);
+                    _payment = _loader.LoadInfo(_owner);
+                    _pricePerKw = _loader.LoadInfo();
 
-                FillTextBoxes();
+                    FillTextBoxes();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid GarageNumber!");
+                }
             }
             else
             {
-                MessageBox.Show("Invalid GarageNumber!");
+                MessageBox.Show("GarageNumber is null!");
             }
         }
 
