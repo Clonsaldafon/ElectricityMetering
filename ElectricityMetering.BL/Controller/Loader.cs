@@ -24,7 +24,7 @@ namespace ElectricityMetering.BL.Controller
                 garage = db.Garages.FirstOrDefault(g => g.Number == garageNumber);
                 owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
                 payment = db.Payments.FirstOrDefault(p => p.Owner == owner);
-                pricePerKw = db.PricesPerKw.Last();
+                pricePerKw = db.PricesPerKw.OrderBy(p => p.Id).LastOrDefault();
             }
         }
     }
