@@ -68,7 +68,7 @@ namespace ElectricityMetering.WPF
         private void FillTextBoxes()
         {
             TextBoxInPresidentWindowGarageNumber.Text = _garage.Number;
-            TextBoxInPresidentWindowBlockOfGarages.Text = string.Join(", ", _owner.Garages);
+            TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
             TextBoxInPresidentWindowOwnerFullName.Text = _owner.FullName;
             TextBoxInPresidentWindowBalance.Text = _owner.Balance.ToString();
 
@@ -84,6 +84,18 @@ namespace ElectricityMetering.WPF
             TextBoxInPresidentWindowCounterNumber.Text = _garage.CounterNumber;
             TextBoxInPresidentWindowSealNumber.Text = _garage.SealNumber;
             TextBoxInPresidentWindowSealDate.Text = _garage.SealingDate.ToString();
+        }
+
+        private string GetBlockOfGarages(Owner owner)
+        {
+            string[] garageNumbers = new string[owner.Garages.Count];
+
+            for (int i = 0; i < owner.Garages.Count; i++)
+            {
+                garageNumbers[i] = owner.Garages[i].Number;
+            }
+
+            return string.Join(", ", garageNumbers);
         }
 
         /*private void FillDataGridsColumnScheme()
