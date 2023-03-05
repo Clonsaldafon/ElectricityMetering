@@ -40,7 +40,7 @@ namespace ElectricityMetering.WPF
 
             if (string.IsNullOrEmpty(garageNumber))
             {
-                MessageBox.Show("GarageNumber is null!");
+                MessageBox.Show("Введите номер гаража!");
                 return;
             }
 
@@ -56,7 +56,7 @@ namespace ElectricityMetering.WPF
             }
             else
             {
-                MessageBox.Show("Invalid GarageNumber!");
+                MessageBox.Show("Недопустимый номер гаража!");
             }
         }
 
