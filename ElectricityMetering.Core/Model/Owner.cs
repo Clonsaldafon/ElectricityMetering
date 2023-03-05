@@ -9,7 +9,7 @@ namespace ElectricityMetering.Core.Model
     public class Owner
     {
         public int Id { get; set; }
-        public string FullName { get; set; } = null!;
+        public string Name { get; set; } = null!;
         public decimal Balance { get; set; }
     }
 }

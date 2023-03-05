@@ -2,6 +2,7 @@ using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,42 @@ namespace ElectricityMetering.Core.Controller
 {
     public class Repository
     {
+        public bool CanCreateNewGarage(string garageNumber)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber)) is null;
+            }
+        }
+
+        public void CreateNewGarage(string garageNumber)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                string sealNumber = "-";
+                string counterNumber = "-";
+                DateOnly sealDate = new DateOnly();
+                Owner owner = new Owner { Name = "-", Balance = 0 };
+                //int[] indications = new int[36];
+
+                db.Owners.Add(owner);
+                db.SaveChanges();
+
+                Garage garage = new Garage
+                {
+                    Number = garageNumber,
+                    SealNumber = sealNumber,
+                    CounterNumber = counterNumber,
+                    SealDate = sealDate,
+                    Owner = owner,
+                    //Indications = indications
+                };
+  
+                db.Garages.Add(garage);
+                db.SaveChanges();
+            }
+        }
+
         public bool CanLoadInfo(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
@@ -17,13 +54,21 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        public Garage LoadInfo(string garageNumber)
+        public Garage LoadInfoByGarageNumber(string garageNumber)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.Garages.First(g => string.Equals(g.Number, garageNumber));
+            }
+        }
+
+        /*public Garage LoadInfo(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
                 return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber));
             }
-        }
+        }*/
 
         /*public Owner LoadInfo(Garage garage)
         {
@@ -55,12 +100,12 @@ namespace ElectricityMetering.Core.Controller
             }
         }*/
 
-        public Tariff LoadInfo()
+        /*public Tariff LoadInfo()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
                 return db.PricesPerKw.OrderBy(p => p.Id).LastOrDefault();
             }
-        }
+        }*/
     }
 }
