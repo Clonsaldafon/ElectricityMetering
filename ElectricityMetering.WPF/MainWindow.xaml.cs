@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ElectricityMetering.BL;
-using ElectricityMetering.BL.Model;
-using ElectricityMetering.BL.Controller;
+using ElectricityMetering.Core;
+using ElectricityMetering.Core.Model;
+using ElectricityMetering.Core.Controller;
 
 namespace ElectricityMetering.WPF
 {

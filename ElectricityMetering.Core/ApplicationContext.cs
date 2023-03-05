@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ElectricityMetering.BL.Model;
+using ElectricityMetering.Core.Model;
 
-namespace ElectricityMetering.BL
+namespace ElectricityMetering.Core
 {
     public class ApplicationContext : DbContext
     {

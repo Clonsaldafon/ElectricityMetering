@@ -1,6 +1,6 @@
-﻿using ElectricityMetering.BL;
-using ElectricityMetering.BL.Controller;
-using ElectricityMetering.BL.Model;
+﻿using ElectricityMetering.Core;
+using ElectricityMetering.Core.Controller;
+using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

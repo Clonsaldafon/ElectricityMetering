@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.BL.Controller
+namespace ElectricityMetering.Core.Controller
 {
     public static class ApplicationInputHandler
     {

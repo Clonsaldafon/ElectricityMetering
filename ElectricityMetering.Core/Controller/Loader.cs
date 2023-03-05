@@ -1,11 +1,11 @@
-using ElectricityMetering.BL.Model;
+using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.BL.Controller
+namespace ElectricityMetering.Core.Controller
 {
     public class Loader
     {
