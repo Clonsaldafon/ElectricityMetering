@@ -1,5 +1,4 @@
-﻿using ElectricityMetering.Core;
-using ElectricityMetering.Core.Controller;
+﻿using ElectricityMetering.Core.Controller;
 using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ using System.Windows.Shapes;
 namespace ElectricityMetering.WPF
 {
     /// <summary>
-    /// Interaction logic for PresidentWindow.xaml
+    /// Interaction logic for NewPresidentWindow.xaml
     /// </summary>
     public partial class PresidentWindow : Window
     {
@@ -62,23 +61,22 @@ namespace ElectricityMetering.WPF
 
         private void FillTextBoxes()
         {
-            TextBoxInPresidentWindowGarageNumber.Text = _garage.Number;
             //TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
-            TextBoxInPresidentWindowOwnerFullName.Text = _owner.FullName;
-            TextBoxInPresidentWindowBalance.Text = _owner.Balance.ToString();
+            TextBoxOwnerName.Text = _owner.FullName;
+            TextBoxBalance.Text = _owner.Balance.ToString();
 
-            TextBoxInPresidentWindowPaymentDate.Text = _payment.Date.ToString();
-            TextBoxInPresidentWindowCash.Text = _payment.Cash.ToString();
-            TextBoxInPresidentWindowNonCash.Text = _payment.NonCash.ToString();
-            TextBoxInPresidentWindowPaymentTotal.Text = _payment.Total.ToString();
+            TextBoxPaymentDate.Text = _payment.Date.ToString();
+            TextBoxCash.Text = _payment.Cash.ToString();
+            TextBoxNonCash.Text = _payment.NonCash.ToString();
+            TextBoxPaymentTotal.Text = _payment.Total.ToString();
 
-            TextBoxInPresidentWindowRemainderDate.Text = _tariff.Date.ToString();
-            TextBoxInPresidentWindowPricePerKw.Text = _tariff.Price.ToString();
+            TextBoxCounterNumber.Text = _garage.CounterNumber;
+            TextBoxSealNumber.Text = _garage.SealNumber;
+            TextBoxSealDate.Text = _garage.SealingDate.ToString();
+
+            TextBoxTariffDate.Text = _tariff.Date.ToString();
+            TextBoxTariff.Text = _tariff.Price.ToString();
             //TextBoxInPresidentWindowRemainder.Text = 
-
-            TextBoxInPresidentWindowCounterNumber.Text = _garage.CounterNumber;
-            TextBoxInPresidentWindowSealNumber.Text = _garage.SealNumber;
-            TextBoxInPresidentWindowSealDate.Text = _garage.SealingDate.ToString();
         }
 
         /*private string GetBlockOfGarages(Owner owner)
