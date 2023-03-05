@@ -59,6 +59,16 @@ namespace ElectricityMetering.WPF
             }
         }
 
+        private void CreateNewGarageNumber(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveInfoByGarageNumber(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void FillTextBoxes()
         {
             //TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
