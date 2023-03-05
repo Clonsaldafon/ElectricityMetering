@@ -2,6 +2,7 @@ using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +10,40 @@ namespace ElectricityMetering.Core.Controller
 {
     public class Repository
     {
+        public bool CanCreateNewGarage(string garageNumber)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber)) is null;
+            }
+        }
+
+        public void CreateNewGarage(string garageNumber)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                string? sealNumber = null;
+                string? counterNumber = null;
+                DateOnly sealDate = new DateOnly();
+                Owner owner = new Owner { Name = "", Balance = 0 };
+                int[] indications = new int[36];
+
+                Garage garage = new Garage
+                {
+                    Number = garageNumber,
+                    SealNumber = sealNumber,
+                    CounterNumber = counterNumber,
+                    SealDate = sealDate,
+                    Owner = owner,
+                    Indications = indications
+                };
+
+                db.Owners.Add(owner);
+                db.Garages.Add(garage);
+                db.SaveChanges();
+            }
+        }
+
         public bool CanLoadInfo(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())

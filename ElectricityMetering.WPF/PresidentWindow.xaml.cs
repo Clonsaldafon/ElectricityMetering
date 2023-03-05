@@ -51,7 +51,8 @@ namespace ElectricityMetering.WPF
                 //_payment = _repository.LoadInfo(_owner);
                 _tariff = _repository.LoadInfo();
 
-                FillTextBoxes();
+                MessageBox.Show("correct");
+                //FillTextBoxes();
             }
             else
             {
@@ -61,7 +62,16 @@ namespace ElectricityMetering.WPF
 
         private void CreateNewGarageNumber(object sender, RoutedEventArgs e)
         {
+            string garageNumber = TextBoxGarageNumber.Text;
 
+            if (!_repository.CanCreateNewGarage(garageNumber))
+            {
+                MessageBox.Show("Такой гараж уже существует!");
+                return;
+            }
+
+            _repository.CreateNewGarage(garageNumber);
+            MessageBox.Show("Гараж добавлен");
         }
 
         private void SaveInfoByGarageNumber(object sender, RoutedEventArgs e)
@@ -72,7 +82,7 @@ namespace ElectricityMetering.WPF
         private void FillTextBoxes()
         {
             //TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
-            TextBoxOwnerName.Text = _owner.FullName;
+            TextBoxOwnerName.Text = _owner.Name;
             TextBoxBalance.Text = _owner.Balance.ToString();
 
             TextBoxPaymentDate.Text = _payment.Date.ToString();
@@ -82,7 +92,7 @@ namespace ElectricityMetering.WPF
 
             TextBoxCounterNumber.Text = _garage.CounterNumber;
             TextBoxSealNumber.Text = _garage.SealNumber;
-            TextBoxSealDate.Text = _garage.SealingDate.ToString();
+            TextBoxSealDate.Text = _garage.SealDate.ToString();
 
             TextBoxTariffDate.Text = _tariff.Date.ToString();
             TextBoxTariff.Text = _tariff.Price.ToString();
