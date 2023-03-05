@@ -12,9 +12,9 @@ namespace ElectricityMetering.Core.Controller
         {
             using(ApplicationContext db = new ApplicationContext())
             {
-                var role = db.Roles.ToList().FirstOrDefault(item => item.Name == roleName);
+                var role = db.Roles.ToList().FirstOrDefault(item => string.Equals(item.Name, roleName));
 
-                return !string.IsNullOrEmpty(role?.Name) && role.Password == password;
+                return !string.IsNullOrEmpty(role.Name) && string.Equals(role.Password, password);
             }
         }
     }

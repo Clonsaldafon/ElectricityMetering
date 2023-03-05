@@ -18,6 +18,12 @@ using ElectricityMetering.Core.Controller;
 
 namespace ElectricityMetering.WPF
 {
+    enum RoleName
+    {
+        President,
+        Electrician
+    }
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -30,27 +36,26 @@ namespace ElectricityMetering.WPF
 
         public void ApplicationInput(object sender, RoutedEventArgs e)
         {
-            string roleName = RoleInput.Text;
+            RoleName roleName = (RoleName)Enum.Parse(typeof(RoleName), RoleInput.Text);
             string password = PasswordInput.Password;
 
-            if (ApplicationInputHandler.PasswordIsCorrect(roleName, password))
-            {
-                if (roleName == "President")
-                {
-                    PresidentWindow presidentWindow = new PresidentWindow();
-                    presidentWindow.Show();
-                    Close();
-                }
-                else if (roleName == "Electrician")
-                {
-                    ElectricianWindow electricianWindow = new ElectricianWindow();
-                    electricianWindow.Show();
-                    Close();
-                }
-            }
-            else
+            if (!ApplicationInputHandler.PasswordIsCorrect(roleName.ToString(), password))
             {
                 MessageBox.Show("Invalid password!");
+                return;
+            }
+
+            if (roleName == RoleName.President)
+            {
+                PresidentWindow presidentWindow = new PresidentWindow();
+                presidentWindow.Show();
+                Close();
+            }
+            else if (roleName == RoleName.Electrician)
+            {
+                ElectricianWindow electricianWindow = new ElectricianWindow();
+                electricianWindow.Show();
+                Close();
             }
         }
     }

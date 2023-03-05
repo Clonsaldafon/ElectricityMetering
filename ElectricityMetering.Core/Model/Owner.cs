@@ -10,7 +10,6 @@ namespace ElectricityMetering.Core.Model
     {
         public int Id { get; set; }
         public string FullName { get; set; } = null!;
-        public List<Garage> Garages { get; set; } = null!;
-        public double Balance { get; set; }
+        public decimal Balance { get; set; }
     }
 }
