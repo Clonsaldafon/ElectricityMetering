@@ -25,7 +25,7 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        public Owner LoadInfo(Garage garage)
+        /*public Owner LoadInfo(Garage garage)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -38,9 +38,9 @@ namespace ElectricityMetering.Core.Controller
 
                 return owner;
             }
-        }
+        }*/
 
-        public Payment LoadInfo(Owner owner)
+        /*public Payment LoadInfo(Owner owner)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -53,7 +53,7 @@ namespace ElectricityMetering.Core.Controller
 
                 return payment;
             }
-        }
+        }*/
 
         public Tariff LoadInfo()
         {

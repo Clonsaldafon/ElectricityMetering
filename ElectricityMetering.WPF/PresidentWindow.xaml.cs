@@ -22,12 +22,12 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class PresidentWindow : Window
     {
-        private Repository _loader = new Repository();
+        private Repository _repository = new Repository();
 
         private Garage _garage;
         private Owner _owner;
         private Payment _payment;
-        private Tariff _pricePerKw;
+        private Tariff _tariff;
 
         public PresidentWindow()
         {
@@ -45,12 +45,12 @@ namespace ElectricityMetering.WPF
             }
 
             // TODO: garageNumber isn't always invalid
-            if (_loader.CanLoadInfo(garageNumber))
+            if (_repository.CanLoadInfo(garageNumber))
             {
-                _garage = _loader.LoadInfo(garageNumber);
-                _owner = _loader.LoadInfo(_garage);
-                _payment = _loader.LoadInfo(_owner);
-                _pricePerKw = _loader.LoadInfo();
+                _garage = _repository.LoadInfo(garageNumber);
+                //_owner = _repository.LoadInfo(_garage);
+                //_payment = _repository.LoadInfo(_owner);
+                _tariff = _repository.LoadInfo();
 
                 FillTextBoxes();
             }
@@ -63,7 +63,7 @@ namespace ElectricityMetering.WPF
         private void FillTextBoxes()
         {
             TextBoxInPresidentWindowGarageNumber.Text = _garage.Number;
-            TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
+            //TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
             TextBoxInPresidentWindowOwnerFullName.Text = _owner.FullName;
             TextBoxInPresidentWindowBalance.Text = _owner.Balance.ToString();
 
@@ -72,8 +72,8 @@ namespace ElectricityMetering.WPF
             TextBoxInPresidentWindowNonCash.Text = _payment.NonCash.ToString();
             TextBoxInPresidentWindowPaymentTotal.Text = _payment.Total.ToString();
 
-            TextBoxInPresidentWindowRemainderDate.Text = _pricePerKw.Date.ToString();
-            TextBoxInPresidentWindowPricePerKw.Text = _pricePerKw.Price.ToString();
+            TextBoxInPresidentWindowRemainderDate.Text = _tariff.Date.ToString();
+            TextBoxInPresidentWindowPricePerKw.Text = _tariff.Price.ToString();
             //TextBoxInPresidentWindowRemainder.Text = 
 
             TextBoxInPresidentWindowCounterNumber.Text = _garage.CounterNumber;
@@ -81,7 +81,7 @@ namespace ElectricityMetering.WPF
             TextBoxInPresidentWindowSealDate.Text = _garage.SealingDate.ToString();
         }
 
-        private string GetBlockOfGarages(Owner owner)
+        /*private string GetBlockOfGarages(Owner owner)
         {
             string[] garageNumbers = new string[owner.Garages.Count];
 
@@ -91,6 +91,6 @@ namespace ElectricityMetering.WPF
             }
 
             return string.Join(", ", garageNumbers);
-        }
+        }*/
     }
 }
