@@ -1,6 +1,6 @@
-﻿using ElectricityMetering.BL;
-using ElectricityMetering.BL.Controller;
-using ElectricityMetering.BL.Model;
+﻿using ElectricityMetering.Core;
+using ElectricityMetering.Core.Controller;
+using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +22,12 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class PresidentWindow : Window
     {
-        private Loader _loader = new Loader();
+        private Repository _loader = new Repository();
 
         private Garage _garage;
         private Owner _owner;
         private Payment _payment;
-        private PricePerKw _pricePerKw;
+        private Tariff _pricePerKw;
 
         public PresidentWindow()
         {
@@ -38,25 +38,25 @@ namespace ElectricityMetering.WPF
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
-            if (!string.IsNullOrEmpty(garageNumber))
+            if (string.IsNullOrEmpty(garageNumber))
             {
-                if (_loader.CanLoadInfo(garageNumber))
-                {
-                    _garage = _loader.LoadInfo(garageNumber);
-                    _owner = _loader.LoadInfo(_garage);
-                    _payment = _loader.LoadInfo(_owner);
-                    _pricePerKw = _loader.LoadInfo();
+                MessageBox.Show("GarageNumber is null!");
+                return;
+            }
 
-                    FillTextBoxes();
-                }
-                else
-                {
-                    MessageBox.Show("Invalid GarageNumber!");
-                }
+            // TODO: garageNumber isn't always invalid
+            if (_loader.CanLoadInfo(garageNumber))
+            {
+                _garage = _loader.LoadInfo(garageNumber);
+                _owner = _loader.LoadInfo(_garage);
+                _payment = _loader.LoadInfo(_owner);
+                _pricePerKw = _loader.LoadInfo();
+
+                FillTextBoxes();
             }
             else
             {
-                MessageBox.Show("GarageNumber is null!");
+                MessageBox.Show("Invalid GarageNumber!");
             }
         }
 

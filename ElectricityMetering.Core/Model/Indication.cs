@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.BL.Model
+namespace ElectricityMetering.Core.Model
 {
-    public class Role
+    public class Indication
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Password { get; set; } = null!;
+        public int[] Indications { get; set; } = new int[36];
     }
 }
