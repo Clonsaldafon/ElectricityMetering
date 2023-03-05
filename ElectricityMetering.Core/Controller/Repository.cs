@@ -1,19 +1,19 @@
-using ElectricityMetering.BL.Model;
+using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.BL.Controller
+namespace ElectricityMetering.Core.Controller
 {
-    public class Loader
+    public class Repository
     {
         public bool CanLoadInfo(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                return db.Garages.FirstOrDefault(g => g.Number == garageNumber) is not null;
+                return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber)) is not null;
             }
         }
 
@@ -21,7 +21,7 @@ namespace ElectricityMetering.BL.Controller
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                return db.Garages.FirstOrDefault(g => g.Number == garageNumber);
+                return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber));
             }
         }
 
@@ -44,7 +44,7 @@ namespace ElectricityMetering.BL.Controller
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Payment payment = db.Payments.OrderBy(p => p.Id).LastOrDefault(p => p.Owner == owner);
+                Payment payment = db.Payments.OrderBy(p => p.Id).LastOrDefault(p => p.Owner is owner);
 
                 if (payment is null)
                 {
@@ -55,7 +55,7 @@ namespace ElectricityMetering.BL.Controller
             }
         }
 
-        public PricePerKw LoadInfo()
+        public Tariff LoadInfo()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
