@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.BL.Model
+namespace ElectricityMetering.Core.Model
 {
     public class Garage
     {
@@ -13,6 +13,7 @@ namespace ElectricityMetering.BL.Model
         public string? SealNumber { get; set; }
         public string? CounterNumber { get; set; }
         public DateOnly SealingDate { get; set; }
+        public Owner? Owner { get; set; }
         public Indication? Indication { get; set; }
     }
 }

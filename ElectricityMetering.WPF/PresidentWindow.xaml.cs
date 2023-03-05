@@ -1,6 +1,6 @@
-﻿using ElectricityMetering.BL;
-using ElectricityMetering.BL.Controller;
-using ElectricityMetering.BL.Model;
+﻿using ElectricityMetering.Core;
+using ElectricityMetering.Core.Controller;
+using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,53 +22,48 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class PresidentWindow : Window
     {
-        private Loader _loader = new Loader();
+        private Repository _loader = new Repository();
 
         private Garage _garage;
         private Owner _owner;
         private Payment _payment;
-        private PricePerKw _pricePerKw;
+        private Tariff _pricePerKw;
 
         public PresidentWindow()
         {
             InitializeComponent();
-
-            FillDataGridsColumnScheme();
-            FillDataGridRowScheme(DataGridThisYear);
-            FillDataGridRowScheme(DataGridOneYearAgo);
-            FillDataGridRowScheme(DataGridTwoYearsAgo);
         }
 
         private void LoadInfoByGarageNumber(object sender, RoutedEventArgs e)
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
-            if (!string.IsNullOrEmpty(garageNumber))
+            if (string.IsNullOrEmpty(garageNumber))
             {
-                if (_loader.CanLoadInfo(garageNumber))
-                {
-                    _garage = _loader.LoadInfo(garageNumber);
-                    _owner = _loader.LoadInfo(_garage);
-                    _payment = _loader.LoadInfo(_owner);
-                    _pricePerKw = _loader.LoadInfo();
+                MessageBox.Show("GarageNumber is null!");
+                return;
+            }
 
-                    FillTextBoxes();
-                }
-                else
-                {
-                    MessageBox.Show("Invalid GarageNumber!");
-                }
+            // TODO: garageNumber isn't always invalid
+            if (_loader.CanLoadInfo(garageNumber))
+            {
+                _garage = _loader.LoadInfo(garageNumber);
+                _owner = _loader.LoadInfo(_garage);
+                _payment = _loader.LoadInfo(_owner);
+                _pricePerKw = _loader.LoadInfo();
+
+                FillTextBoxes();
             }
             else
             {
-                MessageBox.Show("GarageNumber is null!");
+                MessageBox.Show("Invalid GarageNumber!");
             }
         }
 
         private void FillTextBoxes()
         {
             TextBoxInPresidentWindowGarageNumber.Text = _garage.Number;
-            TextBoxInPresidentWindowBlockOfGarages.Text = string.Join(", ", _owner.Garages);
+            TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
             TextBoxInPresidentWindowOwnerFullName.Text = _owner.FullName;
             TextBoxInPresidentWindowBalance.Text = _owner.Balance.ToString();
 
@@ -86,30 +81,16 @@ namespace ElectricityMetering.WPF
             TextBoxInPresidentWindowSealDate.Text = _garage.SealingDate.ToString();
         }
 
-        private void FillDataGridsColumnScheme()
+        private string GetBlockOfGarages(Owner owner)
         {
-            string[] labels = new[] { "Table", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+            string[] garageNumbers = new string[owner.Garages.Count];
 
-            foreach (string label in labels)
+            for (int i = 0; i < owner.Garages.Count; i++)
             {
-                DataGridTextColumn column = new DataGridTextColumn();
-                column.Header = label;
-
-                DataGridThisYear.Columns.Add(column);
-                /*DataGridOneYearAgo.Columns.Add(column);
-                DataGridTwoYearsAgo.Columns.Add(column);*/
+                garageNumbers[i] = owner.Garages[i].Number;
             }
-        }
 
-        private void FillDataGridRowScheme(DataGrid dataGrid)
-        {
-            dataGrid.Items.Add(new DataGridItem { Columns = new[] { "Indications", "", "", "", "", "", "", "", "", "", "", "", "" } });
-            dataGrid.Items.Add(new DataGridItem { Columns = new[] { "Consumption", "", "", "", "", "", "", "", "", "", "", "", "" } });
+            return string.Join(", ", garageNumbers);
         }
-    }
-
-    public class DataGridItem
-    {
-        public string[] Columns { get; set; }
     }
 }

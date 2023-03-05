@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="PresidentWindow" Height="900" Width="1680">
     <DockPanel>
-        <TabControl Height="784" Width="1460" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0F0F0F" BorderThickness="0,0,0,0">
+        <TabControl Height="784" Width="1597" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0F0F0F" BorderThickness="0,0,0,0">
             <TabItem Header="Main" BorderBrush="#FF344FB1" Background="{x:Null}">
                 <StackPanel Orientation="Vertical" RenderTransformOrigin="0.5,0.5">
                     <StackPanel.RenderTransform>
@@ -30,19 +30,19 @@
                                 </TransformGroup>
                             </Button.RenderTransform> Load
                         </Button>
-                        <Button Name="ButtonSaveInfo" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                        <Button x:Name="ButtonSaveInfo" Width="120" Height="36" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" Content="Save">
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
                                     <SkewTransform/>
                                     <RotateTransform/>
-                                    <TranslateTransform X="1096"/>
+                                    <TranslateTransform X="1233"/>
                                 </TransformGroup>
-                            </Button.RenderTransform> Save
+                            </Button.RenderTransform>
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="722">
-                        <StackPanel Name="Info" Orientation="Vertical" Width="618">
+                        <StackPanel Name="Info" Orientation="Vertical" Width="660">
                             <StackPanel Name="Summary" RenderTransformOrigin="0.5,0.5" Height="106">
                                 <StackPanel.RenderTransform>
                                     <TransformGroup>
@@ -53,7 +53,7 @@
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
                                 <Label Background="{x:Null}" Foreground="#FF0F0F0F" FontSize="36" FontWeight="Bold" FontFamily="Calibri" Padding="0,0,0,0" VerticalContentAlignment="Center">Summary</Label>
-                                <StackPanel Name="TextBoxesSummary" Orientation="Horizontal" Width="618" RenderTransformOrigin="0.5,0.5">
+                                <StackPanel Name="TextBoxesSummary" Orientation="Horizontal" Width="660" RenderTransformOrigin="0.5,0.5">
                                     <StackPanel.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -244,70 +244,499 @@
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Name="Tables" Width="838">
-                            <StackPanel Name="MainTableThisYear" RenderTransformOrigin="0.5,0.5" Height="170">
-                                <StackPanel.RenderTransform>
+                        <StackPanel Name="Tables" Width="974">
+                            <Label Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="#FF344FB1" Padding="0,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="890">
+                                <Label.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
                                         <SkewTransform/>
                                         <RotateTransform/>
                                         <TranslateTransform Y="46"/>
                                     </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="#FF344FB1" Padding="0,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right">2023</Label>
-                                <DataGrid Name="DataGridThisYear"  Height="100" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right">
-                                    <DataGrid.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="26"/>
-                                        </TransformGroup>
-                                    </DataGrid.RenderTransform>
-                                </DataGrid>
-                            </StackPanel>
-                            <StackPanel Name="MainTableOneYearAgo" RenderTransformOrigin="0.5,0.5" Height="170">
-                                <StackPanel.RenderTransform>
+                                </Label.RenderTransform> 2023
+                            </Label>
+                            <FlowDocumentScrollViewer Height="90" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri">
+                                <FlowDocumentScrollViewer.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
                                         <SkewTransform/>
                                         <RotateTransform/>
-                                        <TranslateTransform Y="92"/>
+                                        <TranslateTransform Y="52"/>
                                     </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="0,0,0,0">2022</Label>
-                                <DataGrid Name="DataGridOneYearAgo" Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
-                                    <DataGrid.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="26"/>
-                                        </TransformGroup>
-                                    </DataGrid.RenderTransform>
-                                </DataGrid>
-                            </StackPanel>
-                            <StackPanel Name="MainTableTwoYearsAgo" Height="180" RenderTransformOrigin="0.5,0.5">
-                                <StackPanel.RenderTransform>
+                                </FlowDocumentScrollViewer.RenderTransform>
+                                <FlowDocument>
+                                    <Table Name="TableThisYear" BorderBrush="#FF787878" BorderThickness="1" CellSpacing="0">
+                                        <Table.Columns>
+                                            <TableColumn Width="100"></TableColumn>
+                                            <TableColumn Width="70"></TableColumn>
+                                            <TableColumn Width="80"></TableColumn>
+                                            <TableColumn Width="60"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="60"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                            <TableColumn Width="70"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                        </Table.Columns>
+                                        <TableRowGroup>
+                                            <TableRow FontWeight="Bold" FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Table</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>January</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>February</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>March</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>April</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>May</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>June</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>July</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>August</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>September</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>October</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>November</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>December</Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Indications</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Consumption</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableRowGroup>
+                                    </Table>
+                                </FlowDocument>
+                            </FlowDocumentScrollViewer>
+                            <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="0,0,0,0" RenderTransformOrigin="0.5,0.5" Content="2022" Width="890">
+                                <Label.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
                                         <SkewTransform/>
                                         <RotateTransform/>
-                                        <TranslateTransform Y="138"/>
+                                        <TranslateTransform Y="64"/>
                                     </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,0,10">2021</Label>
-                                <DataGrid Name="DataGridTwoYearsAgo" Height="100" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right">
-                                    <DataGrid.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="26"/>
-                                        </TransformGroup>
-                                    </DataGrid.RenderTransform>
-                                </DataGrid>
-                            </StackPanel>
+                                </Label.RenderTransform>
+                            </Label>
+                            <FlowDocumentScrollViewer Height="90" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri">
+                                <FlowDocumentScrollViewer.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="70"/>
+                                    </TransformGroup>
+                                </FlowDocumentScrollViewer.RenderTransform>
+                                <FlowDocument>
+                                    <Table Name="TableOneYearAgo" BorderBrush="#FF787878" BorderThickness="1" CellSpacing="0">
+                                        <Table.Columns>
+                                            <TableColumn Width="100"></TableColumn>
+                                            <TableColumn Width="70"></TableColumn>
+                                            <TableColumn Width="80"></TableColumn>
+                                            <TableColumn Width="60"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="60"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                            <TableColumn Width="70"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                        </Table.Columns>
+                                        <TableRowGroup>
+                                            <TableRow FontWeight="Bold" FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Table</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>January</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>February</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>March</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>April</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>May</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>June</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>July</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>August</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>September</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>October</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>November</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>December</Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Indications</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Consumption</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableRowGroup>
+                                    </Table>
+                                </FlowDocument>
+                            </FlowDocumentScrollViewer>
+                            <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,0,10" RenderTransformOrigin="0.5,0.5" Height="44" Width="890">
+                                <Label.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="82"/>
+                                    </TransformGroup>
+                                </Label.RenderTransform> 2021
+                            </Label>
+                            <FlowDocumentScrollViewer Height="90" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri">
+                                <FlowDocumentScrollViewer.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform Y="88"/>
+                                    </TransformGroup>
+                                </FlowDocumentScrollViewer.RenderTransform>
+                                <FlowDocument>
+                                    <Table Name="TableTwoYearsAgo" BorderBrush="#FF787878" BorderThickness="1" CellSpacing="0">
+                                        <Table.Columns>
+                                            <TableColumn Width="100"></TableColumn>
+                                            <TableColumn Width="70"></TableColumn>
+                                            <TableColumn Width="80"></TableColumn>
+                                            <TableColumn Width="60"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="50"></TableColumn>
+                                            <TableColumn Width="60"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                            <TableColumn Width="70"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                            <TableColumn Width="90"></TableColumn>
+                                        </Table.Columns>
+                                        <TableRowGroup>
+                                            <TableRow FontWeight="Bold" FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Table</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>January</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>February</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>March</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>April</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>May</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>June</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>July</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>August</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>September</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>October</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>November</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>December</Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Indications</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow FontSize="13">
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph>Consumption</Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
+                                                    <Paragraph></Paragraph>
+                                                </TableCell>
+                                            </TableRow>
+                                        </TableRowGroup>
+                                    </Table>
+                                </FlowDocument>
+                            </FlowDocumentScrollViewer>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
