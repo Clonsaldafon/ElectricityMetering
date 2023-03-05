@@ -5,18 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="Electricity Metering" Height="600" Width="500">
-    <StackPanel Background="#FFF6F6F6">
-        <Label Content="Welcome to" HorizontalAlignment="Center" FontSize="36" Margin="0 100 0 0" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" FontWeight="Bold" Padding="0,0,0,0"/>
-        <Label Content="Electricity Metering!" HorizontalAlignment="Center" FontSize="36" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" FontWeight="Bold" Padding="0,0,0,0"/>
-        <Label Content="Please choose your role" HorizontalAlignment="Center" FontSize="18" Margin="0 60 0 0" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Padding="0,0,0,0" UseLayoutRounding="False"/>
-        <Label Content="and enter the password:" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Padding="0,0,0,0" UseLayoutRounding="False"/>
-        <ComboBox Name="RoleInput" Width="160" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 20 0 0" FontSize="13" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" Foreground="#FF0F0F0F" BorderBrush="#FF344FB1" BorderThickness="2,2,2,2" Background="{x:Null}">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="President"/></TextBlock>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Electrician"/></TextBlock>
+        Title="Учет э/э" Height="600" Width="500">
+    <StackPanel Background="#FFF6F6F6" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label Content="Должность:" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Padding="0,0,0,0" UseLayoutRounding="False"/>
+        <ComboBox Name="RoleInput" Width="160" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 5 0 0" FontSize="18" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" Foreground="#FF0F0F0F" BorderBrush="#FF344FB1" BorderThickness="2,2,2,2" Background="{x:Null}">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Председатель"/></TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Электрик"/></TextBlock>
         </ComboBox>
-        <PasswordBox Name="PasswordInput" Width="160" Height="36" Margin="0 20 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" MaxLength="10" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Password" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Password="" Foreground="#FF0F0F0F"/>
-        <Button Click="ApplicationInput" Content="Sign In" Width="160" Height="36" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold"/>
+        <Label Content="Введите пароль:" Margin="0 10 0 0" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Padding="0,0,0,0" UseLayoutRounding="False"/>
+        <PasswordBox Name="PasswordInput" Width="160" Height="36" Margin="0 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" MaxLength="10" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Password" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Password="" Foreground="#FF0F0F0F"/>
+        <Button Click="ApplicationInput" Content="Войти" Width="160" Height="36" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold"/>
     </StackPanel>
 </Window>
 
