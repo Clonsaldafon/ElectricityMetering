@@ -5,749 +5,118 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="PresidentWindow" Height="900" Width="1680">
-    <DockPanel>
-        <TabControl Height="784" Width="1597" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0F0F0F" BorderThickness="0,0,0,0">
-            <TabItem Header="Main" BorderBrush="#FF344FB1" Background="{x:Null}">
-                <StackPanel Orientation="Vertical" RenderTransformOrigin="0.5,0.5">
-                    <StackPanel.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform X="0" Y="40"/>
-                        </TransformGroup>
-                    </StackPanel.RenderTransform>
-                    <StackPanel Name="Header" Orientation="Horizontal">
-                        <TextBox Name="TextBoxGarageNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="GarageNumber" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
-                        <Button Name="ButtonLoadInfo" Click="LoadInfoByGarageNumber" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
-                            <Button.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="46"/>
-                                </TransformGroup>
-                            </Button.RenderTransform> Load
-                        </Button>
-                        <Button x:Name="ButtonSaveInfo" Width="120" Height="36" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" Content="Save">
-                            <Button.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform X="1233"/>
-                                </TransformGroup>
-                            </Button.RenderTransform>
-                        </Button>
+        Title="Учет э/э" Height="750" Width="815" Background="#FFF6F6F6">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Главная" FontSize="18" FontFamily="Calibri" Foreground="#FF0F0F0F" Padding="10 10 10 10" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                <StackPanel Name="ContentMain" Margin="40">
+                    <StackPanel Name="MainHeader">
+                        <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Номер гаража:</Label>
+                        <DockPanel>
+                            <TextBox Name="TextBoxGarageNumber" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                            <Button Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Загрузить</Button>
+                            <Button Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Добавить</Button>
+                            <Button Width="160" Height="50" Padding="0,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Сохранить</Button>
+                        </DockPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Height="722">
-                        <StackPanel Name="Info" Orientation="Vertical" Width="660">
-                            <StackPanel Name="Summary" RenderTransformOrigin="0.5,0.5" Height="106">
-                                <StackPanel.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="46"/>
-                                    </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label Background="{x:Null}" Foreground="#FF0F0F0F" FontSize="36" FontWeight="Bold" FontFamily="Calibri" Padding="0,0,0,0" VerticalContentAlignment="Center">Summary</Label>
-                                <StackPanel Name="TextBoxesSummary" Orientation="Horizontal" Width="660" RenderTransformOrigin="0.5,0.5">
-                                    <StackPanel.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="26"/>
-                                        </TransformGroup>
-                                    </StackPanel.RenderTransform>
-                                    <TextBox Name="TextBoxInPresidentWindowGarageNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="GarageNumber" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
-                                    <TextBox Name="TextBoxInPresidentWindowBlockOfGarages" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="BlockOfGarages" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="46"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
-                                    <TextBox Name="TextBoxInPresidentWindowOwnerFullName" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="OwnerFullName" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="92"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
-                                    <TextBox Name="TextBoxInPresidentWindowBalance" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Balance" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="138"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
+                    <StackPanel Name="IndividualInfo" Margin="0 30 0 0">
+                        <StackPanel Name="Summary">
+                            <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}" FontSize="36" FontFamily="Calibri" FontWeight="Bold">Сводная</Label>
+                            <DockPanel Margin="0 12 0 0">
+                                <StackPanel>
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Блок гаражей:</Label>
+                                    <TextBox Name="TextBoxBlockOfGarages" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Name="Payment" Height="106">
-                                <StackPanel.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="92"/>
-                                    </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label Foreground="#FF0F0F0F" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" VerticalContentAlignment="Center" Padding="0,0,0,0">Payment</Label>
-                                <StackPanel Name="TextBoxesPayment" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
-                                    <StackPanel.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="26"/>
-                                        </TransformGroup>
-                                    </StackPanel.RenderTransform>
-                                    <TextBox Name="TextBoxInPresidentWindowPaymentDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="PaymentDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
-                                    <TextBox Name="TextBoxInPresidentWindowCash" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Cash" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="46"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
-                                    <TextBox Name="TextBoxInPresidentWindowNonCash" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="NonCash" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="92"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
-                                    <TextBox Name="TextBoxInPresidentWindowPaymentTotal" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="PaymentTotal" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="138"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">ФИО владельца:</Label>
+                                    <TextBox Name="TextBoxOwnerName" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Name="Remainder" RenderTransformOrigin="0.5,0.5" Height="168">
-                                <StackPanel.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="138"/>
-                                    </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0F0F0F" VerticalContentAlignment="Center" Padding="0,0,0,0">Remainder</Label>
-                                <StackPanel Name="TextBoxesPricePerKw" Orientation="Vertical" Height="124">
-                                    <StackPanel Name="TextBoxesRemainder" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
-                                        <StackPanel.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform Y="26"/>
-                                            </TransformGroup>
-                                        </StackPanel.RenderTransform>
-                                        <Label FontFamily="Calibri" Background="{x:Null}" Foreground="#FF0F0F0F" FontWeight="Bold" Width="150" FontSize="18" VerticalContentAlignment="Center" Padding="0,0,0,0">Price per kw from</Label>
-                                        <TextBox Name="TextBoxInPresidentWindowRemainderDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="RemainderDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                            <TextBox.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform X="16"/>
-                                                </TransformGroup>
-                                            </TextBox.RenderTransform>
-                                        </TextBox>
-                                        <TextBox Name="TextBoxInPresidentWindowPricePerKw"  Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="PricePerKw" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                            <TextBox.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform/>
-                                                    <TranslateTransform X="62"/>
-                                                </TransformGroup>
-                                            </TextBox.RenderTransform>
-                                        </TextBox>
-                                    </StackPanel>
-                                    <TextBox Name="TextBoxInPresidentWindowRemainder" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Remainder" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform Y="52"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Баланс (руб.):</Label>
+                                    <TextBox Name="TextBoxBalance" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Name="Indications" RenderTransformOrigin="0.5,0.5" Height="106">
-                                <StackPanel.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="184"/>
-                                    </TransformGroup>
-                                </StackPanel.RenderTransform>
-                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Padding="0,0,0,0" VerticalContentAlignment="Center">Indications</Label>
-                                <StackPanel Name="TextBoxesIndications" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
-                                    <StackPanel.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="26"/>
-                                        </TransformGroup>
-                                    </StackPanel.RenderTransform>
-                                    <TextBox Name="TextBoxInPresidentWindowCounterNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="CounterNumber" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"></TextBox>
-                                    <TextBox Name="TextBoxInPresidentWindowSealNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="SealNumber" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="46"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
-                                    <TextBox Name="TextBoxInPresidentWindowSealDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="SealDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
-                                        <TextBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform X="104"/>
-                                            </TransformGroup>
-                                        </TextBox.RenderTransform>
-                                    </TextBox>
+                            </DockPanel>
+                            <DockPanel Margin="0 12 0 0">
+                                <StackPanel>
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Номер счетчика:</Label>
+                                    <TextBox Name="TextBoxCounterNumber" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
                                 </StackPanel>
-                            </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Номер пломбы:</Label>
+                                    <TextBox Name="TextBoxSealNumber" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Дата пломбировки:</Label>
+                                    <TextBox Name="TextBoxSealDate" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                            </DockPanel>
                         </StackPanel>
-                        <StackPanel Name="Tables" Width="974">
-                            <Label Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Foreground="#FF344FB1" Padding="0,0,0,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" RenderTransformOrigin="0.5,0.5" Width="890">
-                                <Label.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="46"/>
-                                    </TransformGroup>
-                                </Label.RenderTransform> 2023
-                            </Label>
-                            <FlowDocumentScrollViewer Height="90" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri">
-                                <FlowDocumentScrollViewer.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="52"/>
-                                    </TransformGroup>
-                                </FlowDocumentScrollViewer.RenderTransform>
-                                <FlowDocument>
-                                    <Table Name="TableThisYear" BorderBrush="#FF787878" BorderThickness="1" CellSpacing="0">
-                                        <Table.Columns>
-                                            <TableColumn Width="100"></TableColumn>
-                                            <TableColumn Width="70"></TableColumn>
-                                            <TableColumn Width="80"></TableColumn>
-                                            <TableColumn Width="60"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="60"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                            <TableColumn Width="70"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                        </Table.Columns>
-                                        <TableRowGroup>
-                                            <TableRow FontWeight="Bold" FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Table</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>January</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>February</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>March</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>April</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>May</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>June</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>July</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>August</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>September</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>October</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>November</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>December</Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Indications</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Consumption</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableRowGroup>
-                                    </Table>
-                                </FlowDocument>
-                            </FlowDocumentScrollViewer>
-                            <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Padding="0,0,0,0" RenderTransformOrigin="0.5,0.5" Content="2022" Width="890">
-                                <Label.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="64"/>
-                                    </TransformGroup>
-                                </Label.RenderTransform>
-                            </Label>
-                            <FlowDocumentScrollViewer Height="90" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri">
-                                <FlowDocumentScrollViewer.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="70"/>
-                                    </TransformGroup>
-                                </FlowDocumentScrollViewer.RenderTransform>
-                                <FlowDocument>
-                                    <Table Name="TableOneYearAgo" BorderBrush="#FF787878" BorderThickness="1" CellSpacing="0">
-                                        <Table.Columns>
-                                            <TableColumn Width="100"></TableColumn>
-                                            <TableColumn Width="70"></TableColumn>
-                                            <TableColumn Width="80"></TableColumn>
-                                            <TableColumn Width="60"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="60"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                            <TableColumn Width="70"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                        </Table.Columns>
-                                        <TableRowGroup>
-                                            <TableRow FontWeight="Bold" FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Table</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>January</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>February</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>March</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>April</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>May</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>June</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>July</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>August</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>September</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>October</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>November</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>December</Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Indications</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Consumption</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableRowGroup>
-                                    </Table>
-                                </FlowDocument>
-                            </FlowDocumentScrollViewer>
-                            <Label Foreground="#FF0F0F0F" Background="{x:Null}" FontFamily="Calibri" FontSize="36" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Padding="0,0,0,10" RenderTransformOrigin="0.5,0.5" Height="44" Width="890">
-                                <Label.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="82"/>
-                                    </TransformGroup>
-                                </Label.RenderTransform> 2021
-                            </Label>
-                            <FlowDocumentScrollViewer Height="90" RenderTransformOrigin="0.5,0.5" FontFamily="Calibri">
-                                <FlowDocumentScrollViewer.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform Y="88"/>
-                                    </TransformGroup>
-                                </FlowDocumentScrollViewer.RenderTransform>
-                                <FlowDocument>
-                                    <Table Name="TableTwoYearsAgo" BorderBrush="#FF787878" BorderThickness="1" CellSpacing="0">
-                                        <Table.Columns>
-                                            <TableColumn Width="100"></TableColumn>
-                                            <TableColumn Width="70"></TableColumn>
-                                            <TableColumn Width="80"></TableColumn>
-                                            <TableColumn Width="60"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="50"></TableColumn>
-                                            <TableColumn Width="60"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                            <TableColumn Width="70"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                            <TableColumn Width="90"></TableColumn>
-                                        </Table.Columns>
-                                        <TableRowGroup>
-                                            <TableRow FontWeight="Bold" FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Table</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>January</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>February</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>March</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>April</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>May</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>June</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>July</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>August</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>September</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>October</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>November</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>December</Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Indications</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow FontSize="13">
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph>Consumption</Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                                <TableCell BorderBrush="#FF787878" BorderThickness="1" TextAlignment="Center">
-                                                    <Paragraph></Paragraph>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableRowGroup>
-                                    </Table>
-                                </FlowDocument>
-                            </FlowDocumentScrollViewer>
+                        <StackPanel Name="Payment" Margin="0 30 0 0">
+                            <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}" FontSize="36" FontFamily="Calibri" FontWeight="Bold">Оплата</Label>
+                            <DockPanel Margin="0 12 0 0">
+                                <StackPanel>
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Дата:</Label>
+                                    <TextBox Name="TextBoxPaymentDate" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Наличными (руб.):</Label>
+                                    <TextBox Name="TextBoxCash" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Безнал (руб.):</Label>
+                                    <TextBox Name="TextBoxNonCash" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                            </DockPanel>
+                            <DockPanel Margin="0 12 0 0">
+                                <StackPanel>
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Всего (руб):</Label>
+                                    <TextBox Name="TextBoxPaymentTotal" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                            </DockPanel>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Indications">
-
+            <TabItem Header="Тариф-сальдо" FontSize="18" FontFamily="Calibri" Foreground="#FF0F0F0F" Padding="10 10 10 10" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
+                <StackPanel Name="ContentBalanceRate" Margin="40">
+                    <StackPanel Name="BalanceRateHeader" Margin="0 23 0 0">
+                        <Button Width="160" Height="50" Padding="0,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Сохранить</Button>
+                    </StackPanel>
+                    <StackPanel Name="GeneralInfo" Margin="0 30 0 0">
+                        <StackPanel Name="Tariff">
+                            <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}" FontSize="36" FontFamily="Calibri" FontWeight="Bold">Тариф</Label>
+                            <DockPanel Margin="0 12 0 0">
+                                <StackPanel>
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Дата:</Label>
+                                    <TextBox Name="TextBoxTariffDate" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Цена (руб.):</Label>
+                                    <TextBox Name="TextBoxTariff" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+                        <StackPanel Name="BalanceRate" Margin="0 30 0 0">
+                            <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}" FontSize="36" FontFamily="Calibri" FontWeight="Bold">Cальдо</Label>
+                            <DockPanel Margin="0 12 0 0">
+                                <StackPanel>
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Долг (руб.):</Label>
+                                    <TextBox Name="TextBoxDebt" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Аванс (руб.):</Label>
+                                    <TextBox Name="TextBoxPrepayment" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                                <StackPanel Margin="30 0 0 0">
+                                    <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Сальдо (руб.):</Label>
+                                    <TextBox Name="TextBoxBalanceRate" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Left" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
             </TabItem>
-            <TabItem Header="Consumption">
-
-            </TabItem>
-
         </TabControl>
-    </DockPanel>
+
+    </Grid>
 </Window>
