@@ -13,7 +13,7 @@ namespace ElectricityMetering.Core.Model
         public string? SealNumber { get; set; }
         public string? CounterNumber { get; set; }
         public DateOnly SealDate { get; set; }
-        public Owner? Owner { get; set; }
-        public int[] Indications { get; set; }
+        public Owner Owner { get; set; } = null!;
+        public int[] Indications { get; set; } = new int[36];
     }
 }

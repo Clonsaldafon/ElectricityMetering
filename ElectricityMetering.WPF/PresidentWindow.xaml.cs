@@ -44,20 +44,20 @@ namespace ElectricityMetering.WPF
             }
 
             // TODO: garageNumber isn't always invalid
-            if (_repository.CanLoadInfo(garageNumber))
+            if (!_repository.CanLoadInfo(garageNumber))
             {
-                _garage = _repository.LoadInfo(garageNumber);
-                //_owner = _repository.LoadInfo(_garage);
-                //_payment = _repository.LoadInfo(_owner);
-                _tariff = _repository.LoadInfo();
+                MessageBox.Show("Такого гаража не существует!");
+                return;
+            }
 
-                MessageBox.Show("correct");
-                //FillTextBoxes();
-            }
-            else
-            {
-                MessageBox.Show("Недопустимый номер гаража!");
-            }
+            _garage = _repository.LoadInfoByGarageNumber(garageNumber);
+            //_owner = _repository.LoadInfo(_garage);
+            //_payment = _repository.LoadInfo(_owner);
+            //_tariff = _repository.LoadInfo();
+
+            // TODO: _garage.Owner is null
+            MessageBox.Show(_garage.Owner.Name);
+            //FillTextBoxes();
         }
 
         private void CreateNewGarageNumber(object sender, RoutedEventArgs e)

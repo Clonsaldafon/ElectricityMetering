@@ -22,11 +22,14 @@ namespace ElectricityMetering.Core.Controller
         {
             using(ApplicationContext db = new ApplicationContext())
             {
-                string? sealNumber = null;
-                string? counterNumber = null;
+                string sealNumber = "-";
+                string counterNumber = "-";
                 DateOnly sealDate = new DateOnly();
-                Owner owner = new Owner { Name = "", Balance = 0 };
-                int[] indications = new int[36];
+                Owner owner = new Owner { Name = "-", Balance = 0 };
+                //int[] indications = new int[36];
+
+                db.Owners.Add(owner);
+                db.SaveChanges();
 
                 Garage garage = new Garage
                 {
@@ -35,10 +38,9 @@ namespace ElectricityMetering.Core.Controller
                     CounterNumber = counterNumber,
                     SealDate = sealDate,
                     Owner = owner,
-                    Indications = indications
+                    //Indications = indications
                 };
-
-                db.Owners.Add(owner);
+  
                 db.Garages.Add(garage);
                 db.SaveChanges();
             }
@@ -52,13 +54,21 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        public Garage LoadInfo(string garageNumber)
+        public Garage LoadInfoByGarageNumber(string garageNumber)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.Garages.First(g => string.Equals(g.Number, garageNumber));
+            }
+        }
+
+        /*public Garage LoadInfo(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
                 return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber));
             }
-        }
+        }*/
 
         /*public Owner LoadInfo(Garage garage)
         {
@@ -90,12 +100,12 @@ namespace ElectricityMetering.Core.Controller
             }
         }*/
 
-        public Tariff LoadInfo()
+        /*public Tariff LoadInfo()
         {
             using (ApplicationContext db = new ApplicationContext())
             {
                 return db.PricesPerKw.OrderBy(p => p.Id).LastOrDefault();
             }
-        }
+        }*/
     }
 }
