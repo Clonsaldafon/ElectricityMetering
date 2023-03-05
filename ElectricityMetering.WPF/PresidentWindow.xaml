@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="PresidentWindow" Height="900" Width="1680">
+        Title="Учет э/э" Height="900" Width="1680">
     <DockPanel>
         <TabControl Height="784" Width="1597" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF0F0F0F" BorderThickness="0,0,0,0">
-            <TabItem Header="Main" BorderBrush="#FF344FB1" Background="{x:Null}">
+            <TabItem Header="Главная" BorderBrush="#FF344FB1" Background="{x:Null}">
                 <StackPanel Orientation="Vertical" RenderTransformOrigin="0.5,0.5">
                     <StackPanel.RenderTransform>
                         <TransformGroup>
@@ -20,7 +20,7 @@
                     </StackPanel.RenderTransform>
                     <StackPanel Name="Header" Orientation="Horizontal">
                         <TextBox Name="TextBoxGarageNumber" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="GarageNumber" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F"/>
-                        <Button Name="ButtonLoadInfo" Click="LoadInfoByGarageNumber" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+                        <Button Name="ButtonLoadInfo" Click="LoadInfoByGarageNumber" Width="120" Height="36" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" Content="Загрузить">
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -28,9 +28,9 @@
                                     <RotateTransform/>
                                     <TranslateTransform X="46"/>
                                 </TransformGroup>
-                            </Button.RenderTransform> Load
+                            </Button.RenderTransform>
                         </Button>
-                        <Button x:Name="ButtonSaveInfo" Width="120" Height="36" FontFamily="Calibri" FontSize="13" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" Content="Save">
+                        <Button x:Name="ButtonSaveInfo" Width="120" Height="36" FontFamily="Calibri" FontSize="18" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold" RenderTransformOrigin="0.5,0.5" Content="Сохранить">
                             <Button.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -52,7 +52,7 @@
                                         <TranslateTransform Y="46"/>
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
-                                <Label Background="{x:Null}" Foreground="#FF0F0F0F" FontSize="36" FontWeight="Bold" FontFamily="Calibri" Padding="0,0,0,0" VerticalContentAlignment="Center">Summary</Label>
+                                <Label Background="{x:Null}" Foreground="#FF0F0F0F" FontSize="36" FontWeight="Bold" FontFamily="Calibri" Padding="0,0,0,0" VerticalContentAlignment="Center">Сводная</Label>
                                 <StackPanel Name="TextBoxesSummary" Orientation="Horizontal" Width="660" RenderTransformOrigin="0.5,0.5">
                                     <StackPanel.RenderTransform>
                                         <TransformGroup>
@@ -104,7 +104,7 @@
                                         <TranslateTransform Y="92"/>
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
-                                <Label Foreground="#FF0F0F0F" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" VerticalContentAlignment="Center" Padding="0,0,0,0">Payment</Label>
+                                <Label Foreground="#FF0F0F0F" FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" VerticalContentAlignment="Center" Padding="0,0,0,0">Оплата</Label>
                                 <StackPanel Name="TextBoxesPayment" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
                                     <StackPanel.RenderTransform>
                                         <TransformGroup>
@@ -156,7 +156,7 @@
                                         <TranslateTransform Y="138"/>
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
-                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0F0F0F" VerticalContentAlignment="Center" Padding="0,0,0,0">Remainder</Label>
+                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Foreground="#FF0F0F0F" VerticalContentAlignment="Center" Padding="0,0,0,0">Тариф</Label>
                                 <StackPanel Name="TextBoxesPricePerKw" Orientation="Vertical" Height="124">
                                     <StackPanel Name="TextBoxesRemainder" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
                                         <StackPanel.RenderTransform>
@@ -167,7 +167,7 @@
                                                 <TranslateTransform Y="26"/>
                                             </TransformGroup>
                                         </StackPanel.RenderTransform>
-                                        <Label FontFamily="Calibri" Background="{x:Null}" Foreground="#FF0F0F0F" FontWeight="Bold" Width="150" FontSize="18" VerticalContentAlignment="Center" Padding="0,0,0,0">Price per kw from</Label>
+                                        <Label FontFamily="Calibri" Background="{x:Null}" Foreground="#FF0F0F0F" FontWeight="Bold" Width="150" FontSize="18" VerticalContentAlignment="Center" Padding="0,0,0,0">Цена за кВт с</Label>
                                         <TextBox Name="TextBoxInPresidentWindowRemainderDate" Width="120" Height="36" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="RemainderDate" BorderBrush="#FF787878" CaretBrush="#FF344FB1" Foreground="#FF0F0F0F" RenderTransformOrigin="0.5,0.5">
                                             <TextBox.RenderTransform>
                                                 <TransformGroup>
@@ -210,7 +210,7 @@
                                         <TranslateTransform Y="184"/>
                                     </TransformGroup>
                                 </StackPanel.RenderTransform>
-                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Padding="0,0,0,0" VerticalContentAlignment="Center">Indications</Label>
+                                <Label FontFamily="Calibri" FontSize="36" FontWeight="Bold" Background="{x:Null}" Padding="0,0,0,0" VerticalContentAlignment="Center">Показания</Label>
                                 <StackPanel Name="TextBoxesIndications" Orientation="Horizontal" RenderTransformOrigin="0.5,0.5">
                                     <StackPanel.RenderTransform>
                                         <TransformGroup>
@@ -741,13 +741,12 @@
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Indications">
+            <TabItem Header="Показания">
 
             </TabItem>
-            <TabItem Header="Consumption">
+            <TabItem Header="Сводная">
 
             </TabItem>
-
         </TabControl>
     </DockPanel>
 </Window>
