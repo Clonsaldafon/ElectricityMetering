@@ -41,7 +41,7 @@ namespace ElectricityMetering.WPF
 
             if (!ApplicationInputHandler.PasswordIsCorrect(roleName.ToString(), password))
             {
-                MessageBox.Show("Invalid password!");
+                MessageBox.Show("Неверный пароль!");
                 return;
             }
 
