@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="Учет э/э" Height="750" Width="815" Background="#FFF6F6F6">
+        Title="Учет э/э" Height="750" Width="858" Background="#FFF6F6F6">
     <Grid>
         <TabControl>
             <TabItem Header="Главная" FontSize="18" FontFamily="Calibri" Foreground="#FF0F0F0F" Padding="10 10 10 10" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
@@ -14,9 +14,9 @@
                         <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Номер гаража:</Label>
                         <DockPanel>
                             <TextBox Name="TextBoxGarageNumber" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
-                            <Button Click="LoadInfoByGarageNumber" Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Загрузить</Button>
-                            <Button Click="CreateNewGarageNumber" Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Добавить</Button>
-                            <Button Click="SaveInfoByGarageNumber" Width="160" Height="50" Padding="0,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Сохранить</Button>
+                            <Button Click="Load" Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Загрузить</Button>
+                            <Button Click="Add" Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Добавить</Button>
+                            <Button Click="Save" Width="160" Height="50" Padding="0,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Сохранить</Button>
                         </DockPanel>
                     </StackPanel>
                     <StackPanel Name="IndividualInfo" Margin="0 30 0 0">

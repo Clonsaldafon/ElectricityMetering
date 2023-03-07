@@ -25,42 +25,41 @@ namespace ElectricityMetering.WPF
 
         private Garage _garage;
         private Owner _owner;
-        private Payment _payment;
-        private Tariff _tariff;
+        /*private Payment _payment;
+        private Tariff _tariff;*/
 
         public PresidentWindow()
         {
             InitializeComponent();
         }
 
-        private void LoadInfoByGarageNumber(object sender, RoutedEventArgs e)
+        private void Load(object sender, RoutedEventArgs e)
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
             if (string.IsNullOrEmpty(garageNumber))
             {
-                MessageBox.Show("Введите номер гаража!");
+                MessageBox.Show("Введите номер гаража.");
                 return;
             }
 
-            // TODO: garageNumber isn't always invalid
-            if (!_repository.CanLoadInfo(garageNumber))
+            if (!_repository.CanLoadGarage(garageNumber))
             {
-                MessageBox.Show("Такого гаража не существует!");
+                MessageBox.Show("Таких данных нет.");
                 return;
             }
 
             _garage = _repository.LoadGarage(garageNumber);
-            //_owner = _repository.LoadInfo(_garage);
+
             //_payment = _repository.LoadInfo(_owner);
             //_tariff = _repository.LoadInfo();
 
             // TODO: _garage.Owner is null
             //MessageBox.Show(_garage.Owner.Name);
-            //FillTextBoxes();
+            FillTextBoxes();
         }
 
-        private void CreateNewGarageNumber(object sender, RoutedEventArgs e)
+        private void Add(object sender, RoutedEventArgs e)
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
@@ -74,32 +73,48 @@ namespace ElectricityMetering.WPF
             MessageBox.Show("Гараж добавлен");
         }
 
-        private void SaveInfoByGarageNumber(object sender, RoutedEventArgs e)
+        private void Save(object sender, RoutedEventArgs e)
         {
+            if (_repository.CanCreateNewOwner(_garage))
+            {
+                string ownerName = TextBoxOwnerName.Text;
+                decimal balance = decimal.Parse(TextBoxBalance.Text);
 
+                _repository.CreateNewOwner(ownerName, balance, _garage);
+                MessageBox.Show("Владелец добавлен");
+            }
+
+            _owner = _repository.LoadOwner(_garage);
+
+            _garage.CounterNumber = TextBoxCounterNumber.Text;
+            _garage.SealNumber = TextBoxSealNumber.Text;
+            _garage.SealDate = DateOnly.Parse(TextBoxSealDate.Text);
         }
 
         private void FillTextBoxes()
         {
-            //TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
-            TextBoxOwnerName.Text = _owner.Name;
-            TextBoxBalance.Text = _owner.Balance.ToString();
+            if (_owner is not null)
+            {
+                TextBoxBlockOfGarages.Text = GetBlockOfGarages(_owner);
+                TextBoxOwnerName.Text = _owner.Name;
+                TextBoxBalance.Text = _owner.Balance.ToString();
+            }
 
-            TextBoxPaymentDate.Text = _payment.Date.ToString();
-            TextBoxCash.Text = _payment.Cash.ToString();
-            TextBoxNonCash.Text = _payment.NonCash.ToString();
-            TextBoxPaymentTotal.Text = _payment.Total.ToString();
+            //TextBoxPaymentDate.Text = _payment.Date.ToString();
+            //TextBoxCash.Text = _payment.Cash.ToString();
+            //TextBoxNonCash.Text = _payment.NonCash.ToString();
+            //TextBoxPaymentTotal.Text = _payment.Total.ToString();
 
             TextBoxCounterNumber.Text = _garage.CounterNumber;
             TextBoxSealNumber.Text = _garage.SealNumber;
             TextBoxSealDate.Text = _garage.SealDate.ToString();
 
-            TextBoxTariffDate.Text = _tariff.Date.ToString();
-            TextBoxTariff.Text = _tariff.Price.ToString();
+            //TextBoxTariffDate.Text = _tariff.Date.ToString();
+            //TextBoxTariff.Text = _tariff.Price.ToString();
             //TextBoxInPresidentWindowRemainder.Text = 
         }
 
-        /*private string GetBlockOfGarages(Owner owner)
+        private string GetBlockOfGarages(Owner owner)
         {
             string[] garageNumbers = new string[owner.Garages.Count];
 
@@ -109,6 +124,6 @@ namespace ElectricityMetering.WPF
             }
 
             return string.Join(", ", garageNumbers);
-        }*/
+        }
     }
 }

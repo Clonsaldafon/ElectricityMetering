@@ -25,11 +25,7 @@ namespace ElectricityMetering.Core.Controller
                 string sealNumber = "-";
                 string counterNumber = "-";
                 DateOnly sealDate = new DateOnly();
-                Owner owner = new Owner { Name = "-", Balance = 0 };
                 int[] indications = new int[36];
-
-                db.Owners.Add(owner);
-                db.SaveChanges();
 
                 Garage garage = new Garage
                 {
@@ -37,16 +33,39 @@ namespace ElectricityMetering.Core.Controller
                     SealNumber = sealNumber,
                     CounterNumber = counterNumber,
                     SealDate = sealDate,
-                    Owner = owner,
                     Indications = indications
                 };
-  
+
                 db.Garages.Add(garage);
                 db.SaveChanges();
             }
         }
 
-        public bool CanLoadInfo(string garageNumber)
+        public bool CanCreateNewOwner(Garage garage)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                return db.Owners.FirstOrDefault(o => o.Garages.Contains(garage)) is null;
+            }
+        }
+
+        public void CreateNewOwner(string ownerName, decimal balance, Garage garage)
+        {
+            using(ApplicationContext db = new ApplicationContext())
+            {
+                Owner owner = new Owner
+                {
+                    Name = ownerName,
+                    Balance = balance,
+                    Garages = new List<Garage> { garage }
+                };
+
+                db.Owners.Add(owner);
+                db.SaveChanges();
+            }
+        }
+
+        public bool CanLoadGarage(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
@@ -62,28 +81,30 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        /*public Garage LoadInfo(string garageNumber)
+        public bool CanLoadOwner(string ownerName)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                return db.Garages.FirstOrDefault(g => string.Equals(g.Number, garageNumber));
+                return db.Owners.FirstOrDefault(o => string.Equals(o.Name, ownerName)) is not null;
             }
-        }*/
+        }
 
-        /*public Owner LoadInfo(Garage garage)
+        public Owner LoadOwner(Garage garage)
         {
             using (ApplicationContext db = new ApplicationContext())
             {
-                Owner owner = db.Owners.FirstOrDefault(o => o.Garages.Contains(garage));
-
-                if (owner.Garages is null)
-                {
-                    owner.Garages = new List<Garage> { garage };
-                }
-
-                return owner;
+                return db.Owners.First(o => o.Garages.Contains(garage));
             }
-        }*/
+        }
+
+        public void SaveGarage(Garage garage)
+        {
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                db.Garages.Update(garage);
+                db.SaveChanges();
+            }
+        }
 
         /*public Payment LoadInfo(Owner owner)
         {
