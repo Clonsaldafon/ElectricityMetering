@@ -14,9 +14,9 @@
                         <Label Padding="0 0 0 0" Foreground="#FF0F0F0F" Background="{x:Null}">Номер гаража:</Label>
                         <DockPanel>
                             <TextBox Name="TextBoxGarageNumber" Width="160" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#787878" Foreground="#FF0F0F0F" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="2,2,2,2"></TextBox>
-                            <Button Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Загрузить</Button>
-                            <Button Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Добавить</Button>
-                            <Button Width="160" Height="50" Padding="0,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Сохранить</Button>
+                            <Button Click="LoadInfoByGarageNumber" Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Загрузить</Button>
+                            <Button Click="CreateNewGarageNumber" Width="160" Height="50" Padding="0,0,0,0" Margin="30 0 0 0" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Добавить</Button>
+                            <Button Click="SaveInfoByGarageNumber" Width="160" Height="50" Padding="0,0,0,0" HorizontalAlignment="Right" Background="{x:Null}" BorderBrush="#FF344FB1" Foreground="#FF344FB1" BorderThickness="2,2,2,2">Сохранить</Button>
                         </DockPanel>
                     </StackPanel>
                     <StackPanel Name="IndividualInfo" Margin="0 30 0 0">

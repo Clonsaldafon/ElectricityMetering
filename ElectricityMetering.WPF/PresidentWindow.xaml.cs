@@ -44,25 +44,45 @@ namespace ElectricityMetering.WPF
             }
 
             // TODO: garageNumber isn't always invalid
-            if (_repository.CanLoadInfo(garageNumber))
+            if (!_repository.CanLoadInfo(garageNumber))
             {
-                _garage = _repository.LoadInfo(garageNumber);
-                //_owner = _repository.LoadInfo(_garage);
-                //_payment = _repository.LoadInfo(_owner);
-                _tariff = _repository.LoadInfo();
+                MessageBox.Show("Такого гаража не существует!");
+                return;
+            }
 
-                FillTextBoxes();
-            }
-            else
+            _garage = _repository.LoadGarage(garageNumber);
+            //_owner = _repository.LoadInfo(_garage);
+            //_payment = _repository.LoadInfo(_owner);
+            //_tariff = _repository.LoadInfo();
+
+            // TODO: _garage.Owner is null
+            //MessageBox.Show(_garage.Owner.Name);
+            //FillTextBoxes();
+        }
+
+        private void CreateNewGarageNumber(object sender, RoutedEventArgs e)
+        {
+            string garageNumber = TextBoxGarageNumber.Text;
+
+            if (!_repository.CanCreateNewGarage(garageNumber))
             {
-                MessageBox.Show("Недопустимый номер гаража!");
+                MessageBox.Show("Такой гараж уже существует!");
+                return;
             }
+
+            _repository.CreateNewGarage(garageNumber);
+            MessageBox.Show("Гараж добавлен");
+        }
+
+        private void SaveInfoByGarageNumber(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void FillTextBoxes()
         {
             //TextBoxInPresidentWindowBlockOfGarages.Text = GetBlockOfGarages(_owner);
-            TextBoxOwnerName.Text = _owner.FullName;
+            TextBoxOwnerName.Text = _owner.Name;
             TextBoxBalance.Text = _owner.Balance.ToString();
 
             TextBoxPaymentDate.Text = _payment.Date.ToString();
@@ -72,7 +92,7 @@ namespace ElectricityMetering.WPF
 
             TextBoxCounterNumber.Text = _garage.CounterNumber;
             TextBoxSealNumber.Text = _garage.SealNumber;
-            TextBoxSealDate.Text = _garage.SealingDate.ToString();
+            TextBoxSealDate.Text = _garage.SealDate.ToString();
 
             TextBoxTariffDate.Text = _tariff.Date.ToString();
             TextBoxTariff.Text = _tariff.Price.ToString();
