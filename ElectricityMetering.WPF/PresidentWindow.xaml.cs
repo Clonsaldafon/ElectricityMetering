@@ -50,13 +50,13 @@ namespace ElectricityMetering.WPF
                 return;
             }
 
-            _garage = _repository.LoadInfoByGarageNumber(garageNumber);
+            _garage = _repository.LoadGarage(garageNumber);
             //_owner = _repository.LoadInfo(_garage);
             //_payment = _repository.LoadInfo(_owner);
             //_tariff = _repository.LoadInfo();
 
             // TODO: _garage.Owner is null
-            MessageBox.Show(_garage.Owner.Name);
+            //MessageBox.Show(_garage.Owner.Name);
             //FillTextBoxes();
         }
 

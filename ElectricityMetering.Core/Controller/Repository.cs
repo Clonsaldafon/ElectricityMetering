@@ -26,7 +26,7 @@ namespace ElectricityMetering.Core.Controller
                 string counterNumber = "-";
                 DateOnly sealDate = new DateOnly();
                 Owner owner = new Owner { Name = "-", Balance = 0 };
-                //int[] indications = new int[36];
+                int[] indications = new int[36];
 
                 db.Owners.Add(owner);
                 db.SaveChanges();
@@ -38,7 +38,7 @@ namespace ElectricityMetering.Core.Controller
                     CounterNumber = counterNumber,
                     SealDate = sealDate,
                     Owner = owner,
-                    //Indications = indications
+                    Indications = indications
                 };
   
                 db.Garages.Add(garage);
@@ -54,7 +54,7 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        public Garage LoadInfoByGarageNumber(string garageNumber)
+        public Garage LoadGarage(string garageNumber)
         {
             using (ApplicationContext db = new ApplicationContext())
             {

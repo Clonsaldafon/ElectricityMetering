@@ -30,14 +30,14 @@ namespace ElectricityMetering.WPF
         {
             InitializeComponent();
 
-            using (ApplicationContext db = new ApplicationContext())
+            /*using (ApplicationContext db = new ApplicationContext())
             {
                 Role role1 = new Role { Name = _president, Password = "0000" };
                 Role role2 = new Role { Name = _electrician, Password = "qwerty" };
 
                 db.Roles.AddRange(role1, role2);
                 db.SaveChanges();
-            }
+            }*/
         }
 
         public void ApplicationInput(object sender, RoutedEventArgs e)
