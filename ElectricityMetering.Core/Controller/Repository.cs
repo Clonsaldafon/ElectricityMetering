@@ -18,22 +18,17 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        public void CreateNewGarage(string garageNumber)
+        public void CreateNewGarage(string garageNumber, string sealNumber = "-", string counterNumber = "-", DateOnly sealDate = new DateOnly(), Owner owner)
         {
             using(ApplicationContext db = new ApplicationContext())
             {
-                string sealNumber = "-";
-                string counterNumber = "-";
-                DateOnly sealDate = new DateOnly();
-                int[] indications = new int[36];
-
                 Garage garage = new Garage
                 {
                     Number = garageNumber,
                     SealNumber = sealNumber,
                     CounterNumber = counterNumber,
                     SealDate = sealDate,
-                    Indications = indications
+                    Owner = owner
                 };
 
                 db.Garages.Add(garage);
@@ -49,15 +44,14 @@ namespace ElectricityMetering.Core.Controller
             }
         }
 
-        public void CreateNewOwner(string ownerName, decimal balance, Garage garage)
+        public void CreateNewOwner(string ownerName, decimal balance)
         {
             using(ApplicationContext db = new ApplicationContext())
             {
                 Owner owner = new Owner
                 {
                     Name = ownerName,
-                    Balance = balance,
-                    Garages = new List<Garage> { garage }
+                    Balance = balance
                 };
 
                 db.Owners.Add(owner);
