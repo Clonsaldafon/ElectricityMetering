@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ElectricityMetering.Core.Model
 {
-    public class Garage
+    public class Seal
     {
         public int Id { get; set; }
         public string Number { get; set; } = null!;
-
-        public Owner Owner { get; set; }
-        public Counter Counter { get; set; }
-        public Seal Seal { get; set; }
+        public DateOnly Date { get; set; } = new DateOnly();
+        public List<Garage> Garages { get; set; }
     }
 }

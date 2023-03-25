@@ -26,38 +26,31 @@ namespace ElectricityMetering.WPF
         private readonly string _president = "Председатель";
         private readonly string _electrician = "Электрик";
 
+        private ApplicationInputHandler _applicationInputHandler = new ApplicationInputHandler();
+
         public MainWindow()
         {
             InitializeComponent();
-
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                Role role1 = new Role { Name = _president, Password = "0000" };
-                Role role2 = new Role { Name = _electrician, Password = "qwerty" };
-
-                db.Roles.AddRange(role1, role2);
-                db.SaveChanges();
-            }
         }
 
-        public void ApplicationInput(object sender, RoutedEventArgs e)
+        public async void ApplicationInputAsync(object sender, RoutedEventArgs e)
         {
             string roleName = RoleInput.Text;
             string password = PasswordInput.Password;
 
-            if (!ApplicationInputHandler.PasswordIsCorrect(roleName.ToString(), password))
+            if (!(await _applicationInputHandler.PasswordIsCorrectAsync(roleName.ToString(), password)))
             {
                 MessageBox.Show("Неверный пароль!");
                 return;
             }
 
-            if (string.Equals(roleName, _president))
+            if (roleName == _president)
             {
                 PresidentWindow presidentWindow = new PresidentWindow();
                 presidentWindow.Show();
                 Close();
             }
-            else if (string.Equals(roleName, _electrician))
+            else if (roleName == _electrician)
             {
                 ElectricianWindow electricianWindow = new ElectricianWindow();
                 electricianWindow.Show();

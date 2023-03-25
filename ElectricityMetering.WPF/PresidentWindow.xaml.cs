@@ -3,17 +3,8 @@ using ElectricityMetering.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace ElectricityMetering.WPF
 {
@@ -24,17 +15,19 @@ namespace ElectricityMetering.WPF
     {
         private Repository _repository = new Repository();
 
-        private Garage _garage;
-        private Owner _owner;
-        /*private Payment _payment;
-        private Tariff _tariff;*/
+        private Garage? _garage;
+        private Owner? _owner;
+        private Counter? _counter;
+        private Seal? _seal;
+
+        private Payment? _payment;
 
         public PresidentWindow()
         {
             InitializeComponent();
         }
 
-        private void Load(object sender, RoutedEventArgs e)
+        private async void AddAsync(object sender, RoutedEventArgs e)
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
@@ -44,49 +37,52 @@ namespace ElectricityMetering.WPF
                 return;
             }
 
-            if (!_repository.CanLoadGarage(garageNumber))
-            {
-                MessageBox.Show("Таких данных нет!");
-                return;
-            }
-
-            _garage = _repository.LoadGarage(garageNumber);
-
-            if (_repository.CanLoadOwner(garageNumber))
-            {
-                _owner = _repository.LoadOwner(_garage);
-            }
-
-            //_payment = _repository.LoadInfo(_owner);
-            //_tariff = _repository.LoadInfo();
-
-            // TODO: _garage.Owner is null
-            //MessageBox.Show(_garage.Owner.Name);
-            FillTextBoxes();
-        }
-
-        private void Add(object sender, RoutedEventArgs e)
-        {
-            string garageNumber = TextBoxGarageNumber.Text;
-
-            if (!_repository.CanCreateNewGarage(garageNumber))
+            if ((await _repository.GetGarageAsync(garageNumber)) != null)
             {
                 MessageBox.Show("Такой гараж уже существует!");
                 return;
             }
 
+            _garage = await _repository.CreateGarageAsync(garageNumber);
+            MessageBox.Show($"Гараж №{_garage.Number} добавлен.");
+
+            _owner = _garage.Owner;
+            _counter = _garage.Counter;
+            _seal = _garage.Seal;
+
+            ClearTextBoxes();
+            FillTextBoxes();
+        }
+
+        private async void LoadAsync(object sender, RoutedEventArgs e)
+        {
+            string garageNumber = TextBoxGarageNumber.Text;
+
             if (string.IsNullOrEmpty(garageNumber))
             {
                 MessageBox.Show("Введите номер гаража!");
                 return;
             }
 
-            _repository.CreateNewGarage(garageNumber);
-            MessageBox.Show("Гараж добавлен.");
+            _garage = await _repository.GetGarageAsync(garageNumber);
+            if (_garage == null)
+            {
+                MessageBox.Show("Таких данных нет!");
+                return;
+            }
+
+            _owner = _garage.Owner;
+            _counter = _garage.Counter;
+            _seal = _garage.Seal;
+
+            ClearTextBoxes();
+            FillTextBoxes();
+            MessageBox.Show("Данные загружены.");
         }
 
-        private void Save(object sender, RoutedEventArgs e)
+        private async void SaveAsync(object sender, RoutedEventArgs e)
         {
+            string garageNumber = TextBoxGarageNumber.Text;
             string ownerName = TextBoxOwnerName.Text;
             decimal balance = decimal.Parse(TextBoxBalance.Text, CultureInfo.InvariantCulture);
 
@@ -94,64 +90,92 @@ namespace ElectricityMetering.WPF
             string sealNumber = TextBoxSealNumber.Text;
             DateOnly sealDate = DateOnly.Parse(TextBoxSealDate.Text);
 
-            _garage.CounterNumber = counterNumber;
-            _garage.SealNumber = sealNumber;
-            _garage.SealDate = sealDate;
-            _repository.SaveGarage(_garage);
+            // TODO: save _payment data
 
-            if (!string.IsNullOrEmpty(ownerName) && _repository.CanCreateNewOwner(_garage))
+            _owner = await _repository.GetOwnerAsync(_garage);
+            if (_owner.Name == "-")
             {
-                _repository.CreateNewOwner(ownerName, balance, _garage.Number);
-                MessageBox.Show("Владелец добавлен.");
+                _owner = await _repository.CreateOwnerAsync(ownerName, balance);
+                MessageBox.Show($"Владелец {_owner.Name} добавлен.");
             }
 
-            _owner = _repository.LoadOwner(_garage);
+            _counter = await _repository.GetCounterAsync(_garage);
+            if (_counter.Number == "-")
+            {
+                _counter = await _repository.CreateCounterAsync(counterNumber);
+                MessageBox.Show($"Счетчик №{_counter.Number} добавлен.");
+            }
+
+            _seal = await _repository.GetSealAsync(_garage);
+            if (_seal.Number == "-")
+            {
+                _seal = await _repository.CreateSealAsync(sealNumber, sealDate);
+                MessageBox.Show($"Пломба №{_seal.Number} добавлена.");
+            }
 
             string[] garageNumbers = TextBoxBlockOfGarages.Text.Split(",");
-
-            foreach (string garageNumber in garageNumbers)
+            foreach (string number in garageNumbers)
             {
-                if (_repository.CanCreateNewGarage(garageNumber))
+                if (await _repository.GetGarageAsync(number) == null && !string.IsNullOrEmpty(number))
                 {
-                    _repository.CreateNewGarage(garageNumber, sealNumber, counterNumber, sealDate);
-                    _owner.Garages.Append(_repository.LoadGarage(garageNumber));
+                    Garage garage = await _repository.CreateGarageAsync(number);
+                    await _repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+
+                    garage = await _repository.GetGarageAsync(number);
+                    MessageBox.Show($"Гараж №{garage.Number} добавлен.");
                 }
             }
+
+            await _repository.SaveGarageAsync(_garage, _owner, _counter, _seal);
+            _garage = await _repository.GetGarageAsync(_owner);
+
+            MessageBox.Show("Данные сохранены.");
         }
 
         private void FillTextBoxes()
         {
-            if (_owner is not null)
+            if (_owner != null)
             {
-                TextBoxBlockOfGarages.Text = GetBlockOfGarages(_owner);
+                TextBoxBlockOfGarages.Text = SplitBlockOfGarages(_repository.GetBlockOfGarages(_garage));
                 TextBoxOwnerName.Text = _owner.Name;
                 TextBoxBalance.Text = _owner.Balance.ToString();
             }
 
-            //TextBoxPaymentDate.Text = _payment.Date.ToString();
-            //TextBoxCash.Text = _payment.Cash.ToString();
-            //TextBoxNonCash.Text = _payment.NonCash.ToString();
-            //TextBoxPaymentTotal.Text = _payment.Total.ToString();
-
-            TextBoxCounterNumber.Text = _garage.CounterNumber;
-            TextBoxSealNumber.Text = _garage.SealNumber;
-            TextBoxSealDate.Text = _garage.SealDate.ToString();
-
-            //TextBoxTariffDate.Text = _tariff.Date.ToString();
-            //TextBoxTariff.Text = _tariff.Price.ToString();
-            //TextBoxInPresidentWindowRemainder.Text = 
-        }
-
-        private string GetBlockOfGarages(Owner owner)
-        {
-            string[] garageNumbers = new string[owner.Garages.Count];
-
-            for (int i = 0; i < owner.Garages.Count; i++)
+            if (_counter != null)
             {
-                garageNumbers[i] = owner.Garages[i].Number;
+                TextBoxCounterNumber.Text = _counter.Number;
+            }
+            
+            if (_seal != null)
+            {
+                TextBoxSealNumber.Text = _seal.Number;
+                TextBoxSealDate.Text = _seal.Date.ToString();
             }
 
-            return string.Join(", ", garageNumbers);
+            // TODO: fill _payment data
+        }
+
+        private void ClearTextBoxes()
+        {
+            TextBoxBlockOfGarages.Clear();
+            TextBoxOwnerName.Clear();
+            TextBoxBalance.Clear();
+
+            TextBoxCounterNumber.Clear();
+            TextBoxSealNumber.Clear();
+            TextBoxSealDate.Clear();
+        }
+
+        private string SplitBlockOfGarages(List<Garage> garages)
+        {
+            StringBuilder result = new StringBuilder();
+
+            foreach (Garage garage in garages)
+            {
+                result.Append($"{garage.Number},");
+            }
+
+            return result.ToString().Remove(result.Length - 1);
         }
     }
 }

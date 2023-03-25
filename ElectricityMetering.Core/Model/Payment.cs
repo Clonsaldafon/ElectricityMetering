@@ -13,6 +13,6 @@ namespace ElectricityMetering.Core.Model
         public decimal Cash { get; set; }
         public decimal NonCash { get; set; }
         public decimal Total { get; set; }
-        public Owner Owner { get; set; } = null!;
+        public Owner? Owner { get; set; }
     }
 }
