@@ -5,6 +5,8 @@ namespace ElectricityMetering.Core.Controller
 {
     public class Repository
     {
+        private ApplicationContext _context = new ApplicationContext();
+
         #region Create
         /// <summary>
         /// Create new garage and add it to the database if owner, seal and counter are null.
@@ -13,21 +15,18 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Created garage.</returns>
         public async Task<Garage> CreateGarageAsync(string garageNumber)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            Garage garage = new Garage
             {
-                Garage garage = new Garage
-                {
-                    Number = garageNumber,
-                    Owner = await db.Owners.FirstAsync(o => o.Name == "-"),
-                    Counter = await db.Counters.FirstAsync(c => c.Number == "-"),
-                    Seal = await db.Seals.FirstAsync(s => s.Number == "-"),
-                };
+                Number = garageNumber,
+                Owner = await _context.Owners.FirstAsync(o => o.Name == "-"),
+                Counter = await _context.Counters.FirstAsync(c => c.Number == "-"),
+                Seal = await _context.Seals.FirstAsync(s => s.Number == "-"),
+            };
 
-                await db.Garages.AddAsync(garage);
-                await db.SaveChangesAsync();
+            await _context.Garages.AddAsync(garage);
+            await _context.SaveChangesAsync();
 
-                return garage;
-            }
+            return garage;
         }
 
         /// <summary>
@@ -38,19 +37,16 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Created owner.</returns>
         public async Task<Owner> CreateOwnerAsync(string ownerName, decimal balance)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            Owner owner = new Owner
             {
-                Owner owner = new Owner
-                {
-                    Name = ownerName,
-                    Balance = balance
-                };
+                Name = ownerName,
+                Balance = balance
+            };
 
-                await db.Owners.AddAsync(owner);
-                await db.SaveChangesAsync();
+            await _context.Owners.AddAsync(owner);
+            await _context.SaveChangesAsync();
 
-                return owner;
-            }
+            return owner;
         }
 
         /// <summary>
@@ -60,18 +56,15 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Created counter.</returns>
         public async Task<Counter> CreateCounterAsync(string counterNumber)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            Counter counter = new Counter
             {
-                Counter counter = new Counter
-                {
-                    Number = counterNumber
-                };
+                Number = counterNumber
+            };
 
-                await db.Counters.AddAsync(counter);
-                await db.SaveChangesAsync();
+            await _context.Counters.AddAsync(counter);
+            await _context.SaveChangesAsync();
 
-                return counter;
-            }
+            return counter;
         }
 
         /// <summary>
@@ -81,19 +74,16 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Created seal.</returns>
         public async Task<Seal> CreateSealAsync(string sealNumber, DateOnly sealDate)
         {
-            using (ApplicationContext db = new ApplicationContext())
+            Seal seal = new Seal
             {
-                Seal seal = new Seal
-                {
-                    Number = sealNumber,
-                    Date = sealDate
-                };
+                Number = sealNumber,
+                Date = sealDate
+            };
 
-                await db.Seals.AddAsync(seal);
-                await db.SaveChangesAsync();
+            await _context.Seals.AddAsync(seal);
+            await _context.SaveChangesAsync();
 
-                return seal;
-            }
+            return seal;
         }
         #endregion
 
@@ -108,15 +98,12 @@ namespace ElectricityMetering.Core.Controller
         /// <returns></returns>
         public async Task SaveGarageAsync(Garage garage, Owner owner, Counter counter, Seal seal)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                garage.Owner = owner;
-                garage.Counter = counter;
-                garage.Seal = seal;
+            garage.Owner = owner;
+            garage.Counter = counter;
+            garage.Seal = seal;
 
-                db.Garages.Update(garage);
-                await db.SaveChangesAsync();
-            }
+            _context.Garages.Update(garage);
+            await _context.SaveChangesAsync();
         }
         #endregion
 
@@ -128,16 +115,13 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded garage.</returns>
         public async Task<Garage?> GetGarageAsync(string garageNumber)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                Garage? garage = await db.Garages
-                    .Include(g => g.Owner)
-                    .Include(g => g.Counter)
-                    .Include(g => g.Seal)
-                    .Where(g => g.Number == garageNumber)
-                    .FirstOrDefaultAsync();
-                return garage;
-            }
+            Garage? garage = await _context.Garages
+                .Include(g => g.Owner)
+                .Include(g => g.Counter)
+                .Include(g => g.Seal)
+                .Where(g => g.Number == garageNumber)
+                .FirstOrDefaultAsync();
+            return garage;
         }
 
         /// <summary>
@@ -147,16 +131,13 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded garage.</returns>
         public async Task<Garage?> GetGarageAsync(Owner owner)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                Garage? garage = await db.Garages
-                    .Include(g => g.Owner)
-                    .Include(g => g.Counter)
-                    .Include(g => g.Seal)
-                    .Where(g => g.Owner == owner)
-                    .FirstOrDefaultAsync();
-                return garage;
-            }
+            Garage? garage = await _context.Garages
+                .Include(g => g.Owner)
+                .Include(g => g.Counter)
+                .Include(g => g.Seal)
+                .Where(g => g.Owner == owner)
+                .FirstOrDefaultAsync();
+            return garage;
         }
 
         /// <summary>
@@ -166,10 +147,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded owner.</returns>
         public async Task<Owner?> GetOwnerAsync(Garage garage)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return await db.Owners.FirstOrDefaultAsync(o => o.Garages.Contains(garage));
-            }
+            return await _context.Owners.FirstOrDefaultAsync(o => o.Garages.Contains(garage));
         }
 
         /// <summary>
@@ -179,10 +157,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded owner.</returns>
         public async Task<Owner?> GetOwnerAsync(int id)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return await db.Owners.FirstOrDefaultAsync(o => o.Id == id);
-            }
+            return await _context.Owners.FirstOrDefaultAsync(o => o.Id == id);
         }
 
         /// <summary>
@@ -192,10 +167,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded counter.</returns>
         public async Task<Counter?> GetCounterAsync(Garage garage)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return await db.Counters.FirstOrDefaultAsync(c => c.Garages.Contains(garage));
-            }
+            return await _context.Counters.FirstOrDefaultAsync(c => c.Garages.Contains(garage));
         }
 
         /// <summary>
@@ -205,10 +177,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded counter.</returns>
         public async Task<Counter?> GetCounterAsync(int id)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return await db.Counters.FirstOrDefaultAsync(c => c.Id == id);
-            }
+            return await _context.Counters.FirstOrDefaultAsync(c => c.Id == id);
         }
 
         /// <summary>
@@ -218,10 +187,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded seal.</returns>
         public async Task<Seal?> GetSealAsync(Garage garage)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return await db.Seals.FirstOrDefaultAsync(s => s.Garages.Contains(garage));
-            }
+            return await _context.Seals.FirstOrDefaultAsync(s => s.Garages.Contains(garage));
         }
 
         /// <summary>
@@ -231,10 +197,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded owner.</returns>
         public async Task<Seal?> GetSealAsync(int id)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return await db.Seals.FirstOrDefaultAsync(s => s.Id == id);
-            }
+            return await _context.Seals.FirstOrDefaultAsync(s => s.Id == id);
         }
 
         /// <summary>
@@ -244,10 +207,7 @@ namespace ElectricityMetering.Core.Controller
         /// <returns>Loaded garages.</returns>
         public List<Garage> GetBlockOfGarages(Garage garage)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                return db.Garages.Where(g => g.Owner == garage.Owner).OrderBy(g => g.Number).ToList();
-            }
+            return _context.Garages.Where(g => g.Owner == garage.Owner).OrderBy(g => g.Number).ToList();
         }
         #endregion
     }

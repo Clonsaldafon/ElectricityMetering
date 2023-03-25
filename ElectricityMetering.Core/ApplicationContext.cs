@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ElectricityMetering.Core.Model;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ElectricityMetering.Core
 {
