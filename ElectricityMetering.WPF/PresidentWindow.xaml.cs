@@ -1,5 +1,5 @@
-﻿using ElectricityMetering.Core.Controller;
-using ElectricityMetering.Core.Model;
+﻿using ElectricityMetering.Core;
+using ElectricityMetering.Core.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -13,146 +13,66 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class PresidentWindow : Window
     {
-        private Repository _repository = new Repository();
+        private readonly Controller _controller = new Controller();
 
-        private Garage? _garage;
-        private Owner? _owner;
-        private Counter? _counter;
-        private Seal? _seal;
-
-        private Payment? _payment;
+        private string _operationStatusText;
 
         public PresidentWindow()
         {
             InitializeComponent();
         }
 
-        private async void AddAsync(object sender, RoutedEventArgs e)
+        private async void AddMainData(object sender, RoutedEventArgs e)
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
-            if (string.IsNullOrEmpty(garageNumber))
-            {
-                MessageBox.Show("Введите номер гаража!");
-                return;
-            }
-
-            if ((await _repository.GetGarageAsync(garageNumber)) != null)
-            {
-                MessageBox.Show("Такой гараж уже существует!");
-                return;
-            }
-
-            _garage = await _repository.CreateGarageAsync(garageNumber);
-            MessageBox.Show($"Гараж №{_garage.Number} добавлен.");
-
-            _owner = _garage.Owner;
-            _counter = _garage.Counter;
-            _seal = _garage.Seal;
+            _operationStatusText = await _controller.AddGarageAsync(garageNumber);
+            MessageBox.Show(_operationStatusText);
 
             ClearTextBoxes();
-            FillTextBoxes();
+            _operationStatusText = FillTextBoxes();
+            MessageBox.Show(_operationStatusText);
         }
 
-        private async void LoadAsync(object sender, RoutedEventArgs e)
+        private async void LoadMainData(object sender, RoutedEventArgs e)
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
-            if (string.IsNullOrEmpty(garageNumber))
-            {
-                MessageBox.Show("Введите номер гаража!");
-                return;
-            }
-
-            _garage = await _repository.GetGarageAsync(garageNumber);
-            if (_garage == null)
-            {
-                MessageBox.Show("Таких данных нет!");
-                return;
-            }
-
-            _owner = _garage.Owner;
-            _counter = _garage.Counter;
-            _seal = _garage.Seal;
+            _operationStatusText = await _controller.LoadGarageAsync(garageNumber);
+            MessageBox.Show(_operationStatusText);
 
             ClearTextBoxes();
-            FillTextBoxes();
-            MessageBox.Show("Данные загружены.");
+            _operationStatusText = FillTextBoxes();
+            MessageBox.Show(_operationStatusText);
         }
 
-        private async void SaveAsync(object sender, RoutedEventArgs e)
+        private async void SaveMainData(object sender, RoutedEventArgs e)
         {
-            string garageNumber = TextBoxGarageNumber.Text;
             string ownerName = TextBoxOwnerName.Text;
-            decimal balance = decimal.Parse(TextBoxBalance.Text, CultureInfo.InvariantCulture);
+            string balanceString = TextBoxBalance.Text;
 
             string counterNumber = TextBoxCounterNumber.Text;
             string sealNumber = TextBoxSealNumber.Text;
-            DateOnly sealDate = DateOnly.Parse(TextBoxSealDate.Text);
-
-            // TODO: save _payment data
-
-            _owner = await _repository.GetOwnerAsync(_garage);
-            if (_owner.Name == "-")
-            {
-                _owner = await _repository.CreateOwnerAsync(ownerName, balance);
-                MessageBox.Show($"Владелец {_owner.Name} добавлен.");
-            }
-
-            _counter = await _repository.GetCounterAsync(_garage);
-            if (_counter.Number == "-")
-            {
-                _counter = await _repository.CreateCounterAsync(counterNumber);
-                MessageBox.Show($"Счетчик №{_counter.Number} добавлен.");
-            }
-
-            _seal = await _repository.GetSealAsync(_garage);
-            if (_seal.Number == "-")
-            {
-                _seal = await _repository.CreateSealAsync(sealNumber, sealDate);
-                MessageBox.Show($"Пломба №{_seal.Number} добавлена.");
-            }
+            string sealDateString = TextBoxSealDate.Text;
 
             string[] garageNumbers = TextBoxBlockOfGarages.Text.Split(",");
+
+            _operationStatusText = await _controller.AddOwnerAsync(ownerName, balanceString);
+            MessageBox.Show(_operationStatusText);
+
+            _operationStatusText = await _controller.AddCounterAsync(counterNumber);
+            MessageBox.Show(_operationStatusText);
+
+            _operationStatusText = await _controller.AddSealAsync(sealNumber, sealDateString);
+            MessageBox.Show(_operationStatusText);
+
             foreach (string number in garageNumbers)
             {
-                if (await _repository.GetGarageAsync(number) == null && !string.IsNullOrEmpty(number))
-                {
-                    Garage garage = await _repository.CreateGarageAsync(number);
-                    await _repository.SaveGarageAsync(garage, _owner, _counter, _seal);
-
-                    garage = await _repository.GetGarageAsync(number);
-                    MessageBox.Show($"Гараж №{garage.Number} добавлен.");
-                }
+                _operationStatusText = await _controller.AddGarageAsync(number);
+                MessageBox.Show(_operationStatusText);
             }
 
-            await _repository.SaveGarageAsync(_garage, _owner, _counter, _seal);
-            _garage = await _repository.GetGarageAsync(_owner);
-
-            MessageBox.Show("Данные сохранены.");
-        }
-
-        private void FillTextBoxes()
-        {
-            if (_owner != null)
-            {
-                TextBoxBlockOfGarages.Text = SplitBlockOfGarages(_repository.GetBlockOfGarages(_garage));
-                TextBoxOwnerName.Text = _owner.Name;
-                TextBoxBalance.Text = _owner.Balance.ToString();
-            }
-
-            if (_counter != null)
-            {
-                TextBoxCounterNumber.Text = _counter.Number;
-            }
-            
-            if (_seal != null)
-            {
-                TextBoxSealNumber.Text = _seal.Number;
-                TextBoxSealDate.Text = _seal.Date.ToString();
-            }
-
-            // TODO: fill _payment data
+            MessageBox.Show("Данные успешно сохранены.");
         }
 
         private void ClearTextBoxes()
@@ -166,16 +86,23 @@ namespace ElectricityMetering.WPF
             TextBoxSealDate.Clear();
         }
 
-        private string SplitBlockOfGarages(List<Garage> garages)
+        private string FillTextBoxes()
         {
-            StringBuilder result = new StringBuilder();
+            string blockOfGaragesInfo = _controller.SplitBlockOfGarage();
+            List<string> ownerInfo = _controller.GetOwnerInfo();
+            List<string> counterInfo = _controller.GetCounterInfo();
+            List<string> sealInfo = _controller.GetSealInfo();
 
-            foreach (Garage garage in garages)
-            {
-                result.Append($"{garage.Number},");
-            }
+            TextBoxBlockOfGarages.Text = blockOfGaragesInfo;
+            TextBoxOwnerName.Text = ownerInfo[0];
+            TextBoxBalance.Text = ownerInfo[1];
 
-            return result.ToString().Remove(result.Length - 1);
+            TextBoxCounterNumber.Text = counterInfo[0];
+
+            TextBoxSealNumber.Text = sealInfo[0];
+            TextBoxSealDate.Text = sealInfo[1];
+
+            return "Данные успешно загружены.";
         }
     }
 }

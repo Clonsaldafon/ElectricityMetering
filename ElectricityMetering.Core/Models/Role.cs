@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.Core.Model
+namespace ElectricityMetering.Core.Models
 {
-    public class Tariff
+    public class Role
     {
         public int Id { get; set; }
-        public decimal Price { get; set; }
-        public DateOnly Date { get; set; }
+        public string Name { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 }

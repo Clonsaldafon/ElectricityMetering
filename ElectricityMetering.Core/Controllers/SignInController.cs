@@ -1,4 +1,4 @@
-﻿using ElectricityMetering.Core.Model;
+﻿using ElectricityMetering.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,10 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.Core.Controller
+namespace ElectricityMetering.Core.Controllers
 {
-    public class ApplicationInputHandler
+    public class SignInController
     {
+        private readonly ApplicationContext _context = new ApplicationContext();
+
         public async Task<bool> PasswordIsCorrectAsync(string roleName, string password)
         {
             using (ApplicationContext db = new ApplicationContext())

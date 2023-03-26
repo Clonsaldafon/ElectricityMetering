@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.Core.Model
+namespace ElectricityMetering.Core.Models
 {
     public class Garage
     {

@@ -1,11 +1,11 @@
-﻿using ElectricityMetering.Core.Model;
+﻿using ElectricityMetering.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ElectricityMetering.Core.Controller
+namespace ElectricityMetering.Core
 {
     public class Repository
     {
-        private ApplicationContext _context = new ApplicationContext();
+        private readonly ApplicationContext _context = new ApplicationContext();
 
         #region Create
         /// <summary>
@@ -141,6 +141,16 @@ namespace ElectricityMetering.Core.Controller
         }
 
         /// <summary>
+        /// Load the owner from the database by name.
+        /// </summary>
+        /// <param name="ownerName">The owner's name.</param>
+        /// <returns>Loaded owner.</returns>
+        public async Task<Owner?> GetOwnerAsync(string ownerName)
+        {
+            return await _context.Owners.FirstOrDefaultAsync(o => o.Name == ownerName);
+        }
+
+        /// <summary>
         /// Load the owner from the database by garage.
         /// </summary>
         /// <param name="garage">The owner's garage.</param>
@@ -181,6 +191,16 @@ namespace ElectricityMetering.Core.Controller
         }
 
         /// <summary>
+        /// Load the counter from the database by number.
+        /// </summary>
+        /// <param name="counterNumber">Number of this counter.</param>
+        /// <returns>Loaded counter.</returns>
+        public async Task<Counter?> GetCounterAsync(string counterNumber)
+        {
+            return await _context.Counters.FirstOrDefaultAsync(c => c.Number == counterNumber);
+        }
+
+        /// <summary>
         /// Load the seal from the database by garage.
         /// </summary>
         /// <param name="garage">The seal's garage.</param>
@@ -198,6 +218,16 @@ namespace ElectricityMetering.Core.Controller
         public async Task<Seal?> GetSealAsync(int id)
         {
             return await _context.Seals.FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        /// <summary>
+        /// Load the seal from the database by number.
+        /// </summary>
+        /// <param name="sealNumber">Number of this seal.</param>
+        /// <returns>Loaded owner.</returns>
+        public async Task<Seal?> GetSealAsync(string sealNumber)
+        {
+            return await _context.Seals.FirstOrDefaultAsync(s => s.Number == sealNumber);
         }
 
         /// <summary>

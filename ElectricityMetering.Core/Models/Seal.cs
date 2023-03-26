@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricityMetering.Core.Model
+namespace ElectricityMetering.Core.Models
 {
-    public class Owner
+    public class Seal
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public decimal Balance { get; set; }
+        public string Number { get; set; } = null!;
+        public DateOnly Date { get; set; } = new DateOnly();
         public List<Garage> Garages { get; set; }
-        public List<Payment> Payments { get; set; }
     }
 }

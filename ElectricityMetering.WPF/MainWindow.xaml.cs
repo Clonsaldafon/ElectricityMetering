@@ -13,8 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ElectricityMetering.Core;
-using ElectricityMetering.Core.Model;
-using ElectricityMetering.Core.Controller;
+using ElectricityMetering.Core.Models;
+using ElectricityMetering.Core.Controllers;
+using Accessibility;
 
 namespace ElectricityMetering.WPF
 {
@@ -23,39 +24,38 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string _president = "Председатель";
-        private readonly string _electrician = "Электрик";
+        private SignInController _signInController = new SignInController();
 
-        private ApplicationInputHandler _applicationInputHandler = new ApplicationInputHandler();
+        private Dictionary<string, Window> _windowsByRoleName = new Dictionary<string, Window>
+        {
+            { "Председатель", new PresidentWindow()},
+            { "Электрик", new ElectricianWindow()},
+        };
+
+        private string _operationStatusText;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        public async void ApplicationInputAsync(object sender, RoutedEventArgs e)
+        public async void SignIn(object sender, RoutedEventArgs e)
         {
             string roleName = RoleInput.Text;
             string password = PasswordInput.Password;
 
-            if (!(await _applicationInputHandler.PasswordIsCorrectAsync(roleName.ToString(), password)))
+            if (!(await _signInController.PasswordIsCorrectAsync(roleName, password)))
             {
-                MessageBox.Show("Неверный пароль!");
+                _operationStatusText = "Неверный пароль!";
+                MessageBox.Show(_operationStatusText);
                 return;
             }
 
-            if (roleName == _president)
-            {
-                PresidentWindow presidentWindow = new PresidentWindow();
-                presidentWindow.Show();
-                Close();
-            }
-            else if (roleName == _electrician)
-            {
-                ElectricianWindow electricianWindow = new ElectricianWindow();
-                electricianWindow.Show();
-                Close();
-            }
+            _operationStatusText = "Вы успешно вошли в систему!";
+            MessageBox.Show(_operationStatusText);
+
+            _windowsByRoleName[roleName].Show();
+            Close();
         }
     }
 }
