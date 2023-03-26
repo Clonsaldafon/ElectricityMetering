@@ -5,16 +5,220 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="Учет э/э" Height="600" Width="500">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Content="Должность:" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Padding="0,0,0,0" UseLayoutRounding="False"/>
-        <ComboBox Name="RoleInput" Width="160" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0 5 0 0" FontSize="18" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" Foreground="#FF0F0F0F" BorderBrush="#FF344FB1" BorderThickness="2,2,2,2" Background="{x:Null}">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Председатель"/></TextBlock>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Электрик"/></TextBlock>
-        </ComboBox>
-        <Label Content="Введите пароль:" Margin="0 10 0 0" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Center" Foreground="#FF344FB1" FontFamily="Calibri" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Padding="0,0,0,0" UseLayoutRounding="False"/>
-        <PasswordBox Name="PasswordInput" Width="160" Height="36" Margin="0 5 0 0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Calibri" FontSize="13" Background="{x:Null}" BorderThickness="2,2,2,2" SelectionBrush="#FF344FB1" MaxLength="10" SelectionTextBrush="#FF344FB1" FontWeight="Bold" AutomationProperties.HelpText="Password" BorderBrush="#FF344FB1" CaretBrush="#FF344FB1" Password="" Foreground="#FF0F0F0F"/>
-        <Button Click="SignIn" Content="Войти" Width="160" Height="36" Margin="0 20 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Calibri" FontSize="18" BorderBrush="#FF344FB1" Foreground="#FF344FB1" Background="{x:Null}" BorderThickness="2,2,2,2" FontWeight="Bold"/>
-    </StackPanel>
+        Title="Учет э/э" Height="500" Width="350"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
+    
+    <Border CornerRadius="10"
+            BorderThickness="2">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#344FB1" Offset="0"/>
+                <GradientStop Color="#D64040" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#202062" Offset="0"/>
+                <GradientStop Color="#0F0F2E" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Учет э/э"
+                           Foreground="DarkGray"
+                           FontSize="10"
+                           FontFamily="Roboto"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Margin="10 0 0 0"/>
+
+                <Button Name="ButtonMinimize"
+                        BorderThickness="0"
+                        Content="-"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Roboto"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        Click="ButtonMinimize_Click">
+                    
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#202062"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#344FB1"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    
+                </Button>
+
+                <Button Name="ButtonClose"
+                        BorderThickness="0"
+                        Content="X"
+                        Foreground="White"
+                        FontSize="12"
+                        FontFamily="Roboto"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="ButtonClose_Click">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#D64040"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#FF4C4C"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+            <StackPanel Width="250"
+                        Grid.Row="2"
+                        Orientation="Vertical"
+                        Margin="0 35 0 0">
+
+                <TextBlock Text="Вход в систему"
+                           Foreground="White"
+                           FontSize="25"
+                           FontWeight="Medium"
+                           FontFamily="Roboto"
+                           HorizontalAlignment="Center"
+                           Margin="0 75 0 0"/>
+
+                <TextBlock Text="Должность"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Roboto"
+                           Margin="0 35 0 0"/>
+
+                <TextBox Name="RoleInput"
+                         FontSize="16"
+                         FontWeight="Medium"
+                         FontFamily="Roboto"
+                         Background="{x:Null}"
+                         Foreground="White"
+                         CaretBrush="LightGray"
+                         BorderBrush="DarkGray"
+                         BorderThickness="0 0 0 1"
+                         Height="28"
+                         VerticalContentAlignment="Center"
+                         Margin="0 5 0 0">
+
+                </TextBox>
+
+                <TextBlock Text="Пароль"
+                           Foreground="DarkGray"
+                           FontSize="12"
+                           FontWeight="Medium"
+                           FontFamily="Roboto"
+                           Margin="0 15 0 0"/>
+
+                <PasswordBox Name="PasswordInput"
+                         FontSize="16"
+                         FontWeight="Medium"
+                         FontFamily="Roboto"
+                         Background="Transparent"
+                         Foreground="White"
+                         CaretBrush="LightGray"
+                         BorderBrush="DarkGray"
+                         BorderThickness="0 0 0 1"
+                         Height="28"
+                         VerticalContentAlignment="Center"
+                         Margin="0 5 0 0">
+
+                </PasswordBox>
+
+                <Button Name="ButtonSignIn"
+                        Content="Войти"
+                        FontSize="16"
+                        FontFamily="Roboto"
+                        FontWeight="Medium"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Margin="0 50 0 0"
+                        Click="ButtonSignIn_Click">
+
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Button.Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="#D64040"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#D64040"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="150" Height="40"
+                                    CornerRadius="20"
+                                    BorderBrush="#D64040"
+                                    BorderThickness="2"
+                                    Background="{TemplateBinding Background}">
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </StackPanel>
+            
+        </Grid>
+    </Border>
 </Window>
 

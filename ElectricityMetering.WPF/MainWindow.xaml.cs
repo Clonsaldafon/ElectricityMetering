@@ -39,7 +39,7 @@ namespace ElectricityMetering.WPF
             InitializeComponent();
         }
 
-        public async void SignIn(object sender, RoutedEventArgs e)
+        public async void ButtonSignIn_Click(object sender, RoutedEventArgs e)
         {
             string roleName = RoleInput.Text;
             string password = PasswordInput.Password;
@@ -56,6 +56,24 @@ namespace ElectricityMetering.WPF
 
             _windowsByRoleName[roleName].Show();
             Close();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void ButtonClose_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }
