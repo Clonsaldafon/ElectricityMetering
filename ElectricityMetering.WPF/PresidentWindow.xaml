@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
         mc:Ignorable="d"
-        Title="Учет э/э" Height="750" Width="858" Background="#FFF6F6F6">
-    <Grid>
+        Height="700" Width="1300"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        MouseLeftButtonDown="ControlBar_MouseLeftButtonDown"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <!--<Grid>
         <TabControl>
             <TabItem Header="Главная" FontSize="18" FontFamily="Calibri" Foreground="#FF0F0F0F" Padding="10 10 10 10" VerticalContentAlignment="Stretch" Background="{x:Null}" BorderBrush="{x:Null}">
                 <StackPanel Name="ContentMain" Margin="40">
@@ -118,5 +123,230 @@
             </TabItem>
         </TabControl>
 
-    </Grid>
+    </Grid>-->
+
+    <Border CornerRadius="10"
+            BorderThickness="2">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                <GradientStop Color="{StaticResource BlueColor}" Offset="0"/>
+                <GradientStop Color="{StaticResource GreenColor}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <!--Navigation menu-->
+                <ColumnDefinition Width="200"/>
+                <!--Context section-->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Navigation menu-->
+            <Border CornerRadius="10 0 0 10"
+                    Grid.Column="0"
+                    Background="{StaticResource DarkGrayColorBrush}"
+                    BorderBrush="{StaticResource GreenColorBrush}"
+                    BorderThickness="0 0 4 0">
+
+                <StackPanel>
+
+                    <!--Logo-->
+                    <StackPanel Orientation="Horizontal"
+                                Height="35"
+                                Margin="15 25 0 40">
+
+                        <Image Source="/Images/logo.png"/>
+                        <TextBlock Text="Учет э/э"
+                                   Foreground="White"
+                                   FontSize="24"
+                                   FontFamily="Roboto"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   Margin="10 0 0 0"/>
+
+                    </StackPanel>
+
+                    <!--Menu buttons-->
+                    <RadioButton Name="BalanceRadioButton"
+                                 Style="{StaticResource MenuButton}"
+                                 Checked="RadioButton_ShowContent">
+                        <RadioButton.Content>
+                            <TextBlock Text="Сальдо"
+                                       Style="{StaticResource MenuButtonText}"/>
+                        </RadioButton.Content>
+                    </RadioButton>
+
+                    <RadioButton Name="TariffRadioButton"
+                                 Style="{StaticResource MenuButton}"
+                                 Checked="RadioButton_ShowContent">
+                        <RadioButton.Content>
+                            <TextBlock Text="Тариф"
+                                       Style="{StaticResource MenuButtonText}"/>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton Name="InfoRadioButton"
+                                 Style="{StaticResource MenuButton}"
+                                 Checked="RadioButton_ShowContent">
+                        <RadioButton.Content>
+                            <TextBlock Text="Инфо"
+                                       Style="{StaticResource MenuButtonText}"/>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton Name="PaymentRadioButton"
+                                 Style="{StaticResource MenuButton}"
+                                 Checked="RadioButton_ShowContent">
+                        <RadioButton.Content>
+                            <TextBlock Text="Оплата"
+                                       Style="{StaticResource MenuButtonText}"/>
+                        </RadioButton.Content>
+                    </RadioButton>
+                    <RadioButton Name="IndicationsRadioButton"
+                                 Style="{StaticResource MenuButton}"
+                                 Checked="RadioButton_ShowContent">
+                        <RadioButton.Content>
+                            <TextBlock Text="Показания"
+                                       Style="{StaticResource MenuButtonText}"/>
+                        </RadioButton.Content>
+                    </RadioButton>
+                </StackPanel>
+
+            </Border>
+
+            <!--Main section-->
+            <Border CornerRadius="0 10 10 0"
+                    Grid.Column="1"
+                    Background="#DEDEDE">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Name="ControlBar"
+                          Grid.Row="0"
+                          MouseLeftButtonDown="ControlBar_MouseLeftButtonDown">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Name="ButtonHide"
+                                BorderThickness="0"
+                                Content="-"
+                                Foreground="#1C3E42"
+                                FontSize="12"
+                                FontFamily="Roboto"
+                                Cursor="Hand"
+                                Grid.Column="1"
+                                Click="ButtonHide_Click">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#4AE17F"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#51F68B"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+
+                        </Button>
+
+                        <Button Name="ButtonClose"
+                                BorderThickness="0"
+                                Content="X"
+                                Foreground="#1C3E42"
+                                FontSize="12"
+                                FontFamily="Roboto"
+                                Cursor="Hand"
+                                Grid.Column="2"
+                                Click="ButtonCloseAsync_Click">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#29B5F7"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#6DCBF7"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+
+                    <!--Content section-->
+                    <ContentControl Name="MainContent"
+                                    Grid.Row="1">
+
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                            <Border BorderBrush="{StaticResource DarkGrayColorBrush}"
+                                    BorderThickness="2"
+                                    CornerRadius="10"
+                                    Padding="32"
+                                    Background="#CDCDCD">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="20"
+                                                      RenderingBias="Quality"
+                                                      ShadowDepth="0"
+                                                      Color="{StaticResource DarkGrayColor}"/>
+                                </Border.Effect>
+
+                                <StackPanel>
+                                    <TextBlock Foreground="{StaticResource DarkGrayColorBrush}"
+                                               FontSize="24"
+                                               FontFamily="Roboto"
+                                               FontWeight="Medium"
+                                               TextAlignment="Center">
+                                        Добро пожаловать в приложение<LineBreak/>
+                                        по учету электроэнергии в гаражном кооперативе
+                                    </TextBlock>
+
+                                </StackPanel>
+
+
+                            </Border>
+                        </StackPanel>
+
+                    </ContentControl>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+    </Border>
+
 </Window>

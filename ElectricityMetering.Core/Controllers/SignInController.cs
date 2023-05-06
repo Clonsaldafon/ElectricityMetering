@@ -14,12 +14,42 @@ namespace ElectricityMetering.Core.Controllers
 
         public async Task<bool> PasswordIsCorrectAsync(string roleName, string password)
         {
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                Role? role = await db.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+            Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
 
-                return role != null && role.Password == password;
+            return role != null && role.Password == password;
+        }
+
+        public async Task<bool> RoleIsActiveAsync(string roleName)
+        {
+            Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+
+            return role != null && role.IsActive;
+        }
+
+        public async Task SignInAsync(string roleName)
+        {
+            Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+
+            if (role != null)
+            {
+                role.IsActive = true;
+                await _context.SaveChangesAsync();
             }
+
+            return;
+        }
+
+        public async Task ExitAsync(string roleName)
+        {
+            Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+
+            if (role != null)
+            {
+                role.IsActive = false;
+                await _context.SaveChangesAsync();
+            }
+
+            return;
         }
     }
 }

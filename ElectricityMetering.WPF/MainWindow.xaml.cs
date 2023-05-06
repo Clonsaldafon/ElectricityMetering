@@ -16,6 +16,11 @@ using ElectricityMetering.Core;
 using ElectricityMetering.Core.Models;
 using ElectricityMetering.Core.Controllers;
 using Accessibility;
+using System.Data;
+using System.Threading;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
+using System.Globalization;
 
 namespace ElectricityMetering.WPF
 {
@@ -32,7 +37,8 @@ namespace ElectricityMetering.WPF
             { "Электрик", new ElectricianWindow()},
         };
 
-        private string _operationStatusText;
+        private readonly SolidColorBrush _successColor = new SolidColorBrush(Color.FromRgb(74, 225, 127));
+        private readonly SolidColorBrush _failureColor = new SolidColorBrush(Color.FromRgb(214, 64, 64));
 
         public MainWindow()
         {
@@ -46,13 +52,34 @@ namespace ElectricityMetering.WPF
 
             if (!(await _signInController.PasswordIsCorrectAsync(roleName, password)))
             {
-                _operationStatusText = "Неверный пароль!";
-                MessageBox.Show(_operationStatusText);
+                PasswordInput.Clear();
+                
+                PasswordInput.BorderBrush = _failureColor;
+                TextBlockPassword.Text = "Неверный пароль";
+                TextBlockPassword.Foreground = _failureColor;
+
                 return;
             }
 
-            _operationStatusText = "Вы успешно вошли в систему!";
-            MessageBox.Show(_operationStatusText);
+            if (await _signInController.RoleIsActiveAsync(roleName))
+            {
+                RoleInput.SelectedIndex = -1;
+                PasswordInput.Clear();
+
+                RoleInput.BorderBrush = _failureColor;
+                TextBlockRole.Text = "Уже вошли";
+                TextBlockRole.Foreground = _failureColor;
+
+                return;
+            }
+
+            PasswordInput.BorderBrush = _successColor;
+            TextBlockPassword.Text = "Пароль верный";
+            TextBlockPassword.Foreground = _successColor;
+            RoleInput.BorderBrush = _successColor;
+            TextBlockRole.Foreground = _successColor;
+
+            await _signInController.SignInAsync(roleName);
 
             _windowsByRoleName[roleName].Show();
             Close();
@@ -60,13 +87,10 @@ namespace ElectricityMetering.WPF
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
-            {
-                DragMove();
-            }
+             DragMove();
         }
 
-        private void ButtonMinimize_Click(object sender, RoutedEventArgs e)
+        private void ButtonHide_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }

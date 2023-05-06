@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricityMetering.WPF"
+        xmlns:materialDesignThemes="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Учет э/э" Height="500" Width="350"
+        Height="500" Width="350"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        MouseDown="Window_MouseDown"
+        MouseLeftButtonDown="Window_MouseDown"
         WindowStyle="None"
         Background="Transparent"
         AllowsTransparency="True">
@@ -17,14 +18,14 @@
             BorderThickness="2">
         <Border.BorderBrush>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#344FB1" Offset="0"/>
-                <GradientStop Color="#D64040" Offset="1"/>
+                <GradientStop Color="{StaticResource GreenColor}" Offset="0"/>
+                <GradientStop Color="{StaticResource BlueColor}" Offset="1"/>
             </LinearGradientBrush>
         </Border.BorderBrush>
         <Border.Background>
             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#202062" Offset="0"/>
-                <GradientStop Color="#0F0F2E" Offset="1"/>
+                <GradientStop Color="{StaticResource DarkGreenColor}" Offset="0"/>
+                <GradientStop Color="{StaticResource DarkBlueColor}" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
 
@@ -42,34 +43,25 @@
                     <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="Учет э/э"
-                           Foreground="DarkGray"
+                <TextBlock Text="Учет Э/Э"
+                           Foreground="{StaticResource SignInWindowGrayColorBrush}"
                            FontSize="10"
                            FontFamily="Roboto"
                            Grid.Column="0"
                            VerticalAlignment="Center"
-                           Margin="10 0 0 0"/>
+                           Margin="10 0 0 0">
+                </TextBlock>
 
-                <Button Name="ButtonMinimize"
+                <Button Name="ButtonHide"
                         BorderThickness="0"
                         Content="-"
-                        Foreground="White"
+                        Background="{StaticResource GreenColorBrush}"
+                        Foreground="{StaticResource DarkBlueColorBrush}"
                         FontSize="12"
                         FontFamily="Roboto"
                         Cursor="Hand"
                         Grid.Column="1"
-                        Click="ButtonMinimize_Click">
-                    
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#202062"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#344FB1"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                        Click="ButtonHide_Click">
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -82,29 +74,19 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-                    
+
                 </Button>
 
                 <Button Name="ButtonClose"
                         BorderThickness="0"
                         Content="X"
-                        Foreground="White"
+                        Background="{StaticResource BlueColorBrush}"
+                        Foreground="{StaticResource DarkBlueColorBrush}"
                         FontSize="12"
                         FontFamily="Roboto"
                         Cursor="Hand"
                         Grid.Column="2"
                         Click="ButtonClose_Click">
-
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="#D64040"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#FF4C4C"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
 
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
@@ -120,61 +102,85 @@
                 </Button>
             </Grid>
 
-            <StackPanel Width="250"
+            <StackPanel Width="220"
                         Grid.Row="2"
                         Orientation="Vertical"
                         Margin="0 35 0 0">
 
+                <Image Source="/Images/logo.png"
+                       Width="100"
+                       Height="100"/>
+
                 <TextBlock Text="Вход в систему"
-                           Foreground="White"
+                           Foreground="{StaticResource BlueColorBrush}"
                            FontSize="25"
                            FontWeight="Medium"
                            FontFamily="Roboto"
                            HorizontalAlignment="Center"
-                           Margin="0 75 0 0"/>
+                           Margin="0 10 0 0"/>
 
-                <TextBlock Text="Должность"
-                           Foreground="DarkGray"
+                <TextBlock Name="TextBlockRole"
+                           Text="Должность"
+                           Foreground="{StaticResource SignInWindowGrayColorBrush}"
                            FontSize="12"
                            FontWeight="Medium"
                            FontFamily="Roboto"
                            Margin="0 35 0 0"/>
 
-                <TextBox Name="RoleInput"
-                         FontSize="16"
-                         FontWeight="Medium"
-                         FontFamily="Roboto"
-                         Background="{x:Null}"
-                         Foreground="White"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
-                         BorderThickness="0 0 0 1"
-                         Height="28"
-                         VerticalContentAlignment="Center"
-                         Margin="0 5 0 0">
+                <ComboBox Name="RoleInput"
+                          BorderBrush="{StaticResource SignInWindowGrayColorBrush}"
+                          Style="{DynamicResource MaterialDesignDataGridComboBox}"
+                          FontSize="16"
+                          FontWeight="Medium"
+                          FontFamily="Roboto"
+                          Foreground="White"
+                          BorderThickness="0 0 0 1"
+                          Height="28"
+                          VerticalContentAlignment="Center"
+                          Margin="0 5 0 0">
+                    <ComboBoxItem Content="Председатель"
+                                  Style="{DynamicResource MaterialDesignDataGridComboBoxItemStyle}"
+                                  Foreground="{StaticResource DarkGrayColorBrush}"
+                                  Cursor="Hand"/>
+                    <ComboBoxItem Content="Электрик"
+                                  Style="{DynamicResource MaterialDesignDataGridComboBoxItemStyle}"
+                                  Foreground="{StaticResource DarkGrayColorBrush}"
+                                  Cursor="Hand"/>
 
-                </TextBox>
+                </ComboBox>
 
-                <TextBlock Text="Пароль"
-                           Foreground="DarkGray"
+                <TextBlock Name="TextBlockPassword"
+                           Text="Пароль"
+                           Foreground="{StaticResource SignInWindowGrayColorBrush}"
                            FontSize="12"
                            FontWeight="Medium"
                            FontFamily="Roboto"
-                           Margin="0 15 0 0"/>
+                           Margin="0 20 0 0"/>
 
                 <PasswordBox Name="PasswordInput"
-                         FontSize="16"
-                         FontWeight="Medium"
-                         FontFamily="Roboto"
-                         Background="Transparent"
-                         Foreground="White"
-                         CaretBrush="LightGray"
-                         BorderBrush="DarkGray"
-                         BorderThickness="0 0 0 1"
-                         Height="28"
-                         VerticalContentAlignment="Center"
-                         Margin="0 5 0 0">
-
+                             Password="0000"
+                             FontSize="16"
+                             FontWeight="Medium"
+                             FontFamily="Roboto"
+                             Background="Transparent"
+                             Foreground="White"
+                             BorderThickness="0 0 0 1"
+                             Height="28"
+                             VerticalContentAlignment="Center"
+                             Margin="0 5 0 0">
+                    <PasswordBox.Style>
+                        <Style TargetType="PasswordBox">
+                            <Setter Property="BorderBrush" Value="{StaticResource SignInWindowGrayColorBrush}"/>
+                            <Setter Property="CaretBrush" Value="{StaticResource SignInWindowGrayColorBrush}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" Value="White"/>
+                                    <Setter Property="CaretBrush" Value="White"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </PasswordBox.Style>
+                    
                 </PasswordBox>
 
                 <Button Name="ButtonSignIn"
@@ -182,6 +188,8 @@
                         FontSize="16"
                         FontFamily="Roboto"
                         FontWeight="Medium"
+                        Background="{StaticResource GreenColorBrush}"
+                        Foreground="{StaticResource DarkGreenColorBrush}"
                         Cursor="Hand"
                         Grid.Column="2"
                         Margin="0 50 0 0"
@@ -189,13 +197,51 @@
 
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Button.Background" Value="Transparent"/>
-                            <Setter Property="Foreground" Value="#D64040"/>
                             <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="#D64040"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                </Trigger>
+                                <EventTrigger RoutedEvent="Button.MouseEnter">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    To="Transparent"
+                                                    Duration="0:0:0.2"
+                                                    AutoReverse="False"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                    To="{StaticResource GreenColor}"
+                                                    Duration="0:0:0.2"
+                                                    AutoReverse="False"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="Button.MouseLeave">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                                    To="{StaticResource GreenColor}"
+                                                    Duration="0:0:0.2"
+                                                    AutoReverse="False"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation
+                                                    Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
+                                                    To="{StaticResource DarkGreenColor}"
+                                                    Duration="0:0:0.2"
+                                                    AutoReverse="False"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
                             </Style.Triggers>
                         </Style>
                         
@@ -205,7 +251,7 @@
                         <ControlTemplate TargetType="Button">
                             <Border Width="150" Height="40"
                                     CornerRadius="20"
-                                    BorderBrush="#D64040"
+                                    BorderBrush="{StaticResource GreenColorBrush}"
                                     BorderThickness="2"
                                     Background="{TemplateBinding Background}">
                                 <ContentPresenter VerticalAlignment="Center"
@@ -214,6 +260,14 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
+
+                    <Button.Effect>
+                        <DropShadowEffect BlurRadius="20"
+                                          RenderingBias="Quality"
+                                          ShadowDepth="0"
+                                          Color="{StaticResource GreenColor}"/>
+                    </Button.Effect>
+                    
                 </Button>
 
             </StackPanel>

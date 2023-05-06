@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="ElectricityMetering.WPF.Views.InfoViews.NeedToCreateGarageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricityMetering.WPF.Views.InfoViews"
+             mc:Ignorable="d">
+    <StackPanel>
+        <Border CornerRadius="0 10 10 10"
+                HorizontalAlignment="Left"
+                Background="#D6ACAC"
+                Padding="15">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="18"
+                                    RenderingBias="Quality"
+                                    ShadowDepth="6"
+                                    Direction="-45"
+                                    Color="#D6ACAC"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"
+                            Grid.Column="0">
+                    <TextBlock TextWrapping="Wrap"
+                               FontSize="20"
+                               FontFamily="Roboto"
+                               Foreground="#D64040">
+                        Такого гаража не существует
+                    </TextBlock>
+                    
+                    <Border Grid.Row="1"
+                            Grid.Column="0"
+                            BorderBrush="#D68282"
+                            BorderThickness="1"
+                            Margin="0 5 0 0">
+
+                    </Border>
+                </StackPanel>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="1"
+                           TextWrapping="Wrap"
+                           FontSize="22"
+                           FontFamily="Roboto"
+                           Foreground="#D64040"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Right">
+                    404
+                </TextBlock>
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0 20 0 0"
+                            Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="16"
+                                   FontFamily="Roboto"
+                                   Foreground="#D64040"
+                                   Text="Добавить гараж №"/>
+                        <TextBlock Name="TextBlockGarageNumberInError"
+                                   FontSize="16"
+                                   FontFamily="Roboto"
+                                   Foreground="#D64040"
+                                   Margin="2 0 0 0"/>
+                        <TextBlock FontSize="16"
+                                   FontFamily="Roboto"
+                                   Foreground="#D64040"
+                                   Text="?"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="0 20 0 0"
+                        Content="Да"
+                        Style="{StaticResource ButtonInError}"
+                        Click="CreateGarage"/>
+
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="120 20 0 0"
+                        Content="Нет"
+                        Style="{StaticResource ButtonInError}"
+                        Click="CloseMessageLog"/>
+
+            </Grid>
+        </Border>
+    </StackPanel>
+</UserControl>

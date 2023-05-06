@@ -1,10 +1,19 @@
 ﻿using ElectricityMetering.Core;
 using ElectricityMetering.Core.Controllers;
+using ElectricityMetering.WPF.Views;
+using ElectricityMetering.WPF.Views.InfoViews;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace ElectricityMetering.WPF
 {
@@ -13,96 +22,59 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class PresidentWindow : Window
     {
-        private readonly Controller _controller = new Controller();
-
-        private string _operationStatusText;
+        private readonly SignInController _signInController = new SignInController();
 
         public PresidentWindow()
         {
             InitializeComponent();
+
+            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-        private async void AddMainData(object sender, RoutedEventArgs e)
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+
+        private void ControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string garageNumber = TextBoxGarageNumber.Text;
-
-            _operationStatusText = await _controller.AddGarageAsync(garageNumber);
-            MessageBox.Show(_operationStatusText);
-
-            ClearTextBoxes();
-            _operationStatusText = FillTextBoxes();
-            MessageBox.Show(_operationStatusText);
+            /*WindowInteropHelper helper = new WindowInteropHelper(this);
+            SendMessage(helper.Handle, 161, 2, 0);*/
+            DragMove();
         }
 
-        private async void LoadMainData(object sender, RoutedEventArgs e)
+        private void ButtonHide_Click(object sender, RoutedEventArgs e)
         {
-            string garageNumber = TextBoxGarageNumber.Text;
-
-            _operationStatusText = await _controller.LoadGarageAsync(garageNumber);
-            MessageBox.Show(_operationStatusText);
-
-            ClearTextBoxes();
-            _operationStatusText = FillTextBoxes();
-            MessageBox.Show(_operationStatusText);
+            WindowState = WindowState.Minimized;
         }
 
-        private async void SaveMainData(object sender, RoutedEventArgs e)
+        private async void ButtonCloseAsync_Click(object sender, RoutedEventArgs e)
         {
-            string ownerName = TextBoxOwnerName.Text;
-            string balanceString = TextBoxBalance.Text;
+            await _signInController.ExitAsync("Председатель");
 
-            string counterNumber = TextBoxCounterNumber.Text;
-            string sealNumber = TextBoxSealNumber.Text;
-            string sealDateString = TextBoxSealDate.Text;
+            Application.Current.Shutdown();
+        }
 
-            string[] garageNumbers = TextBoxBlockOfGarages.Text.Split(",");
+        private void RadioButton_ShowContent(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
 
-            _operationStatusText = await _controller.AddOwnerAsync(ownerName, balanceString);
-            MessageBox.Show(_operationStatusText);
-
-            _operationStatusText = await _controller.AddCounterAsync(counterNumber);
-            MessageBox.Show(_operationStatusText);
-
-            _operationStatusText = await _controller.AddSealAsync(sealNumber, sealDateString);
-            MessageBox.Show(_operationStatusText);
-
-            foreach (string number in garageNumbers)
+            switch (radioButton.Name)
             {
-                _operationStatusText = await _controller.AddGarageAsync(number);
-                MessageBox.Show(_operationStatusText);
+                case "BalanceRadioButton":
+                    MainContent.Content = new BalanceView();
+                    break;
+                case "TariffRadioButton":
+                    MainContent.Content = new TariffView();
+                    break;
+                case "InfoRadioButton":
+                    MainContent.Content = new InfoView();
+                    break;
+                case "PaymentRadioButton":
+                    MainContent.Content = new PaymentView();
+                    break;
+                case "IndicationsRadioButton":
+                    MainContent.Content = new IndicationsView();
+                    break;
             }
-
-            MessageBox.Show("Данные успешно сохранены.");
-        }
-
-        private void ClearTextBoxes()
-        {
-            TextBoxBlockOfGarages.Clear();
-            TextBoxOwnerName.Clear();
-            TextBoxBalance.Clear();
-
-            TextBoxCounterNumber.Clear();
-            TextBoxSealNumber.Clear();
-            TextBoxSealDate.Clear();
-        }
-
-        private string FillTextBoxes()
-        {
-            string blockOfGaragesInfo = _controller.SplitBlockOfGarage();
-            List<string> ownerInfo = _controller.GetOwnerInfo();
-            List<string> counterInfo = _controller.GetCounterInfo();
-            List<string> sealInfo = _controller.GetSealInfo();
-
-            TextBoxBlockOfGarages.Text = blockOfGaragesInfo;
-            TextBoxOwnerName.Text = ownerInfo[0];
-            TextBoxBalance.Text = ownerInfo[1];
-
-            TextBoxCounterNumber.Text = counterInfo[0];
-
-            TextBoxSealNumber.Text = sealInfo[0];
-            TextBoxSealDate.Text = sealInfo[1];
-
-            return "Данные успешно загружены.";
         }
     }
 }

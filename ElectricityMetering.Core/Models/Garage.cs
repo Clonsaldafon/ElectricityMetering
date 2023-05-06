@@ -10,7 +10,7 @@ namespace ElectricityMetering.Core.Models
     public class Garage
     {
         public int Id { get; set; }
-        public string Number { get; set; } = null!;
+        public int Number { get; set; }
 
         public Owner Owner { get; set; }
         public Counter Counter { get; set; }

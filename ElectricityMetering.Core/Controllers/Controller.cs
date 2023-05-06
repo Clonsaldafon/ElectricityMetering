@@ -1,6 +1,7 @@
 ﻿using ElectricityMetering.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,103 +10,78 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class Controller
     {
-        private readonly Repository _repository = new Repository();
+        protected readonly Repository _repository = new Repository();
 
-        private Garage? _garage;
-        private Owner? _owner;
-        private Counter? _counter;
-        private Seal? _seal;
-        private Payment? _payment;
+        protected Garage? _garage;
+        protected Owner? _owner;
+        protected Counter? _counter;
+        protected Seal? _seal;
 
-        private List<Garage> _garages;
+        protected List<Garage> _garages = new List<Garage>();
 
-        public async Task<string> AddGarageAsync(string garageNumber)
+        public async Task SaveGarageAsync(int garageNumber)
         {
-            if (string.IsNullOrEmpty(garageNumber))
+            Garage garage = await _repository.GetGarageAsync(garageNumber);
+            await _repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+        }
+
+        public async Task SaveGarageAsync(Garage garage)
+        {
+            await _repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+        }
+
+        public async Task<bool> CanCreateGarageAsync(int garageNumber) =>
+            !(await GarageAlreadyExistsAsync(garageNumber));
+
+        public async Task CreateGarageAsync(int garageNumber)
+        {
+            if (await CanCreateGarageAsync(garageNumber))
             {
-                return $"Поле для ввода номера гаража не может быть пустым!";
+                _garage = await _repository.CreateGarageAsync(garageNumber);
+                _garage = await _repository.SaveGarageAsync(_garage, _owner, _counter, _seal);
+
+                FillDataByGarage();
             }
+        }
 
-            if (await GarageAlreadyExistsAsync(garageNumber))
-            {
-                _garage = await _repository.GetGarageAsync(garageNumber);
+        public async Task<bool> CanLoadGarage(int garageNumber) =>
+            await GarageAlreadyExistsAsync(garageNumber);
 
-                await FillDataByGarageAsync(_garage);
-
-                return "Гараж с таким номером уже содержится в базе данных!";
-            }
-
-            _garage = await _repository.CreateGarageAsync(garageNumber);
-            await _repository.SaveGarageAsync(_garage, _owner, _counter, _seal);
+        public async Task<Garage?> LoadGarageAsync(int garageNumber)
+        {
             _garage = await _repository.GetGarageAsync(garageNumber);
+            
+            if (_garage != null)
+            {
+                FillDataByGarage();
+            }
 
-            await FillDataByGarageAsync(_garage);
-
-            return $"Гараж №{_garage.Number} успешно добавлен.";
+            return _garage;
         }
 
-        public async Task<string> LoadGarageAsync(string garageNumber)
+        private async Task<bool> GarageAlreadyExistsAsync(int garageNumber) =>
+            (await _repository.GetGarageAsync(garageNumber)) != null;
+
+        private void FillDataByGarage()
         {
-            if (string.IsNullOrEmpty(garageNumber))
-            {
-                return $"Поле для ввода номера гаража не может быть пустым!";
-            }
-
-            if (!(await GarageAlreadyExistsAsync(garageNumber)))
-            {
-                return "В базе данных нет гаража с таким номером!";
-            }
-
-            _garage = await _repository.GetGarageAsync(garageNumber);
-            FillDataByGarageAsync(_garage);
-
-            return $"Данные по гаражу №{_garage.Number} успешно получены.";
+            _owner = _garage.Owner;
+            _counter = _garage.Counter;
+            _seal = _garage.Seal;
+            _garages = _repository.GetBlockOfGarages(_garage);
         }
 
-        private async Task<bool> GarageAlreadyExistsAsync(string garageNumber)
+        public async Task<bool> CanCreateOwnerAsync(string ownerName) =>
+            !string.IsNullOrEmpty(ownerName) && !(await OwnerAlreadyExistsAsync(ownerName));
+
+        public async Task CreateOwnerAsync(string ownerName)
         {
-            return (await _repository.GetGarageAsync(garageNumber)) != null;
-        }
-
-        private async Task FillDataByGarageAsync(Garage garage)
-        {
-            _owner = await _repository.GetOwnerAsync(garage);
-            _counter = await _repository.GetCounterAsync(garage);
-            _seal = await _repository.GetSealAsync(garage);
-            _garages = _repository.GetBlockOfGarages(garage);
-        }
-
-        public async Task<string> AddOwnerAsync(string ownerName, string balanceString)
-        {
-            if (ownerName != "-")
+            if (await CanCreateOwnerAsync(ownerName))
             {
-                return $"Гараж №{_garage.Number} пока что без владельца.";
-            }
-
-            if (string.IsNullOrEmpty(ownerName))
-            {
-                return "Поле для ввода ФИО владельца не может быть пустым!";
-            }
-
-            if (await OwnerAlreadyExistsAsync(ownerName))
-            {
-                return $"У гаража №{_garage.Number} владелец не изменился.";
-            }
-
-            if (string.IsNullOrEmpty(balanceString))
-            {
-                return $"Поле для ввода баланса не может быть пустым!"; ;
-            }
-
-            if (decimal.TryParse(balanceString, out decimal balance))
-            {
-                _owner = await _repository.CreateOwnerAsync(ownerName, balance);
-
-                return $"Теперь у гаража №{_garage.Number} новый владелец: {_owner.Name}";
+                _owner = await _repository.CreateOwnerAsync(ownerName);
             }
             else
             {
-                return $"Некорректный формат данных: {balanceString}";
+                _owner = await _repository.GetOwnerAsync(ownerName);
             }
         }
 
@@ -114,87 +90,147 @@ namespace ElectricityMetering.Core.Controllers
             return await _repository.GetOwnerAsync(ownerName) != null;
         }
 
-        public async Task<string> AddCounterAsync(string counterNumber)
+        public async Task<bool> CanCreateCounterAsync(string counterNumber) =>
+            !string.IsNullOrEmpty(counterNumber) && !(await CounterAlreadyExistsAsync(counterNumber));
+
+        public async Task CreateCounterAsync(string counterNumber)
         {
-            if (string.IsNullOrEmpty(counterNumber))
+            if (await CanCreateCounterAsync(counterNumber))
             {
-                return "Поле для ввода номера счетчика не может быть пустым!";
-            }
-
-            if (await CounterAlreadyExistsAsync(counterNumber))
-            {
-                return $"У гаража №{_garage.Number} счетчик не изменился.";
-            }
-
-            _counter = await _repository.CreateCounterAsync(counterNumber);
-
-            return $"Теперь у гаража №{_garage.Number} новый счетчик: {_counter.Number}";
-        }
-
-        private async Task<bool> CounterAlreadyExistsAsync(string counterNumber)
-        {
-            return await _repository.GetCounterAsync(counterNumber) != null;
-        }
-
-        public async Task<string> AddSealAsync(string sealNumber, string sealDateString)
-        {
-            if (string.IsNullOrEmpty(sealNumber))
-            {
-                return $"Поле для ввода номера пломбы не может быть пустым!";
-            }
-
-            if (await SealAlreadyExistsAsync(sealNumber))
-            {
-                return $"У гаража №{_garage} пломба не изменилась.";
-            }
-
-            if (string.IsNullOrEmpty(sealDateString))
-            {
-                return $"Поле для ввода даты опломбирования не может быть пустым!";
-            }
-
-            if (DateOnly.TryParse(sealDateString, out DateOnly sealDate))
-            {
-                _seal = await _repository.CreateSealAsync(sealNumber, sealDate);
-
-                return $"Теперь у гаража №{_garage.Number} новая пломба: {_seal.Number}";
+                _counter = await _repository.CreateCounterAsync(counterNumber);
             }
             else
             {
-                return $"Некорректный формат данных: {sealDateString}"; ;
+                _counter = await _repository.GetCounterAsync(counterNumber);
+            }            
+        }
+
+        private async Task<bool> CounterAlreadyExistsAsync(string counterNumber) =>
+            await _repository.GetCounterAsync(counterNumber) != null;
+
+        public async Task<bool> CanCreateSealAsync(string sealNumber, string dateString) =>
+            !string.IsNullOrEmpty(sealNumber) && !(await SealAlreadyExistsAsync(sealNumber)) && DateOnly.TryParse(dateString, out _);
+
+        public async Task CreateSealAsync(string sealNumber, string dateString)
+        {
+            if (await CanCreateSealAsync(sealNumber, dateString))
+            {
+                _seal = await _repository.CreateSealAsync(sealNumber, DateOnly.Parse(dateString));
+            }
+            else
+            {
+                _seal = await _repository.GetSealAsync(sealNumber);
             }
         }
 
-        private async Task<bool> SealAlreadyExistsAsync(string sealNumber)
-        {
-            return await _repository.GetSealAsync(sealNumber) != null;
-        }
+        private async Task<bool> SealAlreadyExistsAsync(string sealNumber) =>
+            await _repository.GetSealAsync(sealNumber) != null;
 
-        public List<string> GetOwnerInfo()
-        {
-            return new List<string> { _owner.Name, _owner.Balance.ToString() };
-        }
+        public List<string> GetOwnerInfo() =>
+            new List<string> { _owner.Name, _owner.Balance.ToString() };
 
-        public List<string> GetCounterInfo()
-        {
-            return new List<string> { _counter.Number };
-        }
+        public List<string> GetCounterInfo() =>
+            new List<string> { _counter.Number };
 
-        public List<string> GetSealInfo()
-        {
-            return new List<string> { _seal.Number, _seal.Date.ToString() };
-        }
+        public List<string> GetSealInfo() =>
+            new List<string> { _seal.Number, _seal.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) };
 
         public string SplitBlockOfGarage()
         {
-            StringBuilder result = new StringBuilder();
-
-            foreach (Garage garage in _garages)
+            if (_garages.Count == 0)
             {
-                result.Append($"{garage.Number},");
+                return _garage.Number.ToString();
             }
 
-            return result.ToString().Remove(result.Length - 1);
+            StringBuilder result = new StringBuilder();
+
+            int start = -1;
+            for (int i = 0; i < _garages.Count; i++)
+            {
+                if (start == -1)
+                {
+                    start = _garages[i].Number;
+                    result.Append(start);
+                }
+                else if (_garages[i].Number == _garages[i - 1].Number + 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (start != _garages[i - 1].Number)
+                    {
+                        if (_garages[i - 1].Number - start == 1)
+                        {
+                            result.Append(",");
+                        }
+                        else
+                        {
+                            result.Append("-");
+                        }
+                        result.Append(_garages[i - 1].Number);
+                    }
+                    result.Append(",");
+                    start = _garages[i].Number;
+                    result.Append(start);
+                }
+            }
+            if (start != -1 && start != _garages[_garages.Count - 1].Number)
+            {
+                if (_garages[_garages.Count - 1].Number - start == 1)
+                {
+                    result.Append(",");
+                }
+                else
+                {
+                    result.Append("-");
+                }
+                result.Append(_garages[_garages.Count - 1].Number);
+            }
+
+            return result.ToString();
+        }
+
+        public void ParseBlockOfGarages(string blockOfGarages)
+        {
+            List<int> garageNumbers = new List<int>();
+
+            foreach (string part in blockOfGarages.Split(','))
+            {
+                if (part.Contains('-'))
+                {
+                    string[] range = part.Split('-');
+                    int start = int.Parse(range[0]);
+                    int end = int.Parse(range[1]);
+
+                    for (int i = start; i <= end; i++)
+                    {
+                        garageNumbers.Add(i);
+                    }
+                }
+                else
+                {
+                    garageNumbers.Add(int.Parse(part));
+                }
+            }
+
+            FillBlockOfGaragesAsync(garageNumbers);
+        }
+
+        public async Task FillBlockOfGaragesAsync(List<int> garageNumbers)
+        {
+            foreach (int garageNumber in garageNumbers)
+            {
+                Garage? garage = await _repository.GetGarageAsync(garageNumber);
+
+                if (garage == null)
+                {
+                    garage = await _repository.CreateGarageAsync(garageNumber);
+                }
+
+                await SaveGarageAsync(garage);
+                _garages.Add(garage);
+            }
         }
     }
 }
