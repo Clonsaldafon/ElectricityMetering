@@ -97,9 +97,12 @@ namespace ElectricityMetering.WPF.Views
             string cashPayment = TextBoxCashPayment.Text;
             string noneCashPayment = TextBoxNonCashPayment.Text;
 
-            _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
+            if (_repository.GetGarageAsync(int.Parse(garageNumber)).Result != null)
+            {
+                _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
 
-            //FillTable();
+                //FillTable();
+            }
         }
     }
 }
