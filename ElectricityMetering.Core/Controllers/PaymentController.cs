@@ -10,22 +10,49 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class PaymentController : Controller
     {
-        public string BlockOfGarages { get; set; }
-        public decimal Cash { get; set; }
-        public decimal NoneCash { get; set; }
-        public DateOnly Date { get; set; } = new DateOnly();
+        public List<Payment> Payments { get; set; } = new List<Payment>();
+        public List<string> BlocksOfGarages { get; set; } = new List<string>();
 
-        public async void AddPaymentAsync(string garageNumber, string cash, string noneCash)
+        public PaymentController()
+        {
+            UpdatePayments();
+        }
+
+        public async void AddPaymentAsync(string garageNumber, string cashString, string noneCashString)
         {
             _garage = await LoadGarageAsync(int.Parse(garageNumber));
-            _garages = _repository.GetBlockOfGarages(_garage);
 
-            BlockOfGarages = SplitBlockOfGarage();
+            FillDataByGarage();
 
-            Cash = decimal.Parse(cash);
-            NoneCash = decimal.Parse(noneCash);
+            decimal cash, noneCash;
 
-            Date = DateOnly.FromDateTime(DateTime.Now);
+            if (!decimal.TryParse(cashString, out cash))
+            {
+                cash = 0;
+            }
+            else
+            {
+                cash = decimal.Parse(cashString);
+            }
+
+            if (!decimal.TryParse(noneCashString, out noneCash))
+            {
+                noneCash = 0;
+            }
+            else
+            {
+                noneCash = decimal.Parse(noneCashString);
+            }
+
+            await _repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
+            UpdatePayments();
+        }
+
+        private void UpdatePayments()
+        {
+            Payments = _repository.GetPayments();
+
+            BlocksOfGarages = SplitAllBlockOfGarages();
         }
     }
 }

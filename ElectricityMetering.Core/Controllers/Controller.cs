@@ -62,7 +62,7 @@ namespace ElectricityMetering.Core.Controllers
         private async Task<bool> GarageAlreadyExistsAsync(int garageNumber) =>
             (await _repository.GetGarageAsync(garageNumber)) != null;
 
-        private void FillDataByGarage()
+        protected void FillDataByGarage()
         {
             _owner = _garage.Owner;
             _counter = _garage.Counter;
@@ -135,6 +135,62 @@ namespace ElectricityMetering.Core.Controllers
         public List<string> GetSealInfo() =>
             new List<string> { _seal.Number, _seal.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) };
 
+        public string SplitBlockOfGarage(Owner owner)
+        {
+            if (_garages.Count == 0 && owner != null)
+            {
+                return owner.Garages[0].Number.ToString();
+            }
+
+            StringBuilder result = new StringBuilder();
+
+            int start = -1;
+            for (int i = 0; i < _garages.Count; i++)
+            {
+                if (start == -1)
+                {
+                    start = _garages[i].Number;
+                    result.Append(start);
+                }
+                else if (_garages[i].Number == _garages[i - 1].Number + 1)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (start != _garages[i - 1].Number)
+                    {
+                        if (_garages[i - 1].Number - start == 1)
+                        {
+                            result.Append(',');
+                        }
+                        else
+                        {
+                            result.Append('-');
+                        }
+                        result.Append(_garages[i - 1].Number);
+                    }
+                    result.Append(',');
+                    start = _garages[i].Number;
+                    result.Append(start);
+                }
+            }
+            if (start != -1 && start != _garages[_garages.Count - 1].Number)
+            {
+                if (_garages[_garages.Count - 1].Number - start == 1)
+                {
+                    result.Append(',');
+                }
+                else
+                {
+                    result.Append('-');
+                }
+                result.Append(_garages[_garages.Count - 1].Number);
+            }
+
+            return result.ToString();
+        }
+
         public string SplitBlockOfGarage()
         {
             if (_garages.Count == 0)
@@ -162,15 +218,15 @@ namespace ElectricityMetering.Core.Controllers
                     {
                         if (_garages[i - 1].Number - start == 1)
                         {
-                            result.Append(",");
+                            result.Append(',');
                         }
                         else
                         {
-                            result.Append("-");
+                            result.Append('-');
                         }
                         result.Append(_garages[i - 1].Number);
                     }
-                    result.Append(",");
+                    result.Append(',');
                     start = _garages[i].Number;
                     result.Append(start);
                 }
@@ -179,16 +235,29 @@ namespace ElectricityMetering.Core.Controllers
             {
                 if (_garages[_garages.Count - 1].Number - start == 1)
                 {
-                    result.Append(",");
+                    result.Append(',');
                 }
                 else
                 {
-                    result.Append("-");
+                    result.Append('-');
                 }
                 result.Append(_garages[_garages.Count - 1].Number);
             }
 
             return result.ToString();
+        }
+
+        public List<string> SplitAllBlockOfGarages()
+        {
+            List<Garage> garages = _repository.GetAllGarages();
+            List<string> blocksOfGarages = new List<string>();
+
+            foreach (Garage garage in garages)
+            {
+                blocksOfGarages.Add(SplitBlockOfGarage(garage.Owner));
+            }
+
+            return blocksOfGarages;
         }
 
         public void ParseBlockOfGarages(string blockOfGarages)

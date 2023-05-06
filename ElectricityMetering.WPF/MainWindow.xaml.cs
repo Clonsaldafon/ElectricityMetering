@@ -61,7 +61,7 @@ namespace ElectricityMetering.WPF
                 return;
             }
 
-            if (await _signInController.RoleIsActiveAsync(roleName))
+            /*if (await _signInController.RoleIsActiveAsync(roleName))
             {
                 RoleInput.SelectedIndex = -1;
                 PasswordInput.Clear();
@@ -71,7 +71,7 @@ namespace ElectricityMetering.WPF
                 TextBlockRole.Foreground = _failureColor;
 
                 return;
-            }
+            }*/
 
             PasswordInput.BorderBrush = _successColor;
             TextBlockPassword.Text = "Пароль верный";

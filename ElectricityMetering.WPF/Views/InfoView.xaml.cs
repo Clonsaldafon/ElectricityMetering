@@ -34,6 +34,8 @@ namespace ElectricityMetering.WPF.Views
         {
             string garageNumber = TextBoxGarageNumber.Text;
 
+            ClearTextBoxes();
+
             if (int.TryParse(garageNumber, out int number))
             {
                 if ((await _controller.LoadGarageAsync(number)) == null)

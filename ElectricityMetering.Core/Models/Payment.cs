@@ -12,7 +12,6 @@ namespace ElectricityMetering.Core.Models
         public DateOnly Date { get; set; }
         public decimal Cash { get; set; }
         public decimal NonCash { get; set; }
-        public decimal Total { get; set; }
-        public Owner? Owner { get; set; }
+        public Owner Owner { get; set; } = null!;
     }
 }

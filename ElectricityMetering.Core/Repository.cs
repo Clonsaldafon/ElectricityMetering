@@ -84,6 +84,20 @@ namespace ElectricityMetering.Core
 
             return seal;
         }
+
+        public async Task CreatePaymentAsync(DateOnly date, decimal cash, decimal noneCash, Owner owner)
+        {
+            Payment payment = new Payment
+            {
+                Date = date,
+                Cash = cash,
+                NonCash= noneCash,
+                Owner = owner
+            };
+
+            await _context.Payments.AddAsync(payment);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Save
@@ -120,12 +134,12 @@ namespace ElectricityMetering.Core
         /// <returns>Loaded garage.</returns>
         public async Task<Garage?> GetGarageAsync(int garageNumber)
         {
-            Garage? garage = await _context.Garages
+            Garage? garage = _context.Garages
                 .Include(g => g.Owner)
                 .Include(g => g.Counter)
                 .Include(g => g.Seal)
                 .Where(g => g.Number == garageNumber)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
             return garage;
         }
 
@@ -143,6 +157,11 @@ namespace ElectricityMetering.Core
                 .Where(g => g.Owner == owner)
                 .FirstOrDefaultAsync();
             return garage;
+        }
+
+        public List<Garage> GetAllGarages()
+        {
+            return _context.Garages.ToList();
         }
 
         /// <summary>

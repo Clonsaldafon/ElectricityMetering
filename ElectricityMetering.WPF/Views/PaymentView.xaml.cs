@@ -29,55 +29,66 @@ namespace ElectricityMetering.WPF.Views
 
         private readonly PaymentController _paymentController = new PaymentController();
 
+        TextBlock _textBlockGarages = new TextBlock();
+        TextBlock _textBlockCash = new TextBlock();
+        TextBlock _textBlockNoneCash = new TextBlock();
+        TextBlock _textBlockDate = new TextBlock();
+
         public PaymentView()
         {
             InitializeComponent();
 
-            FillTable();
+            //FillTable();
         }
 
         public void FillTable()
         {
-            int rowCount = _repository.GetPayments().Count;
+            int rowCount = _paymentController.Payments.Count + 1;
             int columnCount = TablePayment.ColumnDefinitions.Count;
 
-            var cellTextStyle = (Style)FindResource("BigTableCellTextReadonly");
-            var borderStyle = (Style)FindResource("BigTableBorder");
+            if (rowCount == 1)
+            {
+                return;
+            }
+
+            var cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
+            var borderStyle = (Style)FindResource("LittleTableBorder");
 
             Border[,] borders = new Border[rowCount, columnCount];
-            TextBlock[,] textBlocks = new TextBlock[rowCount, columnCount];
 
-            TextBlock textBlockGarages = new TextBlock();
-            TextBlock textBlockCash = new TextBlock();
-            TextBlock textBlockNoneCash = new TextBlock();
-            TextBlock textBlockDate = new TextBlock();
-
-            textBlockGarages.Text = _paymentController.BlockOfGarages;
-            textBlockCash.Text = _paymentController.Cash.ToString();
-            textBlockNoneCash.Text = _paymentController.NoneCash.ToString();
-            textBlockDate.Text = _paymentController.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
-
-            textBlocks[0, 0] = textBlockGarages;
-            textBlocks[0, 1] = textBlockCash;
-            textBlocks[0, 2] = textBlockNoneCash;
-            textBlocks[0, 3] = textBlockDate;
-
-            for (int i = 0; i < rowCount; i++)
+            for (int row = 0; row < _paymentController.Payments.Count; row++)
             {
-                TablePayment.RowDefinitions.Add(new RowDefinition());
+                Payment payment = _paymentController.Payments[row];
 
-                for (int j = 0; j < columnCount; j++)
-                {
-                    borders[i, j] = new Border();
-                    borders[i, j].Child = textBlocks[i, j];
-                    borders[i, j].Style = borderStyle;
+                _textBlockGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
+                _textBlockCash.Text = payment.Cash.ToString();
+                _textBlockNoneCash.Text = payment.NonCash.ToString();
+                _textBlockDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
 
-                    Grid.SetRow(borders[i, j], rowCount);
-                    Grid.SetColumn(borders[i, j], j);
+                _textBlockGarages.Style = cellTextStyle;
+                _textBlockCash.Style = cellTextStyle;
+                _textBlockNoneCash.Style = cellTextStyle;
+                _textBlockDate.Style = cellTextStyle;
 
-                    TablePayment.Children.Add(borders[i, j]);
-                }
+                AddPaymentInTable(row + 1, 0, borders, borderStyle, _textBlockGarages);
+                AddPaymentInTable(row + 1, 1, borders, borderStyle, _textBlockCash);
+                AddPaymentInTable(row + 1, 2, borders, borderStyle, _textBlockNoneCash);
+                AddPaymentInTable(row + 1, 3, borders, borderStyle, _textBlockDate);
             }
+        }
+
+        private void AddPaymentInTable(int row, int column, Border[,] borders, Style borderStyle, TextBlock textBlock)
+        {
+            TablePayment.RowDefinitions.Add(new RowDefinition());
+
+            borders[row, column] = new Border();
+            borders[row, column].Child = textBlock;
+            borders[row, column].Style = borderStyle;
+
+            Grid.SetRow(borders[row, column], row);
+            Grid.SetColumn(borders[row, column], column);
+
+            TablePayment.Children.Add(borders[row, column]);
         }
 
         private void AddPaymentData(object sender, RoutedEventArgs e)
@@ -88,7 +99,7 @@ namespace ElectricityMetering.WPF.Views
 
             _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
 
-            FillTable();
+            //FillTable();
         }
     }
 }
