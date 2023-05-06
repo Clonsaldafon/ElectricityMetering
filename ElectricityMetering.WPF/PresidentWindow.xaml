@@ -195,7 +195,7 @@
                     <ContentControl Name="MainContent"
                                     Grid.Row="1">
 
-                        <StackPanel HorizontalAlignment="Center"
+                        <!--<StackPanel HorizontalAlignment="Center"
                                     VerticalAlignment="Center">
                             <Border BorderBrush="{StaticResource DarkGrayColorBrush}"
                                     BorderThickness="2"
@@ -223,7 +223,7 @@
 
 
                             </Border>
-                        </StackPanel>
+                        </StackPanel>-->
 
                     </ContentControl>
 
