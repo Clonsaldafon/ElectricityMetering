@@ -10,6 +10,8 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class PaymentController : Controller
     {
+        private readonly OwnerController _ownerController = new OwnerController();
+
         public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<string> BlocksOfGarages { get; set; } = new List<string>();
 
@@ -44,7 +46,10 @@ namespace ElectricityMetering.Core.Controllers
                 noneCash = decimal.Parse(noneCashString);
             }
 
-            await _repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
+            Payment payment = await _repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
+
+            await _ownerController.UpdateBalanceAsync(_owner, payment);
+
             UpdatePayments();
         }
 

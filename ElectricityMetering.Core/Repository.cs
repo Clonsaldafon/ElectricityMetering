@@ -73,12 +73,14 @@ namespace ElectricityMetering.Core
             return seal;
         }
 
-        public async Task CreatePaymentAsync(DateOnly date, decimal cash, decimal noneCash, Owner owner)
+        public async Task<Payment> CreatePaymentAsync(DateOnly date, decimal cash, decimal noneCash, Owner owner)
         {
             Payment payment = new Payment(date, cash, noneCash, owner);
 
             await _context.Payments.AddAsync(payment);
             await _context.SaveChangesAsync();
+
+            return payment;
         }
         #endregion
 
@@ -105,6 +107,14 @@ namespace ElectricityMetering.Core
             await _context.SaveChangesAsync();
 
             return garage;
+        }
+
+        public async Task SaveOwnerAsync(Owner owner, Payment payment)
+        {
+            owner.Balance += payment.Cash + payment.NoneCash;
+
+            _context.Owners.Update(owner);
+            await _context.SaveChangesAsync();
         }
         #endregion
 
