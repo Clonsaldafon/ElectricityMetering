@@ -61,8 +61,8 @@ namespace ElectricityMetering.WPF.Views
                 Payment payment = _paymentController.Payments[row];
 
                 _textBlockGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
-                _textBlockCash.Text = payment.Cash.ToString();
-                _textBlockNoneCash.Text = payment.NonCash.ToString();
+                _textBlockCash.Text = payment.Cash.ToString(CultureInfo.InvariantCulture);
+                _textBlockNoneCash.Text = payment.NoneCash.ToString(CultureInfo.InvariantCulture);
                 _textBlockDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
 
                 _textBlockGarages.Style = cellTextStyle;

@@ -14,12 +14,12 @@ namespace ElectricityMetering.Core
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Tariff> Tariffs { get; set; }
 
-        private string _connectionString = $"Server=satao.db.elephantsql.com;Port=5432;Database=bowasjim;User Id=bowasjim;Password=9Cvmf5C8U79RKZ_madz-bs0PywwziGFl";
+        private string _connectionString = "Server=satao.db.elephantsql.com;Port=5432;Database=bowasjim;User Id=bowasjim;Password=9Cvmf5C8U79RKZ_madz-bs0PywwziGFl";
 
-        /*public ApplicationContext()
+        public ApplicationContext()
         {
             Database.EnsureCreated();
-        }*/
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,8 +29,8 @@ namespace ElectricityMetering.Core
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(
-                new Role { Id = 1, Name = "Председатель", Password = "0000", IsActive = false },
-                new Role { Id = 2, Name = "Электрик", Password = "qwerty", IsActive = false }
+                new Role { Id = 1, Name = "Председатель", Password = "0000" },
+                new Role { Id = 2, Name = "Электрик", Password = "qwerty" }
                 );
 
             modelBuilder.Entity<Owner>().HasData(
@@ -46,9 +46,9 @@ namespace ElectricityMetering.Core
                 );
 
             modelBuilder.Entity<Tariff>().HasData(
-                new Tariff { Id = 1, Date = DateOnly.ParseExact("01.07.2021", "dd.MM.yyyy", CultureInfo.InvariantCulture), Price = 3.91M },
-                new Tariff { Id = 2, Date = DateOnly.ParseExact("01.01.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture), Price = 3.93M },
-                new Tariff { Id = 3, Date = DateOnly.ParseExact("01.07.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture), Price = 3.95M }
+                new Tariff { Id = 1, Price = 3.91M, Date = DateOnly.ParseExact("01.07.2021", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 2, Price = 3.93M, Date = DateOnly.ParseExact("01.01.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 3, Price = 3.95M, Date = DateOnly.ParseExact("01.07.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture) }
                 );
         }
     }

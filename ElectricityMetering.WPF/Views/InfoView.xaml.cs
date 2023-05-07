@@ -88,10 +88,12 @@ namespace ElectricityMetering.WPF.Views
 
         private void FillTextBoxes()
         {
-            string blockOfGaragesInfo = _controller.SplitBlockOfGarage();
-            List<string> ownerInfo = _controller.GetOwnerInfo();
-            List<string> counterInfo = _controller.GetCounterInfo();
-            List<string> sealInfo = _controller.GetSealInfo();
+            int garageNumber = int.Parse(TextBoxGarageNumber.Text);
+
+            string blockOfGaragesInfo = _controller.SplitBlockOfGarageAsync(garageNumber).Result;
+            List<string> ownerInfo = _controller.GetOwnerInfo(garageNumber);
+            List<string> counterInfo = _controller.GetCounterInfo(garageNumber);
+            List<string> sealInfo = _controller.GetSealInfo(garageNumber);
 
             TextBoxBlockOfGarages.Text = blockOfGaragesInfo;
             TextBoxOwnerName.Text = ownerInfo[0];

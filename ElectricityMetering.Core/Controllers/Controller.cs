@@ -126,14 +126,47 @@ namespace ElectricityMetering.Core.Controllers
         private async Task<bool> SealAlreadyExistsAsync(string sealNumber) =>
             await _repository.GetSealAsync(sealNumber) != null;
 
-        public List<string> GetOwnerInfo() =>
-            new List<string> { _owner.Name, _owner.Balance.ToString() };
+        public List<string> GetOwnerInfo(int garageNumber)
+        {
+            Garage? garage = _repository.GetGarageAsync(garageNumber).Result;
 
-        public List<string> GetCounterInfo() =>
-            new List<string> { _counter.Number };
+            if (garage == null)
+            {
+                return new List<string>();
+            }
 
-        public List<string> GetSealInfo() =>
-            new List<string> { _seal.Number, _seal.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) };
+            _owner = garage.Owner;
+
+            return new List<string> { _owner.Name, _owner.Balance.ToString() };
+        }
+
+        public List<string> GetCounterInfo(int garageNumber)
+        {
+            Garage? garage = _repository.GetGarageAsync(garageNumber).Result;
+
+            if (garage == null)
+            {
+                return new List<string>();
+            }
+
+            _counter = garage.Counter;
+
+            return new List<string> { _counter.Number };
+        }
+
+        public List<string> GetSealInfo(int garageNumber)
+        {
+            Garage? garage = _repository.GetGarageAsync(garageNumber).Result;
+
+            if (garage == null)
+            {
+                return new List<string>();
+            }
+
+            _seal = garage.Seal;
+
+            return new List<string> { _seal.Number, _seal.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) };
+        }
 
         public string SplitBlockOfGarage(Owner owner)
         {
@@ -191,11 +224,18 @@ namespace ElectricityMetering.Core.Controllers
             return result.ToString();
         }
 
-        public string SplitBlockOfGarage()
+        public async Task<string> SplitBlockOfGarageAsync(int garageNumber)
         {
+            Garage? garage = await _repository.GetGarageAsync(garageNumber);
+
+            if (garage == null)
+            {
+                return "Error 404";
+            }
+
             if (_garages.Count == 0)
             {
-                return _garage.Number.ToString();
+                return garage.Number.ToString();
             }
 
             StringBuilder result = new StringBuilder();

@@ -23,7 +23,7 @@ namespace ElectricityMetering.Core.Controllers
         {
             Role? role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
 
-            return role != null && role.IsActive;
+            return role != null && role.IsAuth;
         }
 
         public async Task SignInAsync(string roleName)
@@ -32,7 +32,7 @@ namespace ElectricityMetering.Core.Controllers
 
             if (role != null)
             {
-                role.IsActive = true;
+                role.IsAuth = true;
                 await _context.SaveChangesAsync();
             }
 
@@ -45,7 +45,7 @@ namespace ElectricityMetering.Core.Controllers
 
             if (role != null)
             {
-                role.IsActive = false;
+                role.IsAuth = false;
                 await _context.SaveChangesAsync();
             }
 

@@ -15,13 +15,11 @@ namespace ElectricityMetering.Core
         /// <returns>Created garage.</returns>
         public async Task<Garage> CreateGarageAsync(int garageNumber)
         {
-            Garage garage = new Garage
-            {
-                Number = garageNumber,
-                Owner = await _context.Owners.FirstAsync(o => o.Name == "-"),
-                Counter = await _context.Counters.FirstAsync(c => c.Number == "-"),
-                Seal = await _context.Seals.FirstAsync(s => s.Number == "-"),
-            };
+            Owner owner = await _context.Owners.FirstAsync(o => o.Id == 1);
+            Counter counter = await _context.Counters.FirstAsync(c => c.Id == 1);
+            Seal seal = await _context.Seals.FirstAsync(s => s.Id == 1);
+
+            Garage garage = new Garage(garageNumber, owner, counter, seal);
 
             await _context.Garages.AddAsync(garage);
             await _context.SaveChangesAsync();
@@ -37,10 +35,7 @@ namespace ElectricityMetering.Core
         /// <returns>Created owner.</returns>
         public async Task<Owner> CreateOwnerAsync(string ownerName)
         {
-            Owner owner = new Owner
-            {
-                Name = ownerName
-            };
+            Owner owner = new Owner(ownerName);
 
             await _context.Owners.AddAsync(owner);
             await _context.SaveChangesAsync();
@@ -55,10 +50,7 @@ namespace ElectricityMetering.Core
         /// <returns>Created counter.</returns>
         public async Task<Counter> CreateCounterAsync(string counterNumber)
         {
-            Counter counter = new Counter
-            {
-                Number = counterNumber
-            };
+            Counter counter = new Counter(counterNumber);
 
             await _context.Counters.AddAsync(counter);
             await _context.SaveChangesAsync();
@@ -73,11 +65,7 @@ namespace ElectricityMetering.Core
         /// <returns>Created seal.</returns>
         public async Task<Seal> CreateSealAsync(string sealNumber, DateOnly sealDate)
         {
-            Seal seal = new Seal
-            {
-                Number = sealNumber,
-                Date = sealDate
-            };
+            Seal seal = new Seal(sealNumber, sealDate);
 
             await _context.Seals.AddAsync(seal);
             await _context.SaveChangesAsync();
@@ -87,13 +75,7 @@ namespace ElectricityMetering.Core
 
         public async Task CreatePaymentAsync(DateOnly date, decimal cash, decimal noneCash, Owner owner)
         {
-            Payment payment = new Payment
-            {
-                Date = date,
-                Cash = cash,
-                NonCash= noneCash,
-                Owner = owner
-            };
+            Payment payment = new Payment(date, cash, noneCash, owner);
 
             await _context.Payments.AddAsync(payment);
             await _context.SaveChangesAsync();
@@ -140,6 +122,7 @@ namespace ElectricityMetering.Core
                 .Include(g => g.Seal)
                 .Where(g => g.Number == garageNumber)
                 .FirstOrDefault();
+
             return garage;
         }
 
@@ -159,10 +142,7 @@ namespace ElectricityMetering.Core
             return garage;
         }
 
-        public List<Garage> GetAllGarages()
-        {
-            return _context.Garages.ToList();
-        }
+        public List<Garage> GetAllGarages() => _context.Garages.ToList();
 
         /// <summary>
         /// Load the owner from the database by name.
