@@ -254,9 +254,14 @@ namespace ElectricityMetering.Core
             return _context.Garages.Where(g => g.Owner == garage.Owner).OrderBy(g => g.Number).ToList();
         }
 
+        public List<Garage> GetBlockOfGarages(Owner owner)
+        {
+            return _context.Garages.Where(g => g.Owner == owner).OrderBy(g => g.Number).ToList();
+        }
+
         public List<Payment> GetPayments()
         {
-            return _context.Payments.OrderByDescending(p => p.Date).ToList();
+            return _context.Payments.Include(p => p.Owner).OrderByDescending(p => p.Date).ToList();
         }
         #endregion
     }

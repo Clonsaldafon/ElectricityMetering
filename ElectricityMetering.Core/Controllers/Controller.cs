@@ -170,7 +170,9 @@ namespace ElectricityMetering.Core.Controllers
 
         public string SplitBlockOfGarage(Owner owner)
         {
-            if (_garages.Count == 0 && owner != null)
+            List<Garage> garages = _repository.GetBlockOfGarages(owner);
+
+            if (garages.Count == 0 && owner != null)
             {
                 return owner.Garages[0].Number.ToString();
             }
@@ -178,22 +180,22 @@ namespace ElectricityMetering.Core.Controllers
             StringBuilder result = new StringBuilder();
 
             int start = -1;
-            for (int i = 0; i < _garages.Count; i++)
+            for (int i = 0; i < garages.Count; i++)
             {
                 if (start == -1)
                 {
-                    start = _garages[i].Number;
+                    start = garages[i].Number;
                     result.Append(start);
                 }
-                else if (_garages[i].Number == _garages[i - 1].Number + 1)
+                else if (garages[i].Number == garages[i - 1].Number + 1)
                 {
                     continue;
                 }
                 else
                 {
-                    if (start != _garages[i - 1].Number)
+                    if (start != garages[i - 1].Number)
                     {
-                        if (_garages[i - 1].Number - start == 1)
+                        if (garages[i - 1].Number - start == 1)
                         {
                             result.Append(',');
                         }
@@ -201,16 +203,16 @@ namespace ElectricityMetering.Core.Controllers
                         {
                             result.Append('-');
                         }
-                        result.Append(_garages[i - 1].Number);
+                        result.Append(garages[i - 1].Number);
                     }
                     result.Append(',');
-                    start = _garages[i].Number;
+                    start = garages[i].Number;
                     result.Append(start);
                 }
             }
-            if (start != -1 && start != _garages[_garages.Count - 1].Number)
+            if (start != -1 && start != garages[garages.Count - 1].Number)
             {
-                if (_garages[_garages.Count - 1].Number - start == 1)
+                if (garages[garages.Count - 1].Number - start == 1)
                 {
                     result.Append(',');
                 }
@@ -218,7 +220,7 @@ namespace ElectricityMetering.Core.Controllers
                 {
                     result.Append('-');
                 }
-                result.Append(_garages[_garages.Count - 1].Number);
+                result.Append(garages[garages.Count - 1].Number);
             }
 
             return result.ToString();

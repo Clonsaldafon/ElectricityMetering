@@ -16,10 +16,10 @@ namespace ElectricityMetering.Core
 
         private string _connectionString = "Server=satao.db.elephantsql.com;Port=5432;Database=bowasjim;User Id=bowasjim;Password=9Cvmf5C8U79RKZ_madz-bs0PywwziGFl";
 
-        public ApplicationContext()
+        /*public ApplicationContext()
         {
             Database.EnsureCreated();
-        }
+        }*/
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

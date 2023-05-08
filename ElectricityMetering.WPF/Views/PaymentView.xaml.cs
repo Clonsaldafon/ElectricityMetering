@@ -29,66 +29,74 @@ namespace ElectricityMetering.WPF.Views
 
         private readonly PaymentController _paymentController = new PaymentController();
 
-        TextBlock _textBlockGarages = new TextBlock();
-        TextBlock _textBlockCash = new TextBlock();
-        TextBlock _textBlockNoneCash = new TextBlock();
-        TextBlock _textBlockDate = new TextBlock();
+        private readonly int _rowCount;
+        private readonly int _columnCount;
+
+        private readonly Style _cellTextStyle;
+        private readonly Style _borderStyle;
+
+        private Border[,] _borders;
 
         public PaymentView()
         {
             InitializeComponent();
 
-            //FillTable();
+            _rowCount = _paymentController.Payments.Count + 1;
+            _columnCount = TablePayment.ColumnDefinitions.Count;
+
+            _cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
+            _borderStyle = (Style)FindResource("LittleTableBorder");
+
+            _borders = new Border[_rowCount, _columnCount];
+
+            FillTable();
         }
 
         public void FillTable()
         {
-            int rowCount = _paymentController.Payments.Count + 1;
-            int columnCount = TablePayment.ColumnDefinitions.Count;
-
-            if (rowCount == 1)
+            if (_rowCount == 1)
             {
                 return;
             }
-
-            var cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
-            var borderStyle = (Style)FindResource("LittleTableBorder");
-
-            Border[,] borders = new Border[rowCount, columnCount];
 
             for (int row = 0; row < _paymentController.Payments.Count; row++)
             {
                 Payment payment = _paymentController.Payments[row];
 
-                _textBlockGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
-                _textBlockCash.Text = payment.Cash.ToString(CultureInfo.InvariantCulture);
-                _textBlockNoneCash.Text = payment.NoneCash.ToString(CultureInfo.InvariantCulture);
-                _textBlockDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                TextBlock textBlockGarages = new TextBlock();
+                TextBlock textBlockCash = new TextBlock();
+                TextBlock textBlockNoneCash = new TextBlock();
+                TextBlock textBlockDate = new TextBlock();
 
-                _textBlockGarages.Style = cellTextStyle;
-                _textBlockCash.Style = cellTextStyle;
-                _textBlockNoneCash.Style = cellTextStyle;
-                _textBlockDate.Style = cellTextStyle;
+                textBlockGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
+                textBlockCash.Text = payment.Cash.ToString(CultureInfo.InvariantCulture);
+                textBlockNoneCash.Text = payment.NoneCash.ToString(CultureInfo.InvariantCulture);
+                textBlockDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
 
-                AddPaymentInTable(row + 1, 0, borders, borderStyle, _textBlockGarages);
-                AddPaymentInTable(row + 1, 1, borders, borderStyle, _textBlockCash);
-                AddPaymentInTable(row + 1, 2, borders, borderStyle, _textBlockNoneCash);
-                AddPaymentInTable(row + 1, 3, borders, borderStyle, _textBlockDate);
+                textBlockGarages.Style = _cellTextStyle;
+                textBlockCash.Style = _cellTextStyle;
+                textBlockNoneCash.Style = _cellTextStyle;
+                textBlockDate.Style = _cellTextStyle;
+
+                AddPaymentInTable(row + 1, 0, textBlockGarages);
+                AddPaymentInTable(row + 1, 1, textBlockCash);
+                AddPaymentInTable(row + 1, 2, textBlockNoneCash);
+                AddPaymentInTable(row + 1, 3, textBlockDate);
             }
         }
 
-        private void AddPaymentInTable(int row, int column, Border[,] borders, Style borderStyle, TextBlock textBlock)
+        private void AddPaymentInTable(int row, int column, TextBlock textBlock)
         {
             TablePayment.RowDefinitions.Add(new RowDefinition());
 
-            borders[row, column] = new Border();
-            borders[row, column].Child = textBlock;
-            borders[row, column].Style = borderStyle;
+            _borders[row, column] = new Border();
+            _borders[row, column].Child = textBlock;
+            _borders[row, column].Style = _borderStyle;
 
-            Grid.SetRow(borders[row, column], row);
-            Grid.SetColumn(borders[row, column], column);
+            Grid.SetRow(_borders[row, column], row);
+            Grid.SetColumn(_borders[row, column], column);
 
-            TablePayment.Children.Add(borders[row, column]);
+            TablePayment.Children.Add(_borders[row, column]);
         }
 
         private void AddPaymentData(object sender, RoutedEventArgs e)
