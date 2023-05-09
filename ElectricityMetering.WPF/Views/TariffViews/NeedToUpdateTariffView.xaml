@@ -67,7 +67,8 @@
                                     Foreground="#645B1D">
                             Дата:
                         </TextBlock>
-                        <TextBox Margin="0 5 0 0"
+                        <TextBox Name="TextBoxDate"
+                                 Margin="0 5 0 0"
                                  Style="{StaticResource TextBoxInWarning}"
                                  HorizontalAlignment="Left"/>
                     </StackPanel>
@@ -78,7 +79,8 @@
                                     Foreground="#645B1D">
                             Цена:
                         </TextBlock>
-                        <TextBox Margin="0 5 0 0"
+                        <TextBox Name="TextBoxPrice"
+                                 Margin="0 5 0 0"
                                  Style="{StaticResource TextBoxInWarning}"
                                  HorizontalAlignment="Left"/>
                     </StackPanel>
@@ -89,7 +91,8 @@
                         Grid.Column="0"
                         Margin="0 20 0 0"
                         Content="Добавить"
-                        Style="{StaticResource ButtonInWarning}"/>
+                        Style="{StaticResource ButtonInWarning}"
+                        Click="AddTariff"/>
 
             </Grid>
         </Border>

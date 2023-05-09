@@ -25,9 +25,14 @@ namespace ElectricityMetering.WPF.Views.TariffViews
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void AddTariff(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("test");
+            MessageBox.Show("AddTariff");
+
+            string dateString = TextBoxDate.Text;
+            string priceString = TextBoxPrice.Text;
+
+
         }
     }
 }

@@ -24,6 +24,15 @@ namespace ElectricityMetering.WPF
     {
         private readonly SignInController _signInController = new SignInController();
 
+        private readonly Dictionary<string, UserControl> _contentByRadioButtonName = new Dictionary<string, UserControl>()
+        {
+            { "BalanceRadioButton", new BalanceView() },
+            { "TariffRadioButton", new TariffView() },
+            { "InfoRadioButton", new InfoView() },
+            { "PaymentRadioButton", new PaymentView() },
+            { "IndicationsRadioButton", new IndicationsView() },
+        };
+
         public PresidentWindow()
         {
             InitializeComponent();
@@ -55,26 +64,14 @@ namespace ElectricityMetering.WPF
 
         private void RadioButton_ShowContent(object sender, RoutedEventArgs e)
         {
+            if (sender is not RadioButton)
+            {
+                return;
+            }
+
             RadioButton radioButton = (RadioButton)sender;
 
-            switch (radioButton.Name)
-            {
-                case "BalanceRadioButton":
-                    MainContent.Content = new BalanceView();
-                    break;
-                case "TariffRadioButton":
-                    MainContent.Content = new TariffView();
-                    break;
-                case "InfoRadioButton":
-                    MainContent.Content = new InfoView();
-                    break;
-                case "PaymentRadioButton":
-                    MainContent.Content = new PaymentView();
-                    break;
-                case "IndicationsRadioButton":
-                    MainContent.Content = new IndicationsView();
-                    break;
-            }
+            MainContent.Content = _contentByRadioButtonName[radioButton.Name];
         }
     }
 }

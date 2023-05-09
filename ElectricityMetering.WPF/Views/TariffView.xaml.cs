@@ -32,6 +32,11 @@ namespace ElectricityMetering.WPF.Views
         {
             InitializeComponent();
 
+            if (_tariffController.NeedToUpdateTariff())
+            {
+                NeedToUpdateTariffContent.Content = new NeedToUpdateTariffView();
+            }
+
             // TODO:
             /*for (int i = 0; i < numberOfRowsToAdd; i++)
             {
