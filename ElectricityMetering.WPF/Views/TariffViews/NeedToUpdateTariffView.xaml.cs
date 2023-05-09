@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElectricityMetering.Core.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace ElectricityMetering.WPF.Views.TariffViews
     /// </summary>
     public partial class NeedToUpdateTariffView : UserControl
     {
+        private readonly TariffController _tariffController = new TariffController();
+
         public NeedToUpdateTariffView()
         {
             InitializeComponent();
@@ -27,12 +30,10 @@ namespace ElectricityMetering.WPF.Views.TariffViews
 
         private void AddTariff(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("AddTariff");
-
             string dateString = TextBoxDate.Text;
             string priceString = TextBoxPrice.Text;
 
-
+            _ = _tariffController.AddTariffAsync(dateString, priceString);
         }
     }
 }

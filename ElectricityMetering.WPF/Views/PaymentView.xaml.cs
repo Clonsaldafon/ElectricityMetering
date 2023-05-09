@@ -108,8 +108,6 @@ namespace ElectricityMetering.WPF.Views
             if (_repository.GetGarageAsync(int.Parse(garageNumber)).Result != null)
             {
                 _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
-
-                //FillTable();
             }
         }
     }

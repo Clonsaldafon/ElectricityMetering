@@ -72,13 +72,15 @@
                                       ShadowDepth="0"
                                       Color="{StaticResource DarkGrayColor}"/>
                 </Grid.Effect>
-                <Border Grid.Row="0"
+                <Border Name="TextBlockDate"
+                        Grid.Row="0"
                         Grid.Column="0"
                         Style="{StaticResource LittleTableBorder}">
                     <TextBlock Text="Дата"
                                Style="{StaticResource LittleTableColumnTitle}"/>
                 </Border>
-                <Border Grid.Row="0"
+                <Border Name="TextBlockPrice"
+                        Grid.Row="0"
                         Grid.Column="1"
                         Style="{StaticResource LittleTableBorder}">
                     <TextBlock Text="Цена"

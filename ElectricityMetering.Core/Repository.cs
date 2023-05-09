@@ -82,6 +82,14 @@ namespace ElectricityMetering.Core
 
             return payment;
         }
+
+        public async Task CreateTariffAsync(DateOnly date, decimal price)
+        {
+            Tariff tariff = new Tariff(price, date);
+
+            await _context.Tariffs.AddAsync(tariff);
+            await _context.SaveChangesAsync();
+        }
         #endregion
 
         #region Save
@@ -262,6 +270,11 @@ namespace ElectricityMetering.Core
         public List<Payment> GetPayments()
         {
             return _context.Payments.Include(p => p.Owner).OrderByDescending(p => p.Date).ToList();
+        }
+
+        public List<Tariff> GetTariffs()
+        {
+            return _context.Tariffs.OrderByDescending(t => t.Date).ToList();
         }
         #endregion
     }
