@@ -103,7 +103,7 @@
             <!--Main section-->
             <Border CornerRadius="0 10 10 0"
                     Grid.Column="1"
-                    Background="#DEDEDE">
+                    Background="{StaticResource LightGrayColorBrush}">
 
                 <Grid>
                     <Grid.RowDefinitions>

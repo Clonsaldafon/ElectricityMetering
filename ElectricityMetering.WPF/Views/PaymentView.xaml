@@ -30,16 +30,25 @@
         <Grid Grid.Row="0"
               Margin="75 0 75 0">
 
-            <TextBlock Text="Оплата"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="Тариф"
                        Foreground="{StaticResource DarkGrayColorBrush}"
                        FontSize="24"
                        FontFamily="Roboto"
                        FontWeight="Medium"
-                       VerticalAlignment="Center">
+                       VerticalAlignment="Center"/>
 
-            </TextBlock>
+            <Button Grid.Column="1"
+                    Style="{StaticResource ButtonReloadData}"
+                    Click="ReloadData"/>
+
         </Grid>
-        
+
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Margin="75 40 0 0">

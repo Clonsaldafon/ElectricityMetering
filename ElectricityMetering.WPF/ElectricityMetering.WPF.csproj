@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <None Remove="Images\logo.png" />
+    <None Remove="Images\reload-icon.png" />
     <None Remove="Images\warning-icon.png" />
   </ItemGroup>
 
@@ -27,6 +28,7 @@
 
   <ItemGroup>
     <Resource Include="Images\logo.png" />
+    <Resource Include="Images\reload-icon.png" />
     <Resource Include="Images\warning-icon.png" />
   </ItemGroup>
 

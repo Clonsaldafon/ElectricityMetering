@@ -11,7 +11,7 @@
             <ColumnDefinition Width="400"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -20,14 +20,23 @@
         <Grid Grid.Row="0"
               Margin="75 0 75 0">
 
-            <TextBlock Text="Тариф"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0"
+                       Text="Тариф"
                        Foreground="{StaticResource DarkGrayColorBrush}"
                        FontSize="24"
                        FontFamily="Roboto"
                        FontWeight="Medium"
-                       VerticalAlignment="Center">
+                       VerticalAlignment="Center"/>
 
-            </TextBlock>
+            <Button Grid.Column="1"
+                    Style="{StaticResource ButtonReloadData}"
+                    Click="ReloadData"/>
+
         </Grid>
 
         <StackPanel Grid.Column="0"

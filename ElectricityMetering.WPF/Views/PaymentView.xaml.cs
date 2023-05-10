@@ -110,5 +110,10 @@ namespace ElectricityMetering.WPF.Views
                 _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
             }
         }
+
+        private void ReloadData(object sender, RoutedEventArgs e)
+        {
+            FillTable();
+        }
     }
 }

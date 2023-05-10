@@ -97,5 +97,10 @@ namespace ElectricityMetering.WPF.Views
 
             TableTariff.Children.Add(_borders[row, column]);
         }
+
+        private void ReloadData(object sender, RoutedEventArgs e)
+        {
+            FillTable();
+        }
     }
 }

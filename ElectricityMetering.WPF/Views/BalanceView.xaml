@@ -13,20 +13,35 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="500"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <Grid Grid.Row="0"
               Margin="75 0 75 0">
 
-            <TextBlock Text="Сальдо"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       Text="Сальдо"
                        Foreground="{StaticResource DarkGrayColorBrush}"
                        FontSize="24"
                        FontFamily="Roboto"
                        FontWeight="Medium"
-                       VerticalAlignment="Center">
+                       VerticalAlignment="Center"/>
 
-            </TextBlock>
+            <Button Grid.Column="1"
+                    Style="{StaticResource ButtonReloadData}"
+                    Click="ReloadData"/>
+
         </Grid>
 
         <StackPanel Grid.Row="1"
+                    Grid.Column="0"
                     Margin="75 40 75 40">
             <Border CornerRadius="0 10 10 10"
                         HorizontalAlignment="Left"
@@ -56,7 +71,6 @@
                       HorizontalAlignment="Left"
                       Margin="0 30 0 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>

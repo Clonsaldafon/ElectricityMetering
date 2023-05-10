@@ -27,20 +27,29 @@ namespace ElectricityMetering.WPF.Views
         private readonly ApplicationContext _context = new ApplicationContext();
         private readonly BalanceController _balanceController = new BalanceController();
 
-        private readonly int _rowCount = 1;
+        private readonly int _rowCount = 2;
         private readonly int _columnCount = 3;
+
+        private readonly Style _cellTextStyle;
+        private readonly Style _borderStyle;
+
+        private readonly Border[,] _borders;
 
         public BalanceView()
         {
             InitializeComponent();
             _balanceController.Calculate();
 
-            var cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
-            var borderStyle = (Style)FindResource("LittleTableBorder");
+            _cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
+            _borderStyle = (Style)FindResource("LittleTableBorder");
 
-            Border[,] borders = new Border[_rowCount, _columnCount];
-            TextBlock[,] textBlocks = new TextBlock[_rowCount, _columnCount];
+            _borders = new Border[_rowCount, _columnCount];
 
+            FillTable();
+        }
+
+        private void FillTable()
+        {
             TextBlock textBlockDebt = new TextBlock();
             TextBlock textBlockAdvance = new TextBlock();
             TextBlock textBlockBalance = new TextBlock();
@@ -49,30 +58,32 @@ namespace ElectricityMetering.WPF.Views
             textBlockAdvance.Text = _balanceController.Advance.ToString();
             textBlockBalance.Text = _balanceController.Balance.ToString();
 
-            textBlockDebt.Style = cellTextStyle;
-            textBlockAdvance.Style = cellTextStyle;
-            textBlockBalance.Style = cellTextStyle;
+            textBlockDebt.Style = _cellTextStyle;
+            textBlockAdvance.Style = _cellTextStyle;
+            textBlockBalance.Style = _cellTextStyle;
 
-            textBlocks[0, 0] = textBlockDebt;
-            textBlocks[0, 1] = textBlockAdvance;
-            textBlocks[0, 2] = textBlockBalance;
+            AddBalanceInTable(1, 0, textBlockDebt);
+            AddBalanceInTable(1, 1, textBlockAdvance);
+            AddBalanceInTable(1, 2, textBlockBalance);
+        }
 
-            for (int i = 0; i < _rowCount; i++)
-            {
-                TableBalance.RowDefinitions.Add(new RowDefinition());
+        private void AddBalanceInTable(int row, int column, TextBlock textBlock)
+        {
+            TableBalance.RowDefinitions.Add(new RowDefinition());
 
-                for (int j = 0; j < _columnCount; j++)
-                {
-                    borders[i, j] = new Border();
-                    borders[i, j].Child = textBlocks[i, j];
-                    borders[i, j].Style = borderStyle;
+            _borders[row, column] = new Border();
+            _borders[row, column].Child = textBlock;
+            _borders[row, column].Style = _borderStyle;
 
-                    Grid.SetRow(borders[i, j], _rowCount);
-                    Grid.SetColumn(borders[i, j], j);
+            Grid.SetRow(_borders[row, column], row);
+            Grid.SetColumn(_borders[row, column], column);
 
-                    TableBalance.Children.Add(borders[i, j]);
-                }
-            }
+            TableBalance.Children.Add(_borders[row, column]);
+        }
+
+        private void ReloadData(object sender, RoutedEventArgs e)
+        {
+            FillTable();
         }
     }
 }
