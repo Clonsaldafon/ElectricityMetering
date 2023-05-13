@@ -12,6 +12,8 @@ namespace ElectricityMetering.Core.Controllers
     {
         private readonly OwnerController _ownerController = new OwnerController();
 
+        private readonly BalanceController _balanceController = new BalanceController();
+
         public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<string> BlocksOfGarages { get; set; } = new List<string>();
 

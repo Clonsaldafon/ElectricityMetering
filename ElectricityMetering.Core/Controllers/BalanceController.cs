@@ -9,10 +9,8 @@ using System.Windows.Input;
 
 namespace ElectricityMetering.Core.Controllers
 {
-    public class BalanceController
+    public class BalanceController : Controller
     {
-        private ApplicationContext _context = new ApplicationContext();
-
         public decimal Debt { get; set; }
         public decimal Advance { get; set; }
         public decimal Balance { get; set; }
@@ -21,17 +19,29 @@ namespace ElectricityMetering.Core.Controllers
         {
             foreach (Owner owner in _context.Owners.ToList())
             {
-                if (owner.Balance < 0)
-                {
-                    Debt += owner.Balance;
-                }
-                else
-                {
-                    Advance += owner.Balance;
-                }
-
-                Balance = Debt + Advance;
+                Add(owner.Balance);
             }
+        }
+
+        public void Add(decimal balance)
+        {
+            if (balance < 0)
+            {
+                Debt += balance;
+            }
+            else
+            {
+                Advance += balance;
+            }
+
+            Balance = Debt + Advance;
+        }
+
+        public void Reset()
+        {
+            Debt = 0;
+            Advance = 0;
+            Balance = 0;
         }
     }
 }

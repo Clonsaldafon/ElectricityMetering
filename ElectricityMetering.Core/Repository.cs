@@ -192,6 +192,11 @@ namespace ElectricityMetering.Core
             return await _context.Owners.FirstAsync(o => o.Id == id);
         }
 
+        public List<Owner> GetOwners()
+        {
+            return _context.Owners.ToList();
+        }
+
         /// <summary>
         /// Load the counter from the database by garage.
         /// </summary>

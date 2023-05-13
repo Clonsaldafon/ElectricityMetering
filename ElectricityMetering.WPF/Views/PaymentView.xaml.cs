@@ -29,8 +29,8 @@ namespace ElectricityMetering.WPF.Views
 
         private readonly PaymentController _paymentController = new PaymentController();
 
-        private readonly int _rowCount;
-        private readonly int _columnCount;
+        private int _rowCount;
+        private int _columnCount;
 
         private readonly Style _cellTextStyle;
         private readonly Style _borderStyle;
@@ -113,6 +113,11 @@ namespace ElectricityMetering.WPF.Views
 
         private void ReloadData(object sender, RoutedEventArgs e)
         {
+            _rowCount = _paymentController.Payments.Count + 1;
+            _columnCount = TablePayment.ColumnDefinitions.Count;
+
+            _borders = new Border[_rowCount, _columnCount];
+
             FillTable();
         }
     }

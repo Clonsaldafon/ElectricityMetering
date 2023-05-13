@@ -10,6 +10,7 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class Controller
     {
+        protected readonly ApplicationContext _context = new ApplicationContext();
         protected readonly Repository _repository = new Repository();
 
         protected Garage? _garage;

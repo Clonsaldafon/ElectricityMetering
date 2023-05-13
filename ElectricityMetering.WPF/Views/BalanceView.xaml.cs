@@ -24,7 +24,6 @@ namespace ElectricityMetering.WPF.Views
     /// </summary>
     public partial class BalanceView : UserControl
     {
-        private readonly ApplicationContext _context = new ApplicationContext();
         private readonly BalanceController _balanceController = new BalanceController();
 
         private readonly int _rowCount = 2;
@@ -38,6 +37,7 @@ namespace ElectricityMetering.WPF.Views
         public BalanceView()
         {
             InitializeComponent();
+
             _balanceController.Calculate();
 
             _cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
@@ -83,6 +83,9 @@ namespace ElectricityMetering.WPF.Views
 
         private void ReloadData(object sender, RoutedEventArgs e)
         {
+            _balanceController.Reset();
+            _balanceController.Calculate();
+
             FillTable();
         }
     }
