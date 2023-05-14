@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricityMetering.WPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1000">
+             d:DesignHeight="450" d:DesignWidth="1100">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -28,15 +28,15 @@
         </Grid.Resources>
 
         <Grid Grid.Row="0"
-              Margin="75 0 75 0">
+              Margin="75 0 100 0">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0"
-                       Text="Тариф"
+                       Text="Оплата"
                        Foreground="{StaticResource DarkGrayColorBrush}"
                        FontSize="24"
                        FontFamily="Roboto"
@@ -45,13 +45,15 @@
 
             <Button Grid.Column="1"
                     Style="{StaticResource ButtonReloadData}"
-                    Click="ReloadData"/>
+                    Click="ReloadData"
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0"/>
 
         </Grid>
 
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
-                    Margin="75 40 0 0">
+                    Margin="75 40 75 40">
 
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
@@ -97,13 +99,12 @@
 
         <ScrollViewer Grid.Row="1"
                       Grid.Column="1"
-                      Margin="0 60 0 40"
+                      Margin="0 55 0 40"
                       VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <StackPanel HorizontalAlignment="Center">
                 <Border>
                     <Grid Name="TablePayment"
-                      MaxWidth="400"
-                      HorizontalAlignment="Left">
+                          Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
@@ -153,9 +154,9 @@
 
         <StackPanel Grid.Column="2"
                     Grid.Row="1"
-                    Margin="10 40 0 0">
-            <ContentControl Name="MessagesLogContent"
-                            HorizontalAlignment="Center"/>
+                    Margin="50 40 50 40">
+            <ContentControl Name="MessageLog"
+                            HorizontalAlignment="Left"/>
         </StackPanel>
 
     </Grid>

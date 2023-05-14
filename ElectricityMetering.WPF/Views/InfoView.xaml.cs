@@ -1,6 +1,7 @@
 ﻿using ElectricityMetering.Core.Controllers;
 using ElectricityMetering.Core.Models;
 using ElectricityMetering.WPF.Views.InfoViews;
+using ElectricityMetering.WPF.Views.MessageLogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,9 @@ namespace ElectricityMetering.WPF.Views
 
         private async void LoadMainData(object sender, RoutedEventArgs e)
         {
+            MessageLog.Content = new PleaseWaitTextView();
+            Mouse.OverrideCursor = Cursors.Wait;
+
             string garageNumber = TextBoxGarageNumber.Text;
 
             ClearTextBoxes();
@@ -40,16 +44,23 @@ namespace ElectricityMetering.WPF.Views
             {
                 if ((await _controller.LoadGarageAsync(number)) == null)
                 {
-                    MessagesLogContent.Content = new NeedToCreateGarageView(number);
+                    MessageLog.Content = new NeedToCreateGarageView(number, MessageLog);
+                    Mouse.OverrideCursor = null;
                     return;
                 }
             }
 
             FillTextBoxes();
+
+            MessageLog.Content = new SuccessfulLoadView(MessageLog);
+            Mouse.OverrideCursor = null;
         }
 
         private async void SaveMainData(object sender, RoutedEventArgs e)
         {
+            MessageLog.Content = new PleaseWaitTextView();
+            Mouse.OverrideCursor = Cursors.Wait;
+
             string garageNumber = TextBoxGarageNumber.Text;
 
             string ownerName = TextBoxOwnerName.Text;
@@ -66,13 +77,9 @@ namespace ElectricityMetering.WPF.Views
             await _controller.SaveGarageAsync(int.Parse(garageNumber));
 
             _controller.ParseBlockOfGarages(blockOfGarages);
-        }
 
-        public void ClearMessageLog()
-        {
-            MessagesLogContent.Content = null;
-
-            MessageBox.Show("ClearMessageLog");
+            MessageLog.Content = new SuccessfulSaveView(MessageLog);
+            Mouse.OverrideCursor = null;
         }
 
         private void ClearTextBoxes()

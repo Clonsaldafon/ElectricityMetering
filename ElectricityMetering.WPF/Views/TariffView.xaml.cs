@@ -1,6 +1,7 @@
 ﻿using ElectricityMetering.Core;
 using ElectricityMetering.Core.Controllers;
 using ElectricityMetering.Core.Models;
+using ElectricityMetering.WPF.Views.MessageLogs;
 using ElectricityMetering.WPF.Views.TariffViews;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ namespace ElectricityMetering.WPF.Views
     /// </summary>
     public partial class TariffView : UserControl
     {
-        private readonly ApplicationContext _context = new ApplicationContext();
         private readonly TariffController _tariffController = new TariffController();
 
         private readonly NeedToUpdateTariffView _needToUpdateTariffView = new NeedToUpdateTariffView();
@@ -45,7 +45,7 @@ namespace ElectricityMetering.WPF.Views
 
             if (_tariffController.NeedToUpdateTariff())
             {
-                NeedToUpdateTariffContent.Content = _needToUpdateTariffView;
+                MessageLog.Content = _needToUpdateTariffView;
             }
 
             _rowCount = _tariffController.Tariffs.Count + 1;
@@ -100,7 +100,13 @@ namespace ElectricityMetering.WPF.Views
 
         private void ReloadData(object sender, RoutedEventArgs e)
         {
+            MessageLog.Content = new PleaseWaitTextView();
+            Mouse.OverrideCursor = Cursors.Wait;
+
             FillTable();
+
+            MessageLog.Content = new SuccessfulUpdateView(MessageLog);
+            Mouse.OverrideCursor = null;
         }
     }
 }

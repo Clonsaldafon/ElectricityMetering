@@ -130,10 +130,8 @@
         <StackPanel Grid.Column="1"
                     Grid.Row="1"
                     Margin="10 40 75 0">
-            <ContentControl Name="MessagesLogContent"
-                            HorizontalAlignment="Center"/>
-            <!--TODO: Если гаража нет в бд, то в error message сделать возможность добавления-->
-            <!--TODO: Если в error message попытка добавить тот, который существует, то просто загружать его ???-->
+            <ContentControl Name="MessageLog"
+                            HorizontalAlignment="Left"/>
         </StackPanel>
 
     </Grid>

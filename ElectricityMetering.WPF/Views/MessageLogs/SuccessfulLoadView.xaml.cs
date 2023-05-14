@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ElectricityMetering.WPF.Views.InfoViews
+namespace ElectricityMetering.WPF.Views.MessageLogs
 {
     /// <summary>
-    /// Логика взаимодействия для GarageCreatedView.xaml
+    /// Логика взаимодействия для SuccessfulLoadView.xaml
     /// </summary>
-    public partial class GarageCreatedView : UserControl
+    public partial class SuccessfulLoadView : UserControl
     {
-        private readonly InfoView _infoView = new InfoView();
         private readonly ContentControl _messageLog;
 
-        public GarageCreatedView(ContentControl messageLog)
+        public SuccessfulLoadView(ContentControl messageLog)
         {
             InitializeComponent();
             _messageLog = messageLog;

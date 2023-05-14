@@ -24,12 +24,15 @@ namespace ElectricityMetering.WPF.Views.InfoViews
         private readonly Controller _controller = new Controller();
 
         private readonly InfoView _infoView = new InfoView();
+        private readonly ContentControl _messageLog;
 
         private int _garageNumber;
 
-        public NeedToCreateGarageView(int garageNumber)
+        public NeedToCreateGarageView(int garageNumber, ContentControl messageLog)
         {
             InitializeComponent();
+            _messageLog = messageLog;
+
             _garageNumber = garageNumber;
 
             TextBlockGarageNumberInError.Text = _garageNumber.ToString();
@@ -38,11 +41,13 @@ namespace ElectricityMetering.WPF.Views.InfoViews
         private void CreateGarage(object sender, RoutedEventArgs e)
         {
             _controller.CreateGarageAsync(_garageNumber);
+
+            _messageLog.Content = new GarageCreatedView(_messageLog);
         }
 
         private void CloseMessageLog(object sender, RoutedEventArgs e)
         {
-            _infoView.ClearMessageLog();
+            _messageLog.Content = null;
         }
     }
 }

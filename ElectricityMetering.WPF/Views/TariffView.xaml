@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -21,8 +21,8 @@
               Margin="75 0 75 0">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             
             <TextBlock Grid.Column="0"
@@ -35,13 +35,15 @@
 
             <Button Grid.Column="1"
                     Style="{StaticResource ButtonReloadData}"
-                    Click="ReloadData"/>
+                    Click="ReloadData"
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0"/>
 
         </Grid>
 
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
-                    Margin="75 40 75 0">
+                    Margin="75 40 75 40">
 
             <Border CornerRadius="0 10 10 10"
                     HorizontalAlignment="Left"
@@ -63,49 +65,55 @@
                 </TextBlock>
             </Border>
 
-            <Grid Name="TableTariff"
-                  MaxWidth="250"
-                  HorizontalAlignment="Left"
-                  Margin="0 30 0 0">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Row="1"
+                      Grid.Column="1"
+                      Margin="-5 30 0 0"
+                      VerticalScrollBarVisibility="Auto">
+                <Grid Name="TableTariff"
+                      MaxWidth="250"
+                      HorizontalAlignment="Left"
+                      Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Grid.Effect>
-                    <DropShadowEffect BlurRadius="8"
-                                      RenderingBias="Quality"
-                                      ShadowDepth="0"
-                                      Color="{StaticResource DarkGrayColor}"/>
-                </Grid.Effect>
-                <Border Name="TextBlockDate"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Style="{StaticResource LittleTableBorder}">
-                    <TextBlock Text="Дата"
-                               Style="{StaticResource LittleTableColumnTitle}"/>
-                </Border>
-                <Border Name="TextBlockPrice"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Style="{StaticResource LittleTableBorder}">
-                    <TextBlock Text="Цена"
-                               Style="{StaticResource LittleTableColumnTitle}"/>
-                </Border>
-            </Grid>
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="8"
+                                          RenderingBias="Quality"
+                                          ShadowDepth="0"
+                                          Color="{StaticResource DarkGrayColor}"/>
+                    </Grid.Effect>
+                    <Border Name="TextBlockDate"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Style="{StaticResource LittleTableBorder}">
+                        <TextBlock Text="Дата"
+                                   Style="{StaticResource LittleTableColumnTitle}"/>
+                    </Border>
+                    <Border Name="TextBlockPrice"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Style="{StaticResource LittleTableBorder}">
+                        <TextBlock Text="Цена"
+                                   Style="{StaticResource LittleTableColumnTitle}"/>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+            
 
         </StackPanel>
 
         <StackPanel Grid.Column="1"
                     Grid.Row="1"
-                    Margin="75 40 75 0">
+                    Margin="75 40 75 40">
             <ContentControl Grid.Column="1"
                             Grid.Row="1"
-                            Name="NeedToUpdateTariffContent"
-                            HorizontalAlignment="Center"/>
+                            Name="MessageLog"
+                            HorizontalAlignment="Left"/>
         </StackPanel>
 
     </Grid>

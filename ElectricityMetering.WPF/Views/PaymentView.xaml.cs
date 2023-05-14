@@ -1,6 +1,7 @@
 ﻿using ElectricityMetering.Core;
 using ElectricityMetering.Core.Controllers;
 using ElectricityMetering.Core.Models;
+using ElectricityMetering.WPF.Views.MessageLogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -113,12 +114,18 @@ namespace ElectricityMetering.WPF.Views
 
         private void ReloadData(object sender, RoutedEventArgs e)
         {
+            MessageLog.Content = new PleaseWaitTextView();
+            Mouse.OverrideCursor = Cursors.Wait;
+
             _rowCount = _paymentController.Payments.Count + 1;
             _columnCount = TablePayment.ColumnDefinitions.Count;
 
             _borders = new Border[_rowCount, _columnCount];
 
             FillTable();
+
+            MessageLog.Content = new SuccessfulUpdateView(MessageLog);
+            Mouse.OverrideCursor = null;
         }
     }
 }

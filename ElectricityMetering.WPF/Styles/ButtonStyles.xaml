@@ -232,7 +232,7 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <ColorAnimation Storyboard.TargetProperty="(Button.Foreground).(SolidColorBrush.Color)"
-                                            To="{StaticResource LightGreenColor}" Duration="0:0:0.2" AutoReverse="False"/>
+                                            To="{StaticResource DarkGreenColor}" Duration="0:0:0.2" AutoReverse="False"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger.Actions>
