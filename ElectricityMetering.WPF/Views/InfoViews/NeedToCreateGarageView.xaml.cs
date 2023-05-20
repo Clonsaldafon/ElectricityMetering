@@ -40,12 +40,12 @@ namespace ElectricityMetering.WPF.Views.InfoViews
 
         private void CreateGarage(object sender, RoutedEventArgs e)
         {
-            _controller.CreateGarageAsync(_garageNumber);
+            _ = _controller.CreateGarageAsync(_garageNumber);
 
             _messageLog.Content = new GarageCreatedView(_messageLog);
         }
 
-        private void CloseMessageLog(object sender, RoutedEventArgs e)
+        private void CloseMessage(object sender, RoutedEventArgs e)
         {
             _messageLog.Content = null;
         }

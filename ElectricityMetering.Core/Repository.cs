@@ -160,7 +160,7 @@ namespace ElectricityMetering.Core
             return garage;
         }
 
-        public List<Garage> GetAllGarages() => _context.Garages.ToList();
+        public List<Garage> GetAllGarages() => _context.Garages.OrderBy(g => g.Number).ToList();
 
         /// <summary>
         /// Load the owner from the database by name.

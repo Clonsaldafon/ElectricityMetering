@@ -92,7 +92,7 @@
                         Margin="120 20 0 0"
                         Content="Нет"
                         Style="{StaticResource ButtonInError}"
-                        Click="CloseMessageLog"/>
+                        Click="CloseMessage"/>
 
             </Grid>
         </Border>
