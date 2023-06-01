@@ -48,7 +48,7 @@ namespace ElectricityMetering.Core.Controllers
                 noneCash = decimal.Parse(noneCashString);
             }
 
-            Payment payment = await _repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
+            Payment payment = await Repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
 
             await _ownerController.UpdateBalanceAsync(_owner, payment);
 
@@ -57,7 +57,7 @@ namespace ElectricityMetering.Core.Controllers
 
         private void UpdatePayments()
         {
-            Payments = _repository.GetPayments();
+            Payments = Repository.GetPayments();
 
             BlocksOfGarages = SplitAllBlockOfGarages();
         }

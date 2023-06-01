@@ -10,8 +10,6 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class TariffController : Controller
     {
-        private readonly ApplicationContext _context = new ApplicationContext();
-
         public List<Tariff> Tariffs { get; set; } = new List<Tariff>();
 
         public TariffController()
@@ -21,7 +19,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public bool NeedToUpdateTariff()
         {
-            Tariff lastTariff = _context.Tariffs.OrderByDescending(t => t.Date).ToArray()[0];
+            Tariff lastTariff = Repository.GetTariffs()[0];
 
             int day = DateTime.Today.Day;
             int month = DateTime.Today.Month;
@@ -39,7 +37,7 @@ namespace ElectricityMetering.Core.Controllers
             {
                 if (decimal.TryParse(priceString, out decimal price))
                 {
-                    await _repository.CreateTariffAsync(date, price);
+                    await Repository.CreateTariffAsync(date, price);
 
                     UpdateTariffs();
                 }
@@ -56,7 +54,7 @@ namespace ElectricityMetering.Core.Controllers
 
         private void UpdateTariffs()
         {
-            Tariffs = _repository.GetTariffs();
+            Tariffs = Repository.GetTariffs();
         }
     }
 }

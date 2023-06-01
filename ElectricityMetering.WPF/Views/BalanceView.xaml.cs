@@ -50,29 +50,29 @@ namespace ElectricityMetering.WPF.Views
 
         private void FillTable()
         {
-            TextBlock textBlockDebt = new TextBlock();
-            TextBlock textBlockAdvance = new TextBlock();
-            TextBlock textBlockBalance = new TextBlock();
+            TextBox textBoxReadonlyDebt = new TextBox();
+            TextBox textBoxReadonlyAdvance = new TextBox();
+            TextBox textBoxReadonlyBalance = new TextBox();
 
-            textBlockDebt.Text = _balanceController.Debt.ToString();
-            textBlockAdvance.Text = _balanceController.Advance.ToString();
-            textBlockBalance.Text = _balanceController.Balance.ToString();
+            textBoxReadonlyDebt.Text = _balanceController.Debt.ToString();
+            textBoxReadonlyAdvance.Text = _balanceController.Advance.ToString();
+            textBoxReadonlyBalance.Text = _balanceController.Balance.ToString();
 
-            textBlockDebt.Style = _cellTextStyle;
-            textBlockAdvance.Style = _cellTextStyle;
-            textBlockBalance.Style = _cellTextStyle;
+            textBoxReadonlyDebt.Style = _cellTextStyle;
+            textBoxReadonlyAdvance.Style = _cellTextStyle;
+            textBoxReadonlyBalance.Style = _cellTextStyle;
 
-            AddBalanceInTable(1, 0, textBlockDebt);
-            AddBalanceInTable(1, 1, textBlockAdvance);
-            AddBalanceInTable(1, 2, textBlockBalance);
+            AddBalanceInTable(1, 0, textBoxReadonlyDebt);
+            AddBalanceInTable(1, 1, textBoxReadonlyAdvance);
+            AddBalanceInTable(1, 2, textBoxReadonlyBalance);
         }
 
-        private void AddBalanceInTable(int row, int column, TextBlock textBlock)
+        private void AddBalanceInTable(int row, int column, TextBox textBox)
         {
             TableBalance.RowDefinitions.Add(new RowDefinition());
 
             _borders[row, column] = new Border();
-            _borders[row, column].Child = textBlock;
+            _borders[row, column].Child = textBox;
             _borders[row, column].Style = _borderStyle;
 
             Grid.SetRow(_borders[row, column], row);

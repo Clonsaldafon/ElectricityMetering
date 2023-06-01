@@ -70,26 +70,26 @@ namespace ElectricityMetering.WPF.Views
             {
                 Tariff tariff = _tariffController.Tariffs[row];
 
-                TextBlock textBlockDate = new TextBlock();
-                TextBlock textBlockPrice = new TextBlock();
+                TextBox textBoxReadonlyDate = new TextBox();
+                TextBox textBoxReadonlyPrice = new TextBox();
 
-                textBlockDate.Text = tariff.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
-                textBlockPrice.Text = tariff.Price.ToString();
+                textBoxReadonlyDate.Text = tariff.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                textBoxReadonlyPrice.Text = tariff.Price.ToString();
 
-                textBlockDate.Style = _cellTextStyle;
-                textBlockPrice.Style = _cellTextStyle;
+                textBoxReadonlyDate.Style = _cellTextStyle;
+                textBoxReadonlyPrice.Style = _cellTextStyle;
 
-                AddTariffInTable(row + 1, 0, textBlockDate);
-                AddTariffInTable(row + 1, 1, textBlockPrice);
+                AddTariffInTable(row + 1, 0, textBoxReadonlyDate);
+                AddTariffInTable(row + 1, 1, textBoxReadonlyPrice);
             }
         }
 
-        private void AddTariffInTable(int row, int column, TextBlock textBlock)
+        private void AddTariffInTable(int row, int column, TextBox textBox)
         {
             TableTariff.RowDefinitions.Add(new RowDefinition());
 
             _borders[row, column] = new Border();
-            _borders[row, column].Child = textBlock;
+            _borders[row, column].Child = textBox;
             _borders[row, column].Style = _borderStyle;
 
             Grid.SetRow(_borders[row, column], row);

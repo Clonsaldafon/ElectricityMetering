@@ -16,7 +16,7 @@ namespace ElectricityMetering.Core.Controllers
                 return;
             }
 
-            await _repository.SaveOwnerAsync(owner, payment);
+            await Repository.SaveOwnerAsync(owner, payment);
         }
     }
 }

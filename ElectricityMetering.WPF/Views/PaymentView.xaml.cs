@@ -26,8 +26,6 @@ namespace ElectricityMetering.WPF.Views
     /// </summary>
     public partial class PaymentView : UserControl
     {
-        private readonly Repository _repository = new Repository();
-
         private readonly PaymentController _paymentController = new PaymentController();
 
         private int _rowCount;
@@ -64,34 +62,34 @@ namespace ElectricityMetering.WPF.Views
             {
                 Payment payment = _paymentController.Payments[row];
 
-                TextBlock textBlockGarages = new TextBlock();
-                TextBlock textBlockCash = new TextBlock();
-                TextBlock textBlockNoneCash = new TextBlock();
-                TextBlock textBlockDate = new TextBlock();
+                TextBox textBoxReadonlyGarages = new TextBox();
+                TextBox textBoxReadonlyCash = new TextBox();
+                TextBox textBoxReadonlyNoneCash = new TextBox();
+                TextBox textBoxReadonlyDate = new TextBox();
 
-                textBlockGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
-                textBlockCash.Text = payment.Cash.ToString(CultureInfo.InvariantCulture);
-                textBlockNoneCash.Text = payment.NoneCash.ToString(CultureInfo.InvariantCulture);
-                textBlockDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
+                textBoxReadonlyGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
+                textBoxReadonlyCash.Text = payment.Cash.ToString(CultureInfo.InvariantCulture);
+                textBoxReadonlyNoneCash.Text = payment.NoneCash.ToString(CultureInfo.InvariantCulture);
+                textBoxReadonlyDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);
 
-                textBlockGarages.Style = _cellTextStyle;
-                textBlockCash.Style = _cellTextStyle;
-                textBlockNoneCash.Style = _cellTextStyle;
-                textBlockDate.Style = _cellTextStyle;
+                textBoxReadonlyGarages.Style = _cellTextStyle;
+                textBoxReadonlyCash.Style = _cellTextStyle;
+                textBoxReadonlyNoneCash.Style = _cellTextStyle;
+                textBoxReadonlyDate.Style = _cellTextStyle;
 
-                AddPaymentInTable(row + 1, 0, textBlockGarages);
-                AddPaymentInTable(row + 1, 1, textBlockCash);
-                AddPaymentInTable(row + 1, 2, textBlockNoneCash);
-                AddPaymentInTable(row + 1, 3, textBlockDate);
+                AddPaymentInTable(row + 1, 0, textBoxReadonlyGarages);
+                AddPaymentInTable(row + 1, 1, textBoxReadonlyCash);
+                AddPaymentInTable(row + 1, 2, textBoxReadonlyNoneCash);
+                AddPaymentInTable(row + 1, 3, textBoxReadonlyDate);
             }
         }
 
-        private void AddPaymentInTable(int row, int column, TextBlock textBlock)
+        private void AddPaymentInTable(int row, int column, TextBox textBox)
         {
             TablePayment.RowDefinitions.Add(new RowDefinition());
 
             _borders[row, column] = new Border();
-            _borders[row, column].Child = textBlock;
+            _borders[row, column].Child = textBox;
             _borders[row, column].Style = _borderStyle;
 
             Grid.SetRow(_borders[row, column], row);
@@ -106,7 +104,7 @@ namespace ElectricityMetering.WPF.Views
             string cashPayment = TextBoxCashPayment.Text;
             string noneCashPayment = TextBoxNonCashPayment.Text;
 
-            if (_repository.GetGarageAsync(int.Parse(garageNumber)).Result != null)
+            if (Repository.GetGarageAsync(int.Parse(garageNumber)).Result != null)
             {
                 _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
             }

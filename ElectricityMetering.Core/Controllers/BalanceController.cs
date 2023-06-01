@@ -17,7 +17,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public void Calculate()
         {
-            foreach (Owner owner in _context.Owners.ToList())
+            foreach (Owner owner in Repository.GetOwners())
             {
                 Add(owner.Balance);
             }

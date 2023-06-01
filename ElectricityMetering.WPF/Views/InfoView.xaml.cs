@@ -76,7 +76,8 @@ namespace ElectricityMetering.WPF.Views
 
             await _controller.SaveGarageAsync(int.Parse(garageNumber));
 
-            _controller.ParseBlockOfGarages(blockOfGarages);
+            List<int> garageNumbers = _controller.ParseBlockOfGarages(blockOfGarages);
+            await _controller.FillBlockOfGaragesAsync(garageNumbers);
 
             MessageLog.Content = new SuccessfulSaveView(MessageLog);
             Mouse.OverrideCursor = null;

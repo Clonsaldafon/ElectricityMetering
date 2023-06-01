@@ -1,4 +1,5 @@
 ﻿using ElectricityMetering.Core.Controllers;
+using SciChart.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,10 @@ namespace ElectricityMetering.WPF.Views
     /// </summary>
     public partial class IndicationsView : UserControl
     {
+        private const int _countOfTables = 3;
+        private const int _countOfInfoColumns = 5;
+        private const int _countOfMonths = 12;
+
         private readonly IndicationsController _indicationsController;
 
         private int _rowCount;
@@ -30,30 +35,30 @@ namespace ElectricityMetering.WPF.Views
         private readonly Style _cellTextStyle;
         private readonly Style _borderStyle;
 
-        private Border[,] _borders;
+        private Border[,] _bordersNow;
 
-        private int _nowYear = DateTime.Now.Year;
-
-        private List<Grid> _tables;
+        private Grid[] _tables;
+        private TextBox[] _textBoxesInfo;
+        private TextBox[] _textBoxesMonths;
 
         public IndicationsView()
         {
             InitializeComponent();
 
-            _indicationsController = new IndicationsController(_nowYear);
+            _indicationsController = new IndicationsController();
 
-            if (_indicationsController.Data.Count > 0)
+            if (_indicationsController.InfoData.Count > 0)
             {
-                _rowCount = _indicationsController.Data.Count + 1;
-                _columnCount = _indicationsController.Data[0].Count;
+                _rowCount = _indicationsController.InfoData.Count + 1;
+                _columnCount = _countOfInfoColumns + _countOfMonths;
 
                 _cellTextReadonlyStyle = (Style)FindResource("BigTableCellTextReadonly");
                 _cellTextStyle = (Style)FindResource("BigTableCellText");
                 _borderStyle = (Style)FindResource("BigTableBorder");
 
-                _borders = new Border[_rowCount, _columnCount];
+                _bordersNow = new Border[_rowCount, _columnCount];
 
-                _tables = new List<Grid>()
+                _tables = new Grid[_countOfTables]
                 {
                     TableIndicationsNow,
                     TableIndicationsOneYearAgo,
@@ -71,81 +76,141 @@ namespace ElectricityMetering.WPF.Views
                 return;
             }
 
-            TextBlock textBlockGarages = new TextBlock();
-            TextBlock textBlockOwner = new TextBlock();
-            TextBlock textBlockCounter = new TextBlock();
-            TextBlock textBlockSeal = new TextBlock();
-            TextBlock textBlockSealDate = new TextBlock();
-
-            textBlockGarages.Style = _cellTextReadonlyStyle;
-            textBlockOwner.Style = _cellTextReadonlyStyle;
-            textBlockCounter.Style = _cellTextReadonlyStyle;
-            textBlockSeal.Style = _cellTextReadonlyStyle;
-            textBlockSealDate.Style = _cellTextReadonlyStyle;
-
-            List<TextBlock> textBlocksMonths = new List<TextBlock>()
+            for (int row = 1; row < _rowCount; row++)
             {
-                new TextBlock(), new TextBlock(), new TextBlock(),
-                new TextBlock(), new TextBlock(), new TextBlock(),
-                new TextBlock(), new TextBlock(), new TextBlock(),
-                new TextBlock(), new TextBlock(), new TextBlock()
-            };
-
-            for (int row = 0; row < _rowCount; row++)
-            {
-                textBlockGarages.Text = _indicationsController.Data[row][0];
-                textBlockOwner.Text = _indicationsController.Data[row][1];
-                textBlockCounter.Text = _indicationsController.Data[row][2];
-                textBlockSeal.Text = _indicationsController.Data[row][3];
-                textBlockSealDate.Text = _indicationsController.Data[row][4];
-
-                foreach (Grid table in _tables)
+                _textBoxesInfo = new TextBox[_countOfInfoColumns]
                 {
-                    AddEntryInTable(table, row, 0, textBlockGarages);
-                    AddEntryInTable(table, row, 1, textBlockOwner);
-                    AddEntryInTable(table, row, 2, textBlockCounter);
-                    AddEntryInTable(table, row, 3, textBlockSeal);
-                    AddEntryInTable(table, row, 4, textBlockSealDate);
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox()
+                };
+
+                foreach (TextBox textBox in _textBoxesInfo)
+                {
+                    textBox.Style = _cellTextReadonlyStyle;
                 }
 
-                for (int column = 0; column < textBlocksMonths.Count; column++)
+                _textBoxesMonths = new TextBox[_countOfMonths]
                 {
-                    textBlocksMonths[column].Text = _indicationsController.Data[row][column + 5];
-                    textBlocksMonths[column].Style = _cellTextStyle;
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox()
+                };
 
-                    AddEntryInTable(TableIndicationsNow, row, column + 5, textBlocksMonths[column]);
+                foreach (TextBox textBox in _textBoxesMonths)
+                {
+                    textBox.Style = _cellTextReadonlyStyle;
                 }
 
-                for (int column = 0; column < textBlocksMonths.Count; column++)
+                for (int i = 0; i < _textBoxesInfo.Length; i++)
                 {
-                    textBlocksMonths[column].Text = _indicationsController.Data[row][column + 5];
-                    textBlocksMonths[column].Style = _cellTextReadonlyStyle;
-
-                    AddEntryInTable(TableIndicationsOneYearAgo, row, column + 5, textBlocksMonths[column]);
+                    _textBoxesInfo[i].Text = _indicationsController.InfoData[row - 1][i];
                 }
 
-                for (int column = 0; column < textBlocksMonths.Count; column++)
-                {
-                    textBlocksMonths[column].Text = _indicationsController.Data[row][column + 5];
-                    textBlocksMonths[column].Style = _cellTextReadonlyStyle;
+                //foreach (Grid table in _tables)
+                //{
+                    for (int i = 0; i < _textBoxesInfo.Length; i++)
+                    {
+                        AddEntryInTable(TableIndicationsNow, row, i, _textBoxesInfo[i]);
+                    }
+                //}
 
-                    AddEntryInTable(TableIndicationsTwoYearsAgo, row, column + 5, textBlocksMonths[column]);
+                for (int column = 0; column < _textBoxesMonths.Length; column++)
+                {
+                    _textBoxesMonths[column].Text = _indicationsController.IndicationsNow[row - 1][column];
+                    _textBoxesMonths[column].Style = _cellTextStyle;
+
+                    AddEntryInTable(TableIndicationsNow, row, column + 5, _textBoxesMonths[column]);
                 }
+
+                /*for (int column = 0; column < _textBlocksMonths.Length; column++)
+                {
+                    _textBlocksMonths[column].Text = _indicationsController.IndicationsOneYearAgo[row][column + 5];
+                    _textBlocksMonths[column].Style = _cellTextReadonlyStyle;
+
+                    AddEntryInTable(TableIndicationsOneYearAgo, row + 1, column + 5, _textBlocksMonths[column]);
+                }
+
+                for (int column = 0; column < _textBlocksMonths.Length; column++)
+                {
+                    _textBlocksMonths[column].Text = _indicationsController.IndicationsTwoYearsAgo[row][column + 5];
+                    _textBlocksMonths[column].Style = _cellTextReadonlyStyle;
+
+                    AddEntryInTable(TableIndicationsTwoYearsAgo, row + 1, column + 5, _textBlocksMonths[column]);
+                }*/
             }
         }
 
-        private void AddEntryInTable(Grid table, int row, int column, TextBlock textBlock)
+        private void AddEntryInTable(Grid table, int row, int column, TextBox textBox)
         {
             table.RowDefinitions.Add(new RowDefinition());
 
-            _borders[row, column] = new Border();
-            _borders[row, column].Child = textBlock;
-            _borders[row, column].Style = _borderStyle;
+            _bordersNow[row, column] = new Border();
+            _bordersNow[row, column].Style = _borderStyle;
 
-            Grid.SetRow(_borders[row, column], row);
-            Grid.SetColumn(_borders[row, column], column);
+            if (_bordersNow[row, column].Parent != null)
+            {
+                ((Grid)_bordersNow[row, column].Parent).Children.Remove(_bordersNow[row, column]);
+            }
 
-            table.Children.Add(_borders[row, column]);
+            _bordersNow[row, column].Child = textBox;
+
+            Grid.SetRow(_bordersNow[row, column], row);
+            Grid.SetColumn(_bordersNow[row, column], column);
+
+            table.Children.Add(_bordersNow[row, column]);
+        }
+
+        private void SaveIndications(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, List<string>> indicationsByCounterNumber = new Dictionary<string, List<string>>();
+
+            int columnCounterIndex = 2;
+
+            int minColumnIndications = 5;
+            int maxColumnIndications = 16;
+
+            string currentCounterNumber = "";
+            List<string> indications = new List<string>();
+
+            for (int row = 0; row < _rowCount; row++)
+            {
+                if (TableIndicationsNow.Children[columnCounterIndex] is Border borderCounter)
+                {
+                    if (borderCounter.Child is TextBox textBoxCounter)
+                    {
+                        currentCounterNumber = textBoxCounter.Text;
+                    }
+                }
+
+                for (int column = minColumnIndications; column < maxColumnIndications; column++)
+                {
+                    if (TableIndicationsNow.Children[column] is Border borderIndication)
+                    {
+                        if (borderIndication.Child is TextBox textBoxIndication)
+                        {
+                            indications.Add(textBoxIndication.Text);
+                        }
+                    }
+                }
+
+                if (!currentCounterNumber.IsNullOrEmpty() && indications.Count != 0)
+                {
+                    indicationsByCounterNumber[currentCounterNumber] = indications;
+                    indications = new List<string>();
+                }
+
+                columnCounterIndex += 17;
+                minColumnIndications += 17;
+                maxColumnIndications += 17;
+            }
+
+            _ = _indicationsController.SaveDataAsync(indicationsByCounterNumber);
+
+            MessageBox.Show("Saved");
         }
     }
 }

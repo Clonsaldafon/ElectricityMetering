@@ -10,9 +10,6 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class Controller
     {
-        protected readonly ApplicationContext _context = new ApplicationContext();
-        protected readonly Repository _repository = new Repository();
-
         protected Garage? _garage;
         protected Owner? _owner;
         protected Counter? _counter;
@@ -22,13 +19,13 @@ namespace ElectricityMetering.Core.Controllers
 
         public async Task SaveGarageAsync(int garageNumber)
         {
-            Garage garage = await _repository.GetGarageAsync(garageNumber);
-            await _repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+            Garage garage = await Repository.GetGarageAsync(garageNumber);
+            await Repository.SaveGarageAsync(garage, _owner, _counter, _seal);
         }
 
         public async Task SaveGarageAsync(Garage garage)
         {
-            await _repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+            await Repository.SaveGarageAsync(garage, _owner, _counter, _seal);
         }
 
         public async Task<bool> CanCreateGarageAsync(int garageNumber) =>
@@ -38,8 +35,8 @@ namespace ElectricityMetering.Core.Controllers
         {
             if (await CanCreateGarageAsync(garageNumber))
             {
-                _garage = await _repository.CreateGarageAsync(garageNumber);
-                _garage = await _repository.SaveGarageAsync(_garage, _owner, _counter, _seal);
+                _garage = await Repository.CreateGarageAsync(garageNumber);
+                _garage = await Repository.SaveGarageAsync(_garage, _owner, _counter, _seal);
 
                 FillDataByGarage();
             }
@@ -50,7 +47,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public async Task<Garage?> LoadGarageAsync(int garageNumber)
         {
-            _garage = await _repository.GetGarageAsync(garageNumber);
+            _garage = await Repository.GetGarageAsync(garageNumber);
             
             if (_garage != null)
             {
@@ -61,14 +58,14 @@ namespace ElectricityMetering.Core.Controllers
         }
 
         private async Task<bool> GarageAlreadyExistsAsync(int garageNumber) =>
-            (await _repository.GetGarageAsync(garageNumber)) != null;
+            (await Repository.GetGarageAsync(garageNumber)) != null;
 
         protected void FillDataByGarage()
         {
             _owner = _garage.Owner;
             _counter = _garage.Counter;
             _seal = _garage.Seal;
-            _garages = _repository.GetBlockOfGarages(_garage);
+            _garages = Repository.GetBlockOfGarages(_garage);
         }
 
         public async Task<bool> CanCreateOwnerAsync(string ownerName) =>
@@ -78,17 +75,17 @@ namespace ElectricityMetering.Core.Controllers
         {
             if (await CanCreateOwnerAsync(ownerName))
             {
-                _owner = await _repository.CreateOwnerAsync(ownerName);
+                _owner = await Repository.CreateOwnerAsync(ownerName);
             }
             else
             {
-                _owner = await _repository.GetOwnerAsync(ownerName);
+                _owner = await Repository.GetOwnerAsync(ownerName);
             }
         }
 
         private async Task<bool> OwnerAlreadyExistsAsync(string ownerName)
         {
-            return await _repository.GetOwnerAsync(ownerName) != null;
+            return await Repository.GetOwnerAsync(ownerName) != null;
         }
 
         public async Task<bool> CanCreateCounterAsync(string counterNumber) =>
@@ -98,16 +95,16 @@ namespace ElectricityMetering.Core.Controllers
         {
             if (await CanCreateCounterAsync(counterNumber))
             {
-                _counter = await _repository.CreateCounterAsync(counterNumber);
+                _counter = await Repository.CreateCounterAsync(counterNumber);
             }
             else
             {
-                _counter = await _repository.GetCounterAsync(counterNumber);
+                _counter = await Repository.GetCounterAsync(counterNumber);
             }            
         }
 
         private async Task<bool> CounterAlreadyExistsAsync(string counterNumber) =>
-            await _repository.GetCounterAsync(counterNumber) != null;
+            await Repository.GetCounterAsync(counterNumber) != null;
 
         public async Task<bool> CanCreateSealAsync(string sealNumber, string dateString) =>
             !string.IsNullOrEmpty(sealNumber) && !(await SealAlreadyExistsAsync(sealNumber)) && DateOnly.TryParse(dateString, out _);
@@ -116,20 +113,20 @@ namespace ElectricityMetering.Core.Controllers
         {
             if (await CanCreateSealAsync(sealNumber, dateString))
             {
-                _seal = await _repository.CreateSealAsync(sealNumber, DateOnly.Parse(dateString));
+                _seal = await Repository.CreateSealAsync(sealNumber, DateOnly.Parse(dateString));
             }
             else
             {
-                _seal = await _repository.GetSealAsync(sealNumber);
+                _seal = await Repository.GetSealAsync(sealNumber);
             }
         }
 
         private async Task<bool> SealAlreadyExistsAsync(string sealNumber) =>
-            await _repository.GetSealAsync(sealNumber) != null;
+            await Repository.GetSealAsync(sealNumber) != null;
 
         public List<string> GetOwnerInfo(int garageNumber)
         {
-            Garage? garage = _repository.GetGarageAsync(garageNumber).Result;
+            Garage? garage = Repository.GetGarageAsync(garageNumber).Result;
 
             if (garage == null)
             {
@@ -143,7 +140,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public List<string> GetCounterInfo(int garageNumber)
         {
-            Garage? garage = _repository.GetGarageAsync(garageNumber).Result;
+            Garage? garage = Repository.GetGarageAsync(garageNumber).Result;
 
             if (garage == null)
             {
@@ -157,7 +154,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public List<string> GetSealInfo(int garageNumber)
         {
-            Garage? garage = _repository.GetGarageAsync(garageNumber).Result;
+            Garage? garage = Repository.GetGarageAsync(garageNumber).Result;
 
             if (garage == null)
             {
@@ -171,9 +168,9 @@ namespace ElectricityMetering.Core.Controllers
 
         public string SplitBlockOfGarage(Owner owner)
         {
-            List<Garage> garages = _repository.GetBlockOfGarages(owner);
+            List<Garage> garages = Repository.GetBlockOfGarages(owner);
 
-            if (garages.Count == 0 && owner != null)
+            if (garages.Count == 0 && owner != null && owner.Garages.Count > 0)
             {
                 return owner.Garages[0].Number.ToString();
             }
@@ -229,7 +226,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public async Task<string> SplitBlockOfGarageAsync(int garageNumber)
         {
-            Garage? garage = await _repository.GetGarageAsync(garageNumber);
+            Garage? garage = await Repository.GetGarageAsync(garageNumber);
 
             if (garage == null)
             {
@@ -292,18 +289,23 @@ namespace ElectricityMetering.Core.Controllers
 
         public List<string> SplitAllBlockOfGarages()
         {
-            List<Garage> garages = _repository.GetAllGarages();
+            List<Garage> garages = Repository.GetAllGarages();
             List<string> blocksOfGarages = new List<string>();
 
             foreach (Garage garage in garages)
             {
-                blocksOfGarages.Add(SplitBlockOfGarage(garage.Owner));
+                string blockOfGarages = SplitBlockOfGarage(garage.Owner);
+
+                if (!blocksOfGarages.Contains(blockOfGarages))
+                {
+                    blocksOfGarages.Add(blockOfGarages);
+                }
             }
 
             return blocksOfGarages;
         }
 
-        public void ParseBlockOfGarages(string blockOfGarages)
+        public List<int> ParseBlockOfGarages(string blockOfGarages)
         {
             List<int> garageNumbers = new List<int>();
 
@@ -326,18 +328,18 @@ namespace ElectricityMetering.Core.Controllers
                 }
             }
 
-            FillBlockOfGaragesAsync(garageNumbers);
+            return garageNumbers;
         }
 
         public async Task FillBlockOfGaragesAsync(List<int> garageNumbers)
         {
             foreach (int garageNumber in garageNumbers)
             {
-                Garage? garage = await _repository.GetGarageAsync(garageNumber);
+                Garage? garage = await Repository.GetGarageAsync(garageNumber);
 
                 if (garage == null)
                 {
-                    garage = await _repository.CreateGarageAsync(garageNumber);
+                    garage = await Repository.CreateGarageAsync(garageNumber);
                 }
 
                 await SaveGarageAsync(garage);
