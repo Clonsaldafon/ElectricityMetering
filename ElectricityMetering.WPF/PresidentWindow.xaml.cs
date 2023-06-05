@@ -30,7 +30,7 @@ namespace ElectricityMetering.WPF
             { "TariffRadioButton", new TariffView() },
             { "InfoRadioButton", new InfoView() },
             { "PaymentRadioButton", new PaymentView() },
-            { "IndicationsRadioButton", new IndicationsView() },
+            { "IndicationsRadioButton", new IndicationsView() }
         };
 
         public PresidentWindow()

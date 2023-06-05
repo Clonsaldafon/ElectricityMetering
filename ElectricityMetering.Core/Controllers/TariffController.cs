@@ -24,9 +24,9 @@ namespace ElectricityMetering.Core.Controllers
             int day = DateTime.Today.Day;
             int month = DateTime.Today.Month;
 
-            // test
+            /*// test
             day = 1;
-            month = 1;
+            month = 1;*/
 
             return day == 1 && (month == 1 || month == 7) && DateOnly.FromDateTime(DateTime.Today) > lastTariff.Date;
         }

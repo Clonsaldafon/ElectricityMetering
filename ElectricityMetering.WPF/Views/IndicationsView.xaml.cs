@@ -26,7 +26,7 @@ namespace ElectricityMetering.WPF.Views
         private const int _countOfInfoColumns = 5;
         private const int _countOfMonths = 12;
 
-        private readonly IndicationsController _indicationsController;
+        private readonly IndicationsController _indicationsController = new IndicationsController();
 
         private int _rowCount;
         private int _columnCount;
@@ -45,7 +45,10 @@ namespace ElectricityMetering.WPF.Views
         {
             InitializeComponent();
 
-            _indicationsController = new IndicationsController();
+            if (_indicationsController.YearChanged)
+            {
+                ChangeYears(DateTime.Now.Year);
+            }
 
             if (_indicationsController.InfoData.Count > 0)
             {
@@ -67,6 +70,15 @@ namespace ElectricityMetering.WPF.Views
 
                 FillTables();
             }
+        }
+
+        private void ChangeYears(int currentYear)
+        {
+            ItemCollection tabItems = TabControlIndications.Items;
+
+            ((TabItem)tabItems[0]).Header = currentYear.ToString();
+            ((TabItem)tabItems[1]).Header = (currentYear - 1).ToString();
+            ((TabItem)tabItems[2]).Header = (currentYear - 2).ToString();
         }
 
         private void FillTables()
@@ -186,7 +198,7 @@ namespace ElectricityMetering.WPF.Views
                     }
                 }
 
-                for (int column = minColumnIndications; column < maxColumnIndications; column++)
+                for (int column = minColumnIndications; column < maxColumnIndications + 1; column++)
                 {
                     if (TableIndicationsNow.Children[column] is Border borderIndication)
                     {

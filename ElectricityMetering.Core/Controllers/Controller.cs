@@ -17,6 +17,11 @@ namespace ElectricityMetering.Core.Controllers
 
         protected List<Garage> _garages = new List<Garage>();
 
+        public Controller()
+        {
+            _garages = Repository.GetAllGarages();
+        }
+
         public async Task SaveGarageAsync(int garageNumber)
         {
             Garage garage = await Repository.GetGarageAsync(garageNumber);
@@ -166,7 +171,7 @@ namespace ElectricityMetering.Core.Controllers
             return new List<string> { _seal.Number, _seal.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) };
         }
 
-        public string SplitBlockOfGarage(Owner owner)
+        public string SplitBlockOfGarages(Owner owner)
         {
             List<Garage> garages = Repository.GetBlockOfGarages(owner);
 
@@ -289,12 +294,11 @@ namespace ElectricityMetering.Core.Controllers
 
         public List<string> SplitAllBlockOfGarages()
         {
-            List<Garage> garages = Repository.GetAllGarages();
             List<string> blocksOfGarages = new List<string>();
 
-            foreach (Garage garage in garages)
+            foreach (Garage garage in _garages)
             {
-                string blockOfGarages = SplitBlockOfGarage(garage.Owner);
+                string blockOfGarages = SplitBlockOfGarages(garage.Owner);
 
                 if (!blocksOfGarages.Contains(blockOfGarages))
                 {

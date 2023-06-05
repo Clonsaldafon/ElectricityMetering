@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ElectricityMetering.Core.Controllers
 {
@@ -16,21 +18,56 @@ namespace ElectricityMetering.Core.Controllers
         public List<List<string>> IndicationsOneYearAgo { get; set; } = new List<List<string>>();
         public List<List<string>> IndicationsTwoYearsAgo { get; set; } = new List<List<string>>();
 
+        public bool YearChanged { get; set; }
+
         public IndicationsController()
         {
-            int year = DateTime.Now.Year;
+            string filePathConfigJSON = "D:\\Anton\\ELECTRICITY_METERING\\ElectricityMetering.Core\\AppSettings\\config.json";
+
+            if (File.Exists(filePathConfigJSON))
+            {
+                JObject json = JObject.Parse(File.ReadAllText(filePathConfigJSON));
+                int lastYear = (int)json["LastYear"];
+                int currentYear = DateTime.Now.Year;
+
+                /*int lastYear = 2023;
+                int currentYear = 2024;*/
+
+                YearChanged = currentYear > lastYear;
+
+                if (YearChanged)
+                {
+                    json["LastYear"] = currentYear;
+                    File.WriteAllText(filePathConfigJSON, json.ToString());
+
+                    _ = ChangeYearsAsync();
+                }
+            }
 
             FillData();
         }
 
+        private async Task ChangeYearsAsync()
+        {
+            List<Counter> counters = Repository.GetCounters();
+
+            foreach (Counter counter in counters)
+            {
+                counter.IndicationsTwoYearsAgo = counter.IndicationsOneYearAgo;
+                counter.IndicationsOneYearAgo = counter.IndicationsNow;
+                counter.IndicationsNow = new int[12];
+
+                await Repository.SaveCounterAsync(counter);
+            }
+        }
+
         private void FillData()
         {
-            List<Garage> garages = Repository.GetAllGarages();
             List<string> blocksOfGarages = SplitAllBlockOfGarages();
 
             for (int row = 0; row < blocksOfGarages.Count; row++)
             {
-                Garage garage = garages.First(g => g.Number == ParseBlockOfGarages(blocksOfGarages[row])[0]);
+                Garage garage = _garages.First(g => g.Number == ParseBlockOfGarages(blocksOfGarages[row])[0]);
 
                 List<string> rowDataInfo = new List<string>()
                 {
@@ -43,23 +80,20 @@ namespace ElectricityMetering.Core.Controllers
 
                 InfoData.Add(rowDataInfo);
 
-                for (int i = 0; i < blocksOfGarages.Count; i++)
+                List<string> rowDataIndicationsNow = new List<string>();
+                List<string> rowDataIndicationsOneYearAgo = new List<string>();
+                List<string> rowDataIndicationsTwoYearsAgo = new List<string>();
+
+                for (int j = 0; j < garage.Counter.IndicationsNow.Length; j++)
                 {
-                    List<string> rowDataIndicationsNow = new List<string>();
-                    List<string> rowDataIndicationsOneYearAgo = new List<string>();
-                    List<string> rowDataIndicationsTwoYearsAgo = new List<string>();
-
-                    for (int j = 0; j < garage.Counter.IndicationsNow.Length; j++)
-                    {
-                        rowDataIndicationsNow.Add(garage.Counter.IndicationsNow[j].ToString());
-                        rowDataIndicationsOneYearAgo.Add(garage.Counter.IndicationsOneYearAgo[j].ToString());
-                        rowDataIndicationsTwoYearsAgo.Add(garage.Counter.IndicationsTwoYearsAgo[j].ToString());
-                    }
-
-                    IndicationsNow.Add(rowDataIndicationsNow);
-                    IndicationsOneYearAgo.Add(rowDataIndicationsOneYearAgo);
-                    IndicationsTwoYearsAgo.Add(rowDataIndicationsTwoYearsAgo);
+                    rowDataIndicationsNow.Add(garage.Counter.IndicationsNow[j].ToString());
+                    rowDataIndicationsOneYearAgo.Add(garage.Counter.IndicationsOneYearAgo[j].ToString());
+                    rowDataIndicationsTwoYearsAgo.Add(garage.Counter.IndicationsTwoYearsAgo[j].ToString());
                 }
+
+                IndicationsNow.Add(rowDataIndicationsNow);
+                IndicationsOneYearAgo.Add(rowDataIndicationsOneYearAgo);
+                IndicationsTwoYearsAgo.Add(rowDataIndicationsTwoYearsAgo);
             }
         }
 

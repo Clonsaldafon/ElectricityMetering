@@ -46,6 +46,7 @@
         </Grid>
 
         <TabControl Grid.Row="2"
+                    Name="TabControlIndications"
                     Margin="5 8 5 8">
             <TabItem Header="2023">
                 <Border>

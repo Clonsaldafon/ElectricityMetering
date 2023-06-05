@@ -67,7 +67,7 @@ namespace ElectricityMetering.WPF.Views
                 TextBox textBoxReadonlyNoneCash = new TextBox();
                 TextBox textBoxReadonlyDate = new TextBox();
 
-                textBoxReadonlyGarages.Text = _paymentController.SplitBlockOfGarage(payment.Owner);
+                textBoxReadonlyGarages.Text = _paymentController.SplitBlockOfGarages(payment.Owner);
                 textBoxReadonlyCash.Text = payment.Cash.ToString(CultureInfo.InvariantCulture);
                 textBoxReadonlyNoneCash.Text = payment.NoneCash.ToString(CultureInfo.InvariantCulture);
                 textBoxReadonlyDate.Text = payment.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture);

@@ -125,6 +125,12 @@ namespace ElectricityMetering.Core
             await _context.SaveChangesAsync();
         }
 
+        public static async Task SaveCounterAsync(Counter counter)
+        {
+            _context.Counters.Update(counter);
+            await _context.SaveChangesAsync();
+        }
+
         public static async Task SaveIndicationsAsync(Counter counter, int[] indications)
         {
             counter.IndicationsNow = indications;
@@ -142,12 +148,12 @@ namespace ElectricityMetering.Core
         /// <returns>Loaded garage.</returns>
         public static async Task<Garage?> GetGarageAsync(int garageNumber)
         {
-            Garage? garage = _context.Garages
+            Garage? garage = await _context.Garages
                 .Include(g => g.Owner)
                 .Include(g => g.Counter)
                 .Include(g => g.Seal)
                 .Where(g => g.Number == garageNumber)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             return garage;
         }
@@ -170,14 +176,12 @@ namespace ElectricityMetering.Core
 
         public static List<Garage> GetAllGarages()
         {
-            List<Garage> garages = new List<Garage>();
-
-            foreach (Garage garage in _context.Garages.OrderBy(g => g.Number).ToList())
+            using (ApplicationContext context = new ApplicationContext())
             {
-                garages.Add(GetGarageAsync(garage.Number).Result);
-            }
+                List<Garage> garages = context.Garages.OrderBy(g => g.Number).ToList();
 
-            return garages;
+                return garages;
+            }
         }
 
         /// <summary>
@@ -287,7 +291,15 @@ namespace ElectricityMetering.Core
 
         public static List<Garage> GetBlockOfGarages(Owner owner)
         {
-            return _context.Garages.Where(g => g.Owner == owner).OrderBy(g => g.Number).ToList();
+            /*return await _context.Garages.Where(g => g.Owner == owner).OrderBy(g => g.Number).ToListAsync();*/
+
+            using (var context = new ApplicationContext())
+            {
+                return context.Garages
+                    .Where(g => g.Owner == owner)
+                    .OrderBy(g => g.Number)
+                    .ToList();
+            }
         }
 
         public static List<Payment> GetPayments()
@@ -298,6 +310,11 @@ namespace ElectricityMetering.Core
         public static List<Tariff> GetTariffs()
         {
             return _context.Tariffs.OrderByDescending(t => t.Date).ToList();
+        }
+
+        public static List<Counter> GetCounters()
+        {
+            return _context.Counters.ToList();
         }
         #endregion
     }
