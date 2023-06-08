@@ -22,9 +22,9 @@ namespace ElectricityMetering.Core.Controllers
             UpdatePayments();
         }
 
-        public async void AddPaymentAsync(string garageNumber, string cashString, string noneCashString)
+        public async void AddPaymentAsync(int garageNumber, string cashString, string noneCashString)
         {
-            _garage = await LoadGarageAsync(int.Parse(garageNumber));
+            _garage = await LoadGarageAsync(garageNumber);
 
             FillDataByGarage();
 

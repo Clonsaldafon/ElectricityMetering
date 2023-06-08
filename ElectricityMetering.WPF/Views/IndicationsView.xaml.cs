@@ -178,6 +178,8 @@ namespace ElectricityMetering.WPF.Views
 
         private void SaveIndications(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
+
             Dictionary<string, List<string>> indicationsByCounterNumber = new Dictionary<string, List<string>>();
 
             int columnCounterIndex = 2;
@@ -222,7 +224,7 @@ namespace ElectricityMetering.WPF.Views
 
             _ = _indicationsController.SaveDataAsync(indicationsByCounterNumber);
 
-            MessageBox.Show("Saved");
+            Mouse.OverrideCursor = null;
         }
     }
 }

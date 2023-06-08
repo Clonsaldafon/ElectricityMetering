@@ -74,7 +74,7 @@ namespace ElectricityMetering.WPF.Views
             await _controller.CreateCounterAsync(counterNumber);
             await _controller.CreateSealAsync(sealNumber, sealDateString);
 
-            await _controller.SaveGarageAsync(int.Parse(garageNumber));
+            await _controller.SaveGarageAsync(garageNumber);
 
             List<int> garageNumbers = _controller.ParseBlockOfGarages(blockOfGarages);
             await _controller.FillBlockOfGaragesAsync(garageNumbers);

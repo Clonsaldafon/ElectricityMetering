@@ -22,10 +22,13 @@ namespace ElectricityMetering.Core.Controllers
             _garages = Repository.GetAllGarages();
         }
 
-        public async Task SaveGarageAsync(int garageNumber)
+        public async Task SaveGarageAsync(string garageNumber)
         {
-            Garage garage = await Repository.GetGarageAsync(garageNumber);
-            await Repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+            if (int.TryParse(garageNumber, out int number))
+            {
+                Garage garage = await Repository.GetGarageAsync(number);
+                await Repository.SaveGarageAsync(garage, _owner, _counter, _seal);
+            }
         }
 
         public async Task SaveGarageAsync(Garage garage)
@@ -118,7 +121,10 @@ namespace ElectricityMetering.Core.Controllers
         {
             if (await CanCreateSealAsync(sealNumber, dateString))
             {
-                _seal = await Repository.CreateSealAsync(sealNumber, DateOnly.Parse(dateString));
+                if (DateOnly.TryParse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly date))
+                {
+                    _seal = await Repository.CreateSealAsync(sealNumber, DateOnly.Parse(dateString));
+                }
             }
             else
             {
@@ -318,17 +324,22 @@ namespace ElectricityMetering.Core.Controllers
                 if (part.Contains('-'))
                 {
                     string[] range = part.Split('-');
-                    int start = int.Parse(range[0]);
-                    int end = int.Parse(range[1]);
 
-                    for (int i = start; i <= end; i++)
+                    if (int.TryParse(range[0], out int start) &&
+                        int.TryParse(range[1], out int end))
                     {
-                        garageNumbers.Add(i);
+                        for (int i = start; i <= end; i++)
+                        {
+                            garageNumbers.Add(i);
+                        }
                     }
                 }
                 else
                 {
-                    garageNumbers.Add(int.Parse(part));
+                    if (int.TryParse(part, out int number))
+                    {
+                        garageNumbers.Add(number);
+                    }
                 }
             }
 
