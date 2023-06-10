@@ -46,9 +46,14 @@ namespace ElectricityMetering.Core
                 );
 
             modelBuilder.Entity<Tariff>().HasData(
-                new Tariff { Id = 1, Price = 3.91M, Date = DateOnly.ParseExact("01.07.2021", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
-                new Tariff { Id = 2, Price = 3.93M, Date = DateOnly.ParseExact("01.01.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
-                new Tariff { Id = 3, Price = 3.95M, Date = DateOnly.ParseExact("01.07.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture) }
+                new Tariff { Id = 1, Price = 3.79M, Date = DateOnly.ParseExact("01.07.2019", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 2, Price = 3.82M, Date = DateOnly.ParseExact("01.01.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 3, Price = 3.85M, Date = DateOnly.ParseExact("01.07.2020", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 4, Price = 3.86M, Date = DateOnly.ParseExact("01.01.2021", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 5, Price = 3.88M, Date = DateOnly.ParseExact("01.07.2021", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 6, Price = 3.91M, Date = DateOnly.ParseExact("01.01.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 7, Price = 3.93M, Date = DateOnly.ParseExact("01.07.2022", "dd.MM.yyyy", CultureInfo.InvariantCulture) },
+                new Tariff { Id = 8, Price = 3.95M, Date = DateOnly.ParseExact("01.01.2023", "dd.MM.yyyy", CultureInfo.InvariantCulture) }
                 );
         }
     }

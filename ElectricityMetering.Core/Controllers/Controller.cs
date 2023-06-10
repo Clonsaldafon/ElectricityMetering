@@ -10,6 +10,8 @@ namespace ElectricityMetering.Core.Controllers
 {
     public class Controller
     {
+        public string BlockOfGarages { get; set; }
+
         protected Garage? _garage;
         protected Owner? _owner;
         protected Counter? _counter;
@@ -135,44 +137,38 @@ namespace ElectricityMetering.Core.Controllers
         private async Task<bool> SealAlreadyExistsAsync(string sealNumber) =>
             await Repository.GetSealAsync(sealNumber) != null;
 
-        public List<string> GetOwnerInfo(int garageNumber)
+        public async Task<List<string>> GetOwnerInfoAsync(int garageNumber)
         {
-            Garage? garage = Repository.GetGarageAsync(garageNumber).Result;
-
-            if (garage == null)
+            if (_garage == null)
             {
                 return new List<string>();
             }
 
-            _owner = garage.Owner;
+            _owner = _garage.Owner;
 
             return new List<string> { _owner.Name, _owner.Balance.ToString() };
         }
 
-        public List<string> GetCounterInfo(int garageNumber)
+        public async Task<List<string>> GetCounterInfoAsync(int garageNumber)
         {
-            Garage? garage = Repository.GetGarageAsync(garageNumber).Result;
-
-            if (garage == null)
+            if (_garage == null)
             {
                 return new List<string>();
             }
 
-            _counter = garage.Counter;
+            _counter = _garage.Counter;
 
             return new List<string> { _counter.Number };
         }
 
-        public List<string> GetSealInfo(int garageNumber)
+        public async Task<List<string>> GetSealInfoAsync(int garageNumber)
         {
-            Garage? garage = Repository.GetGarageAsync(garageNumber).Result;
-
-            if (garage == null)
+            if (_garage == null)
             {
                 return new List<string>();
             }
 
-            _seal = garage.Seal;
+            _seal = _garage.Seal;
 
             return new List<string> { _seal.Number, _seal.Date.ToString("dd.MM.yyyy", CultureInfo.InvariantCulture) };
         }
@@ -237,16 +233,19 @@ namespace ElectricityMetering.Core.Controllers
 
         public async Task<string> SplitBlockOfGarageAsync(int garageNumber)
         {
-            Garage? garage = await Repository.GetGarageAsync(garageNumber);
+            if (_garage == null)
+            {
+                _garage = await Repository.GetGarageAsync(garageNumber);
+            }
 
-            if (garage == null)
+            if (_garage == null)
             {
                 return "Error 404";
             }
 
             if (_garages.Count == 0)
             {
-                return garage.Number.ToString();
+                return _garage.Number.ToString();
             }
 
             StringBuilder result = new StringBuilder();
@@ -295,7 +294,9 @@ namespace ElectricityMetering.Core.Controllers
                 result.Append(_garages[_garages.Count - 1].Number);
             }
 
-            return result.ToString();
+            BlockOfGarages = result.ToString();
+
+            return BlockOfGarages;
         }
 
         public List<string> SplitAllBlockOfGarages()

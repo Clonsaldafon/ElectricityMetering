@@ -117,9 +117,9 @@ namespace ElectricityMetering.Core
             return garage;
         }
 
-        public static async Task SaveOwnerAsync(Owner owner, Payment payment)
+        public static async Task SaveOwnerAsync(Owner owner, decimal money)
         {
-            owner.Balance += payment.Cash + payment.NoneCash;
+            owner.Balance += money;
 
             _context.Owners.Update(owner);
             await _context.SaveChangesAsync();
@@ -174,11 +174,28 @@ namespace ElectricityMetering.Core
             return garage;
         }
 
+        public static async Task<Garage?> GetGarageAsync(Counter counter)
+        {
+            Garage? garage = await _context.Garages
+                .Include(g => g.Owner)
+                .Include(g => g.Counter)
+                .Include(g => g.Seal)
+                .Where(g => g.Counter == counter)
+                .FirstOrDefaultAsync();
+
+            return garage;
+        }
+
         public static List<Garage> GetAllGarages()
         {
             using (ApplicationContext context = new ApplicationContext())
             {
-                List<Garage> garages = context.Garages.OrderBy(g => g.Number).ToList();
+                List<Garage> garages = context.Garages
+                    .Include(g => g.Owner)
+                    .Include(g => g.Counter)
+                    .Include(g => g.Seal)
+                    .OrderBy(g => g.Number)
+                    .ToList();
 
                 return garages;
             }

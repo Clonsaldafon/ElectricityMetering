@@ -122,13 +122,58 @@ namespace ElectricityMetering.WPF.Views
                     _textBoxesInfo[i].Text = _indicationsController.InfoData[row - 1][i];
                 }
 
-                //foreach (Grid table in _tables)
-                //{
-                    for (int i = 0; i < _textBoxesInfo.Length; i++)
-                    {
-                        AddEntryInTable(TableIndicationsNow, row, i, _textBoxesInfo[i]);
-                    }
-                //}
+                for (int i = 0; i < _textBoxesInfo.Length; i++)
+                {
+                    AddEntryInTable(TableIndicationsNow, row, i, _textBoxesInfo[i]);
+                }
+
+                _textBoxesInfo = new TextBox[_countOfInfoColumns]
+                {
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox()
+                };
+
+                foreach (TextBox textBox in _textBoxesInfo)
+                {
+                    textBox.Style = _cellTextReadonlyStyle;
+                }
+
+                for (int i = 0; i < _textBoxesInfo.Length; i++)
+                {
+                    _textBoxesInfo[i].Text = _indicationsController.InfoData[row - 1][i];
+                }
+
+                for (int i = 0; i < _textBoxesInfo.Length; i++)
+                {
+                    AddEntryInTable(TableIndicationsOneYearAgo, row, i, _textBoxesInfo[i]);
+                }
+
+                _textBoxesInfo = new TextBox[_countOfInfoColumns]
+                {
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox(),
+                    new TextBox()
+                };
+
+                foreach (TextBox textBox in _textBoxesInfo)
+                {
+                    textBox.Style = _cellTextReadonlyStyle;
+                }
+
+                for (int i = 0; i < _textBoxesInfo.Length; i++)
+                {
+                    _textBoxesInfo[i].Text = _indicationsController.InfoData[row - 1][i];
+                }
+
+                for (int i = 0; i < _textBoxesInfo.Length; i++)
+                {
+                    AddEntryInTable(TableIndicationsTwoYearsAgo, row, i, _textBoxesInfo[i]);
+                }
 
                 for (int column = 0; column < _textBoxesMonths.Length; column++)
                 {
@@ -138,21 +183,47 @@ namespace ElectricityMetering.WPF.Views
                     AddEntryInTable(TableIndicationsNow, row, column + 5, _textBoxesMonths[column]);
                 }
 
-                /*for (int column = 0; column < _textBlocksMonths.Length; column++)
+                _textBoxesMonths = new TextBox[_countOfMonths]
                 {
-                    _textBlocksMonths[column].Text = _indicationsController.IndicationsOneYearAgo[row][column + 5];
-                    _textBlocksMonths[column].Style = _cellTextReadonlyStyle;
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox()
+                };
 
-                    AddEntryInTable(TableIndicationsOneYearAgo, row + 1, column + 5, _textBlocksMonths[column]);
+                foreach (TextBox textBox in _textBoxesMonths)
+                {
+                    textBox.Style = _cellTextReadonlyStyle;
                 }
 
-                for (int column = 0; column < _textBlocksMonths.Length; column++)
+                for (int column = 0; column < _textBoxesMonths.Length; column++)
                 {
-                    _textBlocksMonths[column].Text = _indicationsController.IndicationsTwoYearsAgo[row][column + 5];
-                    _textBlocksMonths[column].Style = _cellTextReadonlyStyle;
+                    _textBoxesMonths[column].Text = _indicationsController.IndicationsOneYearAgo[row - 1][column];
+                    _textBoxesMonths[column].Style = _cellTextReadonlyStyle;
 
-                    AddEntryInTable(TableIndicationsTwoYearsAgo, row + 1, column + 5, _textBlocksMonths[column]);
-                }*/
+                    AddEntryInTable(TableIndicationsOneYearAgo, row, column + 5, _textBoxesMonths[column]);
+                }
+
+                _textBoxesMonths = new TextBox[_countOfMonths]
+                {
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox(),
+                    new TextBox(), new TextBox(), new TextBox()
+                };
+
+                foreach (TextBox textBox in _textBoxesMonths)
+                {
+                    textBox.Style = _cellTextReadonlyStyle;
+                }
+
+                for (int column = 0; column < _textBoxesMonths.Length; column++)
+                {
+                    _textBoxesMonths[column].Text = _indicationsController.IndicationsTwoYearsAgo[row - 1][column];
+                    _textBoxesMonths[column].Style = _cellTextReadonlyStyle;
+
+                    AddEntryInTable(TableIndicationsTwoYearsAgo, row, column + 5, _textBoxesMonths[column]);
+                }
             }
         }
 

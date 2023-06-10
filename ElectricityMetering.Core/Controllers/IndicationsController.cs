@@ -20,6 +20,8 @@ namespace ElectricityMetering.Core.Controllers
 
         public bool YearChanged { get; set; }
 
+        private OwnerController _ownerController = new OwnerController();
+
         public IndicationsController()
         {
             string filePathConfigJSON = "D:\\Anton\\ELECTRICITY_METERING\\ElectricityMetering.Core\\AppSettings\\config.json";
@@ -29,9 +31,6 @@ namespace ElectricityMetering.Core.Controllers
                 JObject json = JObject.Parse(File.ReadAllText(filePathConfigJSON));
                 int lastYear = (int)json["LastYear"];
                 int currentYear = DateTime.Now.Year;
-
-                /*int lastYear = 2023;
-                int currentYear = 2024;*/
 
                 YearChanged = currentYear > lastYear;
 
@@ -67,7 +66,14 @@ namespace ElectricityMetering.Core.Controllers
 
             for (int row = 0; row < blocksOfGarages.Count; row++)
             {
-                Garage garage = _garages.First(g => g.Number == ParseBlockOfGarages(blocksOfGarages[row])[0]);
+                List<int> garages = ParseBlockOfGarages(blocksOfGarages[row]);
+
+                if (garages.Count  == 0)
+                {
+                    continue;
+                }
+
+                Garage garage = _garages.First(g => g.Number == garages[0]);
 
                 List<string> rowDataInfo = new List<string>()
                 {
@@ -94,6 +100,8 @@ namespace ElectricityMetering.Core.Controllers
                 IndicationsNow.Add(rowDataIndicationsNow);
                 IndicationsOneYearAgo.Add(rowDataIndicationsOneYearAgo);
                 IndicationsTwoYearsAgo.Add(rowDataIndicationsTwoYearsAgo);
+
+                _ = _ownerController.UpdateBalanceAsync(garage.Owner, garage.Counter);
             }
         }
 
@@ -119,6 +127,14 @@ namespace ElectricityMetering.Core.Controllers
                 }
 
                 await Repository.SaveIndicationsAsync(counter, indications);
+
+                Garage? garage = await Repository.GetGarageAsync(counter);
+
+                if (garage != null)
+                {
+                    Owner owner = await Repository.GetOwnerAsync(garage);
+                    await _ownerController.UpdateBalanceAsync(owner, counter);
+                }
             }
         }
     }

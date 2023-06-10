@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ElectricityMetering.WPF.Views
 {
@@ -106,10 +107,15 @@ namespace ElectricityMetering.WPF.Views
 
             if (int.TryParse(garageNumber, out int number))
             {
-                if (Repository.GetGarageAsync(number).Result != null)
-                {
-                    _paymentController.AddPaymentAsync(number, cashPayment, noneCashPayment);
-                }
+                _ = AddPaymentAsync(number, cashPayment, noneCashPayment);
+            }
+        }
+
+        private async Task AddPaymentAsync(int garageNumber, string cashPayment, string noneCashPayment)
+        {
+            if (await Repository.GetGarageAsync(garageNumber) != null)
+            {
+                await _paymentController.AddPaymentAsync(garageNumber, cashPayment, noneCashPayment);
             }
         }
 

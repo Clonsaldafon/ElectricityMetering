@@ -22,7 +22,7 @@ namespace ElectricityMetering.Core.Controllers
             UpdatePayments();
         }
 
-        public async void AddPaymentAsync(int garageNumber, string cashString, string noneCashString)
+        public async Task AddPaymentAsync(int garageNumber, string cashString, string noneCashString)
         {
             _garage = await LoadGarageAsync(garageNumber);
 
@@ -50,7 +50,7 @@ namespace ElectricityMetering.Core.Controllers
 
             Payment payment = await Repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
 
-            await _ownerController.UpdateBalanceAsync(_owner, payment);
+            await _ownerController.UpdateBalanceAsync(_owner);
 
             UpdatePayments();
         }
