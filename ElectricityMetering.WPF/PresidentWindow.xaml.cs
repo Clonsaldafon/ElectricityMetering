@@ -40,13 +40,8 @@ namespace ElectricityMetering.WPF
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
-
-        private void ControlBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            /*WindowInteropHelper helper = new WindowInteropHelper(this);
-            SendMessage(helper.Handle, 161, 2, 0);*/
             DragMove();
         }
 
@@ -57,8 +52,6 @@ namespace ElectricityMetering.WPF
 
         private async void ButtonCloseAsync_Click(object sender, RoutedEventArgs e)
         {
-            await _signInController.ExitAsync("Председатель");
-
             Application.Current.Shutdown();
         }
 

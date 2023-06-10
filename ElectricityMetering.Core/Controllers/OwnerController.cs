@@ -8,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace ElectricityMetering.Core.Controllers
 {
-    public class OwnerController : Controller
+    public class OwnerController
     {
         private CounterController _counterController = new CounterController();
         private TariffController _tariffController = new TariffController();
 
+        /// <summary>
+        /// Updates the owner's balance based on payments.
+        /// </summary>
+        /// <param name="owner">Current owner.</param>
+        /// <returns></returns>
         public async Task UpdateBalanceAsync(Owner owner)
         {
             decimal balance = 0;
@@ -24,6 +29,12 @@ namespace ElectricityMetering.Core.Controllers
             await Repository.SaveOwnerAsync(owner, balance);
         }
 
+        /// <summary>
+        /// Updates the owner's balance based on consumption.
+        /// </summary>
+        /// <param name="owner">Current owner.</param>
+        /// <param name="counter">Current counter.</param>
+        /// <returns></returns>
         public async Task UpdateBalanceAsync(Owner owner, Counter counter)
         {
             _counterController.CalculateConsumption(counter);

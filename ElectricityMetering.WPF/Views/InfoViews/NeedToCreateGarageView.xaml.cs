@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 namespace ElectricityMetering.WPF.Views.InfoViews
 {
     /// <summary>
-    /// Логика взаимодействия для NeedToCreateGarageView.xaml
+    /// Interaction logic for NeedToCreateGarageView.xaml
     /// </summary>
     public partial class NeedToCreateGarageView : UserControl
     {

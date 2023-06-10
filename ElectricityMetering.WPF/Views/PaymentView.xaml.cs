@@ -23,7 +23,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace ElectricityMetering.WPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PaymentView.xaml
+    /// Interaction logic for PaymentView.xaml
     /// </summary>
     public partial class PaymentView : UserControl
     {

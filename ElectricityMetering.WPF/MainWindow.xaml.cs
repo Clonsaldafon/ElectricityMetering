@@ -61,25 +61,11 @@ namespace ElectricityMetering.WPF
                 return;
             }
 
-            /*if (await _signInController.RoleIsActiveAsync(roleName))
-            {
-                RoleInput.SelectedIndex = -1;
-                PasswordInput.Clear();
-
-                RoleInput.BorderBrush = _failureColor;
-                TextBlockRole.Text = "Уже вошли";
-                TextBlockRole.Foreground = _failureColor;
-
-                return;
-            }*/
-
             PasswordInput.BorderBrush = _successColor;
             TextBlockPassword.Text = "Пароль верный";
             TextBlockPassword.Foreground = _successColor;
             RoleInput.BorderBrush = _successColor;
             TextBlockRole.Foreground = _successColor;
-
-            await _signInController.SignInAsync(roleName);
 
             _windowsByRoleName[roleName].Show();
             Close();

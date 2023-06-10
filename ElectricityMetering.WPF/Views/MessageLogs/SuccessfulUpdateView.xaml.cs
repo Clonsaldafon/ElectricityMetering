@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace ElectricityMetering.WPF.Views.MessageLogs
 {
     /// <summary>
-    /// Логика взаимодействия для SuccessfulUpdateView.xaml
+    /// Interaction logic for SuccessfulUpdateView.xaml
     /// </summary>
     public partial class SuccessfulUpdateView : UserControl
     {

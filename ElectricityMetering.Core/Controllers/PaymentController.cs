@@ -12,8 +12,6 @@ namespace ElectricityMetering.Core.Controllers
     {
         private readonly OwnerController _ownerController = new OwnerController();
 
-        private readonly BalanceController _balanceController = new BalanceController();
-
         public List<Payment> Payments { get; set; } = new List<Payment>();
         public List<string> BlocksOfGarages { get; set; } = new List<string>();
 
@@ -22,35 +20,28 @@ namespace ElectricityMetering.Core.Controllers
             UpdatePayments();
         }
 
+        /// <summary>
+        /// Add a new payment to the database.
+        /// </summary>
+        /// <param name="garageNumber">Current garage number.</param>
+        /// <param name="cashString">Amount of cash.</param>
+        /// <param name="noneCashString">Amount of none cash.</param>
+        /// <returns></returns>
         public async Task AddPaymentAsync(int garageNumber, string cashString, string noneCashString)
         {
-            _garage = await LoadGarageAsync(garageNumber);
+            Garage? garage = await Repository.GetGarageAsync(garageNumber);
 
-            FillDataByGarage();
-
-            decimal cash, noneCash;
-
-            if (!decimal.TryParse(cashString, out cash))
+            if (garage == null)
             {
-                cash = 0;
-            }
-            else
-            {
-                cash = decimal.Parse(cashString);
+                return;
             }
 
-            if (!decimal.TryParse(noneCashString, out noneCash))
-            {
-                noneCash = 0;
-            }
-            else
-            {
-                noneCash = decimal.Parse(noneCashString);
-            }
+            decimal cash = decimal.TryParse(cashString, out decimal cashResult) ? cashResult : 0;
+            decimal noneCash = decimal.TryParse(noneCashString, out decimal noneCashResult) ? noneCashResult : 0;
 
-            Payment payment = await Repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, _owner);
+            await Repository.CreatePaymentAsync(DateOnly.FromDateTime(DateTime.Now), cash, noneCash, garage.Owner);
 
-            await _ownerController.UpdateBalanceAsync(_owner);
+            await _ownerController.UpdateBalanceAsync(garage.Owner);
 
             UpdatePayments();
         }

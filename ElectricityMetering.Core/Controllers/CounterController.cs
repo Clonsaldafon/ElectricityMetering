@@ -13,6 +13,10 @@ namespace ElectricityMetering.Core.Controllers
         public int[] ConsumptionOneYearAgo { get; set; } = new int[12];
         public int[] ConsumptionTwoYearsAgo { get; set; } = new int[12];
 
+        /// <summary>
+        /// Calculates consumption according to the indications in the counter.
+        /// </summary>
+        /// <param name="counter">Current counter.</param>
         public void CalculateConsumption(Counter counter)
         {
             int lastInd = counter.IndicationsNow.Length - 1;

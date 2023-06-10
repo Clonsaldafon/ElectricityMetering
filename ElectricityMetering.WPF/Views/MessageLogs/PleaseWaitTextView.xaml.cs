@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace ElectricityMetering.WPF.Views.MessageLogs
 {
     /// <summary>
-    /// Логика взаимодействия для PleaseWaitTextView.xaml
+    /// Interaction logic for PleaseWaitTextView.xaml
     /// </summary>
     public partial class PleaseWaitTextView : UserControl
     {

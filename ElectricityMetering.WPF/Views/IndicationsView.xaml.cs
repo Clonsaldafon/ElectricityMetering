@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 namespace ElectricityMetering.WPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для IndicationsView.xaml
+    /// Interaction logic for IndicationsView.xaml
     /// </summary>
     public partial class IndicationsView : UserControl
     {

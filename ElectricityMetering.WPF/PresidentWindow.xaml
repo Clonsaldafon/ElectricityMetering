@@ -8,7 +8,7 @@
         Height="700" Width="1300"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        MouseLeftButtonDown="ControlBar_MouseLeftButtonDown"
+        MouseLeftButtonDown="Window_MouseDown"
         Background="Transparent"
         AllowsTransparency="True">
     <Border CornerRadius="10"
@@ -112,8 +112,7 @@
                     </Grid.RowDefinitions>
 
                     <Grid Name="ControlBar"
-                          Grid.Row="0"
-                          MouseLeftButtonDown="ControlBar_MouseLeftButtonDown">
+                          Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="25"/>

@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ElectricityMetering.Core
 {
+    /// <summary>
+    /// Creates, saves and loads data in a database.
+    /// </summary>
     public static class Repository
     {
         private static readonly ApplicationContext _context = new ApplicationContext();
@@ -73,6 +76,14 @@ namespace ElectricityMetering.Core
             return seal;
         }
 
+        /// <summary>
+        /// Create new payment and add it to the database.
+        /// </summary>
+        /// <param name="date">Payment date.</param>
+        /// <param name="cash">Amount of cash.</param>
+        /// <param name="noneCash">Amount of none cash.</param>
+        /// <param name="owner">The owner who made the payment.</param>
+        /// <returns>Created payment.</returns>
         public static async Task<Payment> CreatePaymentAsync(DateOnly date, decimal cash, decimal noneCash, Owner owner)
         {
             Payment payment = new Payment(date, cash, noneCash, owner);
@@ -83,6 +94,12 @@ namespace ElectricityMetering.Core
             return payment;
         }
 
+        /// <summary>
+        /// Create new tariff and add it to the database.
+        /// </summary>
+        /// <param name="date">The date from which the tariff begins to operate.</param>
+        /// <param name="price">Price per kw.</param>
+        /// <returns></returns>
         public static async Task CreateTariffAsync(DateOnly date, decimal price)
         {
             Tariff tariff = new Tariff(price, date);
@@ -100,7 +117,7 @@ namespace ElectricityMetering.Core
         /// <param name="owner">Owner of this garage.</param>
         /// <param name="counter">Counter of this garage.</param>
         /// <param name="seal">Seal of this garage.</param>
-        /// <returns></returns>
+        /// <returns>Saved garage.</returns>
         public static async Task<Garage> SaveGarageAsync(Garage garage, Owner? owner, Counter? counter, Seal? seal)
         {
             owner ??= await GetOwnerAsync(1);
@@ -117,6 +134,12 @@ namespace ElectricityMetering.Core
             return garage;
         }
 
+        /// <summary>
+        /// Saving balance changes from the owner.
+        /// </summary>
+        /// <param name="owner">Current owner.</param>
+        /// <param name="money">Changing the balance.</param>
+        /// <returns></returns>
         public static async Task SaveOwnerAsync(Owner owner, decimal money)
         {
             owner.Balance += money;
@@ -125,12 +148,23 @@ namespace ElectricityMetering.Core
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Save counter data.
+        /// </summary>
+        /// <param name="counter">Current counter.</param>
+        /// <returns></returns>
         public static async Task SaveCounterAsync(Counter counter)
         {
             _context.Counters.Update(counter);
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Save indications data.
+        /// </summary>
+        /// <param name="counter">Current counter.</param>
+        /// <param name="indications">Indications in year.</param>
+        /// <returns></returns>
         public static async Task SaveIndicationsAsync(Counter counter, int[] indications)
         {
             counter.IndicationsNow = indications;
@@ -171,9 +205,15 @@ namespace ElectricityMetering.Core
                 .Include(g => g.Seal)
                 .Where(g => g.Owner == owner)
                 .FirstOrDefaultAsync();
+
             return garage;
         }
 
+        /// <summary>
+        /// Load the garage from the database by counter.
+        /// </summary>
+        /// <param name="counter">Counter of this garage.</param>
+        /// <returns>Loaded garage.</returns>
         public static async Task<Garage?> GetGarageAsync(Counter counter)
         {
             Garage? garage = await _context.Garages
@@ -186,6 +226,10 @@ namespace ElectricityMetering.Core
             return garage;
         }
 
+        /// <summary>
+        /// Load all garages from the database.
+        /// </summary>
+        /// <returns>Loaded list of garages.</returns>
         public static List<Garage> GetAllGarages()
         {
             using (ApplicationContext context = new ApplicationContext())
@@ -231,6 +275,10 @@ namespace ElectricityMetering.Core
             return await _context.Owners.FirstAsync(o => o.Id == id);
         }
 
+        /// <summary>
+        /// Load all owners from the database.
+        /// </summary>
+        /// <returns>Loaded list of owners.</returns>
         public static List<Owner> GetOwners()
         {
             return _context.Owners.ToList();
@@ -306,10 +354,13 @@ namespace ElectricityMetering.Core
             return _context.Garages.Where(g => g.Owner == garage.Owner).OrderBy(g => g.Number).ToList();
         }
 
+        /// <summary>
+        /// Load block of garages from the database by owner.
+        /// </summary>
+        /// <param name="owner">Current owner.</param>
+        /// <returns>Loaded list of garages.</returns>
         public static List<Garage> GetBlockOfGarages(Owner owner)
         {
-            /*return await _context.Garages.Where(g => g.Owner == owner).OrderBy(g => g.Number).ToListAsync();*/
-
             using (var context = new ApplicationContext())
             {
                 return context.Garages
@@ -319,16 +370,28 @@ namespace ElectricityMetering.Core
             }
         }
 
+        /// <summary>
+        /// Load all payments from the database.
+        /// </summary>
+        /// <returns>Loaded list of payments.</returns>
         public static List<Payment> GetPayments()
         {
             return _context.Payments.Include(p => p.Owner).OrderByDescending(p => p.Date).ToList();
         }
 
+        /// <summary>
+        /// Load all tariffs from the database.
+        /// </summary>
+        /// <returns>Loaded list of tariffs.</returns>
         public static List<Tariff> GetTariffs()
         {
             return _context.Tariffs.OrderByDescending(t => t.Date).ToList();
         }
 
+        /// <summary>
+        /// Load all counters from the database.
+        /// </summary>
+        /// <returns>Loaded list of counters.</returns>
         public static List<Counter> GetCounters()
         {
             return _context.Counters.ToList();

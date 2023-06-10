@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ElectricityMetering.Core.Controllers
 {
-    public class TariffController : Controller
+    public class TariffController
     {
         public List<Tariff> Tariffs { get; set; } = new List<Tariff>();
 
@@ -17,6 +17,10 @@ namespace ElectricityMetering.Core.Controllers
             UpdateTariffs();
         }
 
+        /// <summary>
+        /// Checks whether the tariff needs to be updated.
+        /// </summary>
+        /// <returns>Is it necessary or not.</returns>
         public bool NeedToUpdateTariff()
         {
             Tariff lastTariff = Repository.GetTariffs()[0];
@@ -24,13 +28,15 @@ namespace ElectricityMetering.Core.Controllers
             int day = DateTime.Today.Day;
             int month = DateTime.Today.Month;
 
-            /*// test
-            day = 1;
-            month = 1;*/
-
             return day == 1 && (month == 1 || month == 7) && DateOnly.FromDateTime(DateTime.Today) > lastTariff.Date;
         }
 
+        /// <summary>
+        /// Add a new tariff to the database.
+        /// </summary>
+        /// <param name="dateString">The date from which the tariff begins to operate.</param>
+        /// <param name="priceString">Price per kw.</param>
+        /// <returns></returns>
         public async Task AddTariffAsync(string dateString, string priceString)
         {
             if (DateOnly.TryParse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateOnly date))
@@ -41,14 +47,6 @@ namespace ElectricityMetering.Core.Controllers
 
                     UpdateTariffs();
                 }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                return;
             }
         }
 

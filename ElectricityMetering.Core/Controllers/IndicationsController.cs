@@ -105,6 +105,11 @@ namespace ElectricityMetering.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// Saves the indications entered in the table.
+        /// </summary>
+        /// <param name="indicationsByCounterNumber">Entered indications by counter number.</param>
+        /// <returns></returns>
         public async Task SaveDataAsync(Dictionary<string, List<string>> indicationsByCounterNumber)
         {
             foreach (KeyValuePair<string, List<string>> keyValuePair in indicationsByCounterNumber)
