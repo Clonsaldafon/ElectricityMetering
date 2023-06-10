@@ -22,15 +22,13 @@ namespace ElectricityMetering.WPF
     /// </summary>
     public partial class PresidentWindow : Window
     {
-        private readonly SignInController _signInController = new SignInController();
-
         private readonly Dictionary<string, UserControl> _contentByRadioButtonName = new Dictionary<string, UserControl>()
         {
-            { "BalanceRadioButton", new BalanceView() },
-            { "TariffRadioButton", new TariffView() },
-            { "InfoRadioButton", new InfoView() },
-            { "PaymentRadioButton", new PaymentView() },
-            { "IndicationsRadioButton", new IndicationsView() }
+            { Properties.Resources.BalanceRadioButton, new BalanceView() },
+            { Properties.Resources.TariffRadioButton, new TariffView() },
+            { Properties.Resources.InfoRadioButton, new InfoView() },
+            { Properties.Resources.PaymentRadioButton, new PaymentView() },
+            { Properties.Resources.IndicationsRadioButton, new IndicationsView() }
         };
 
         public PresidentWindow()
@@ -50,7 +48,7 @@ namespace ElectricityMetering.WPF
             WindowState = WindowState.Minimized;
         }
 
-        private async void ButtonCloseAsync_Click(object sender, RoutedEventArgs e)
+        private void ButtonCloseAsync_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }

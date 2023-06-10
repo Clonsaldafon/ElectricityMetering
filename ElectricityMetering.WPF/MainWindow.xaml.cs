@@ -33,8 +33,8 @@ namespace ElectricityMetering.WPF
 
         private Dictionary<string, Window> _windowsByRoleName = new Dictionary<string, Window>
         {
-            { "Председатель", new PresidentWindow()},
-            { "Электрик", new ElectricianWindow()},
+            { Properties.Resources.President, new PresidentWindow()},
+            { Properties.Resources.Electrician, new ElectricianWindow()},
         };
 
         private readonly SolidColorBrush _successColor = new SolidColorBrush(Color.FromRgb(74, 225, 127));
@@ -55,14 +55,14 @@ namespace ElectricityMetering.WPF
                 PasswordInput.Clear();
                 
                 PasswordInput.BorderBrush = _failureColor;
-                TextBlockPassword.Text = "Неверный пароль";
+                TextBlockPassword.Text = Properties.Resources.UncorrectPassord;
                 TextBlockPassword.Foreground = _failureColor;
 
                 return;
             }
 
             PasswordInput.BorderBrush = _successColor;
-            TextBlockPassword.Text = "Пароль верный";
+            TextBlockPassword.Text = Properties.Resources.CorrectPassword;
             TextBlockPassword.Foreground = _successColor;
             RoleInput.BorderBrush = _successColor;
             TextBlockRole.Foreground = _successColor;

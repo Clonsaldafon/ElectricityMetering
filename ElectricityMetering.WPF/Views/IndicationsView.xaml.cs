@@ -55,9 +55,9 @@ namespace ElectricityMetering.WPF.Views
                 _rowCount = _indicationsController.InfoData.Count + 1;
                 _columnCount = _countOfInfoColumns + _countOfMonths;
 
-                _cellTextReadonlyStyle = (Style)FindResource("BigTableCellTextReadonly");
-                _cellTextStyle = (Style)FindResource("BigTableCellText");
-                _borderStyle = (Style)FindResource("BigTableBorder");
+                _cellTextReadonlyStyle = (Style)FindResource(Properties.Resources.BigTableCellTextReadonly);
+                _cellTextStyle = (Style)FindResource(Properties.Resources.BigTableCellText);
+                _borderStyle = (Style)FindResource(Properties.Resources.BigTableBorder);
 
                 _bordersNow = new Border[_rowCount, _columnCount];
 

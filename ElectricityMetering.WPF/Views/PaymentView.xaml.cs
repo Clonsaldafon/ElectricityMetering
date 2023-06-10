@@ -44,8 +44,8 @@ namespace ElectricityMetering.WPF.Views
             _rowCount = _paymentController.Payments.Count + 1;
             _columnCount = TablePayment.ColumnDefinitions.Count;
 
-            _cellTextStyle = (Style)FindResource("LittleTableCellTextReadonly");
-            _borderStyle = (Style)FindResource("LittleTableBorder");
+            _cellTextStyle = (Style)FindResource(Properties.Resources.LittleTableCellTextReadonly);
+            _borderStyle = (Style)FindResource(Properties.Resources.LittleTableBorder);
 
             _borders = new Border[_rowCount, _columnCount];
 
