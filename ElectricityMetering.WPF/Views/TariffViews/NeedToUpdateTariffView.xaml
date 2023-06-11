@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ElectricityMetering.WPF.Views.TariffViews.NeedToUpdateTariffView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricityMetering.WPF.Views.TariffViews"
+             mc:Ignorable="d">
+    <StackPanel>
+        <Border CornerRadius="0 10 10 10"
+                HorizontalAlignment="Left"
+                Background="#F4E47F"
+                Padding="15">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="18"
+                                    RenderingBias="Quality"
+                                    ShadowDepth="6"
+                                    Direction="-45"
+                                    Color="#F4E47F"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                    
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                    
+                <StackPanel Grid.Row="0"
+                            Grid.Column="0">
+                    <TextBlock Grid.Row="0"
+                                Grid.Column="0"
+                                TextWrapping="Wrap"
+                                FontSize="20"
+                                FontFamily="Roboto"
+                                Foreground="#645B1D">
+                        Данные не актуальны
+                    
+                    </TextBlock>
+                        
+                    <Border Grid.Row="1"
+                            BorderBrush="#D3C66E"
+                            BorderThickness="1"
+                            Margin="0 5 0 0">
+                        
+                    </Border>
+                </StackPanel>
+                    
+                <Image Grid.Row="0"
+                        Grid.Column="1"
+                        Source="/Images/warning-icon.png"
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Right"/>
+                    
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="0 20 0 0"
+                            Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock FontSize="16"
+                                    FontFamily="Roboto"
+                                    Foreground="#645B1D">
+                            Дата:
+                        </TextBlock>
+                        <TextBox Name="TextBoxDate"
+                                 Margin="0 5 0 0"
+                                 Style="{StaticResource TextBoxInWarning}"
+                                 HorizontalAlignment="Left"/>
+                    </StackPanel>
+                        
+                    <StackPanel Margin="30 0 0 0">
+                        <TextBlock FontSize="16"
+                                    FontFamily="Roboto"
+                                    Foreground="#645B1D">
+                            Цена:
+                        </TextBlock>
+                        <TextBox Name="TextBoxPrice"
+                                 Margin="0 5 0 0"
+                                 Style="{StaticResource TextBoxInWarning}"
+                                 HorizontalAlignment="Left"/>
+                    </StackPanel>
+                        
+                </StackPanel>
+
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="0 20 0 0"
+                        Content="Добавить"
+                        Style="{StaticResource ButtonInWarning}"
+                        Click="AddTariff"/>
+
+            </Grid>
+        </Border>
+    </StackPanel>
+
+</UserControl>
