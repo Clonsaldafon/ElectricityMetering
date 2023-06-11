@@ -163,7 +163,7 @@
                                 FontFamily="Roboto"
                                 Cursor="Hand"
                                 Grid.Column="2"
-                                Click="ButtonCloseAsync_Click">
+                                Click="ButtonCloseApp_Click">
 
                             <Button.Style>
                                 <Style TargetType="Button">

@@ -48,7 +48,7 @@ namespace ElectricityMetering.WPF
             WindowState = WindowState.Minimized;
         }
 
-        private void ButtonCloseAsync_Click(object sender, RoutedEventArgs e)
+        private void ButtonCloseApp_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
