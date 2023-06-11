@@ -158,7 +158,6 @@
                            Margin="0 20 0 0"/>
 
                 <PasswordBox Name="PasswordInput"
-                             Password="0000"
                              FontSize="16"
                              FontWeight="Medium"
                              FontFamily="Roboto"
