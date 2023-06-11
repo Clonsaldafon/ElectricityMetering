@@ -2,6 +2,7 @@
 using ElectricityMetering.WPF.Views.InfoViews;
 using ElectricityMetering.WPF.Views.MessageLogs;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -39,7 +40,7 @@ namespace ElectricityMetering.WPF.Views
                 }
             }
 
-            FillTextBoxes();
+            FillTextBoxesAsync();
 
             MessageLog.Content = new SuccessfulLoadView(MessageLog);
             Mouse.OverrideCursor = null;
@@ -83,14 +84,14 @@ namespace ElectricityMetering.WPF.Views
             TextBoxSealDate.Clear();
         }
 
-        private void FillTextBoxes()
+        private async Task FillTextBoxesAsync()
         {
             if (int.TryParse(TextBoxGarageNumber.Text, out int garageNumber))
             {
-                string blockOfGaragesInfo = _controller.SplitBlockOfGarageAsync(garageNumber).Result;
-                List<string> ownerInfo = _controller.GetOwnerInfoAsync(garageNumber).Result;
-                List<string> counterInfo = _controller.GetCounterInfoAsync(garageNumber).Result;
-                List<string> sealInfo = _controller.GetSealInfoAsync(garageNumber).Result;
+                string blockOfGaragesInfo = await _controller.SplitBlockOfGarageAsync(garageNumber);
+                List<string> ownerInfo = await _controller.GetOwnerInfoAsync(garageNumber);
+                List<string> counterInfo = await _controller.GetCounterInfoAsync(garageNumber);
+                List<string> sealInfo = await _controller.GetSealInfoAsync(garageNumber);
 
                 TextBoxBlockOfGarages.Text = blockOfGaragesInfo;
                 TextBoxOwnerName.Text = ownerInfo[0];

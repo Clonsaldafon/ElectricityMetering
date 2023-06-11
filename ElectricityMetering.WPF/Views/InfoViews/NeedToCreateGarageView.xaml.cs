@@ -1,6 +1,7 @@
 ﻿using ElectricityMetering.Core.Controllers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ElectricityMetering.WPF.Views.InfoViews
 {
@@ -28,9 +29,13 @@ namespace ElectricityMetering.WPF.Views.InfoViews
 
         private void CreateGarage(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
+
             _ = _controller.CreateGarageAsync(_garageNumber);
 
             _messageLog.Content = new GarageCreatedView(_messageLog);
+
+            Mouse.OverrideCursor = null;
         }
 
         private void CloseMessage(object sender, RoutedEventArgs e)

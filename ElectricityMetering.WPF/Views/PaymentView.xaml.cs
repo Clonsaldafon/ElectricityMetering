@@ -89,6 +89,9 @@ namespace ElectricityMetering.WPF.Views
 
         private void AddPaymentData(object sender, RoutedEventArgs e)
         {
+            MessageLog.Content = new PleaseWaitTextView();
+            Mouse.OverrideCursor = Cursors.Wait;
+
             string garageNumber = TextBoxGarageNumber.Text;
             string cashPayment = TextBoxCashPayment.Text;
             string noneCashPayment = TextBoxNonCashPayment.Text;
@@ -97,6 +100,9 @@ namespace ElectricityMetering.WPF.Views
             {
                 _ = AddPaymentAsync(number, cashPayment, noneCashPayment);
             }
+
+            MessageLog.Content = new SuccessfulSaveView(MessageLog);
+            Mouse.OverrideCursor = null;
         }
 
         private async Task AddPaymentAsync(int garageNumber, string cashPayment, string noneCashPayment)
