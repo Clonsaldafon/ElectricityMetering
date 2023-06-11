@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ElectricityMetering.WPF.Views.MessageLogs.PleaseWaitTextView" BaseTypeListCollapsed="true">
+    <Position X="7" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MessageLogs\PleaseWaitTextView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.MessageLogs.SuccessfulLoadView" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MessageLogs\SuccessfulLoadView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.MessageLogs.SuccessfulSaveView" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MessageLogs\SuccessfulSaveView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.MessageLogs.SuccessfulUpdateView" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MessageLogs\SuccessfulUpdateView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.InfoViews.GarageCreatedView" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="7.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACIAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\InfoViews\GarageCreatedView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.InfoViews.NeedToCreateGarageView" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACIAAAAAAAAAABAAAAABEAAACA=</HashCode>
+      <FileName>Views\InfoViews\NeedToCreateGarageView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.TariffViews.NeedToUpdateTariffView" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAICAAA=</HashCode>
+      <FileName>Views\TariffViews\NeedToUpdateTariffView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.BalanceView" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAmAAQCAAAAAAAAAAAAAAAAAAAAAACIAAAAACAgA=</HashCode>
+      <FileName>Views\BalanceView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.IndicationsView" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEGAAAIAAAAIoAAACAAABAQAAAADECAAAgAAAggA=</HashCode>
+      <FileName>Views\IndicationsView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.InfoView" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAABAAAAAAAAAAAAAAAAgAAEAAAAAEAAAAA=</HashCode>
+      <FileName>Views\InfoView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.PaymentView" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAHAAQCAAAAAAAAAAAAAAAAAAAAAACIAAAkAAAgA=</HashCode>
+      <FileName>Views\PaymentView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.Views.TariffView" BaseTypeListCollapsed="true">
+    <Position X="2.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGAAQCAAAAAAAAAAAAAAAAAAAAAACIAABAIAAgA=</HashCode>
+      <FileName>Views\TariffView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.ElectricianWindow" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAIEAAAAAAAAAAAAAAAAAAABAAABAAAAAAA=</HashCode>
+      <FileName>ElectricianWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAIAAAAAAAAEAQAAgAAAAAAAAAAJAAAAAAQ=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.WPF.PresidentWindow" BaseTypeListCollapsed="true">
+    <Position X="2.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAIEAAAAAAAAAAAAAAAAAAABAAABAAAAAAA=</HashCode>
+      <FileName>PresidentWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.BalanceController">
+    <Position X="19.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.Controller">
+    <Position X="15.25" Y="0.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.CounterController">
+    <Position X="19.75" Y="3.25" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.IndicationsController">
+    <Position X="17.5" Y="0.5" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.OwnerController">
+    <Position X="19.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.PaymentController">
+    <Position X="17.5" Y="3.25" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.SignInController">
+    <Position X="19.75" Y="7" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Controllers.TariffController">
+    <Position X="17.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.ApplicationContext">
+    <Position X="11.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ElectricityMetering.Core.Repository">
+    <Position X="13.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
