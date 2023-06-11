@@ -109,8 +109,8 @@ namespace ElectricityMetering.Core.Controllers
         /// Saves the indications entered in the table.
         /// </summary>
         /// <param name="indicationsByCounterNumber">Entered indications by counter number.</param>
-        /// <returns></returns>
-        public async Task SaveDataAsync(Dictionary<string, List<string>> indicationsByCounterNumber)
+        /// <returns>Successfully or not.</returns>
+        public async Task<bool> SaveDataAsync(Dictionary<string, List<string>> indicationsByCounterNumber)
         {
             foreach (KeyValuePair<string, List<string>> keyValuePair in indicationsByCounterNumber)
             {
@@ -118,7 +118,7 @@ namespace ElectricityMetering.Core.Controllers
 
                 if (counter == null)
                 {
-                    return;
+                    return false;
                 }
 
                 int[] indications = new int[keyValuePair.Value.Count];
@@ -128,6 +128,10 @@ namespace ElectricityMetering.Core.Controllers
                     if (int.TryParse(keyValuePair.Value[i], out int indication))
                     {
                         indications[i] = indication;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
 
@@ -141,6 +145,8 @@ namespace ElectricityMetering.Core.Controllers
                     await _ownerController.UpdateBalanceAsync(owner, counter);
                 }
             }
+
+            return true;
         }
     }
 }

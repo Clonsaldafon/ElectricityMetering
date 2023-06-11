@@ -293,7 +293,10 @@ namespace ElectricityMetering.WPF.Views
                 maxColumnIndications += 17;
             }
 
-            _ = _indicationsController.SaveDataAsync(indicationsByCounterNumber);
+            if (!_indicationsController.SaveDataAsync(indicationsByCounterNumber).Result)
+            {
+                MessageBox.Show("Данные не были сохранены.");
+            }
 
             Mouse.OverrideCursor = null;
         }
