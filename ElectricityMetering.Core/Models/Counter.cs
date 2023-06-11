@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ElectricityMetering.Core.Models
+﻿namespace ElectricityMetering.Core.Models
 {
     public class Counter
     {

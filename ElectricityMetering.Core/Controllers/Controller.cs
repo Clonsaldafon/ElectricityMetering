@@ -1,10 +1,6 @@
 ﻿using ElectricityMetering.Core.Models;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ElectricityMetering.Core.Controllers
 {

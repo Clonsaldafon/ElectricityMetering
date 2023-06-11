@@ -1,12 +1,5 @@
 ﻿using ElectricityMetering.Core.Models;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace ElectricityMetering.Core.Controllers
@@ -24,7 +17,7 @@ namespace ElectricityMetering.Core.Controllers
 
         public IndicationsController()
         {
-            string filePathConfigJSON = "D:\\Anton\\ELECTRICITY_METERING\\ElectricityMetering.Core\\AppSettings\\config.json";
+            string filePathConfigJSON = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName + "\\AppSettings\\config.json";
 
             if (File.Exists(filePathConfigJSON))
             {
